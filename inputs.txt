@@ -8,6 +8,7 @@ label display
     mov r6 r1
     ld
 
+
     ; get right button
     mov r2 r7
     immh 0
