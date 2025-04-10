@@ -1,0 +1,45 @@
+jmp
+start
+
+label display
+    ; load x value
+    immh 8
+    imml 0
+    mov r6 r1
+    ld
+
+    ; get right button
+    mov r2 r7
+    immh 0
+    imml 1
+    and r2
+
+    ; increment x if pressed
+    jz
+    a
+        immh 0
+        imml 1
+        add r5
+    label a
+
+    ; store and output
+    mov r5 r1
+    st
+
+    immh 0b1000
+    mov r7 r1
+
+    ; print "O"
+    immh 0x4
+    imml 0xf
+    mov r7 r1
+    
+    jmp
+    display
+
+label start
+
+jmp
+display
+
+halt

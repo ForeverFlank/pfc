@@ -1,0 +1,47 @@
+immh 0b1100
+imml 0b0001
+mov r7 r1
+
+immh 0x4
+imml 0x8
+mov r7 r1
+
+immh 0x6
+imml 0x5
+mov r7 r1
+
+imml 0xc
+mov r7 r1
+mov r7 r1
+
+imml 0xf
+mov r7 r1
+
+immh 0x2
+imml 0x0
+mov r7 r1
+
+immh 0x5
+imml 0x7
+mov r7 r1
+
+immh 0x6
+imml 0xf
+mov r7 r1
+
+immh 0x7
+imml 0x2
+mov r7 r1
+
+immh 0x6
+imml 0xc
+mov r7 r1
+
+imml 0x4
+mov r7 r1
+
+immh 0x2
+imml 0x1
+mov r7 r1
+
+halt
