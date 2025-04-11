@@ -1,0 +1,339 @@
+immh 8      ; move right by default
+imml 2
+mov r6 r1
+immh 0
+imml 1
+mov r5 r1
+st
+
+immh 8      ; set snake length to 1
+imml 3
+mov r6 r1
+st
+
+label food
+    mov r1 r7
+    shr
+    shr
+    shr
+    shr
+    mov r3 r1
+    immh 0
+    imml 7
+    and r3
+
+    immh 9
+    imml 0
+    mov r6 r1
+    st
+
+    mov r1 r7
+    shr
+    shr
+    shr
+    shr
+    mov r3 r1
+    immh 0
+    imml 7
+    and r3
+
+    immh 9
+    imml 1
+    mov r6 r1
+    st
+
+    jmp
+    food_fin
+
+label loop
+
+    ; clear tail
+    mov r6 r0   ; get tail x at 0x00
+    ld
+    mov r1 r5
+    immh 0b1000 ; set cursor x
+    mov r7 r1
+
+    immh 4      ; get tail y at 0x40
+    imml 0
+    mov r6 r1
+    ld
+    mov r1 r5
+    immh 0b1001 ; set cursor y
+    mov r7 r1
+
+    immh 2      ; print space
+    imml 0
+    mov r7 r1
+    ; -----
+
+    ; movement
+    immh 8      ; get snake length at 0x83
+    imml 3
+    mov r6 r1
+    ld
+    mov r2 r5   ; keep snake length in r2
+
+    immh 8      ; get previous move at 0x82
+    imml 2
+    mov r6 r1
+    ld          ; previous move is now in r5
+
+    mov r3 r7   ; get current button input
+    immh 0
+    imml 0xf
+    and r3      ; check if lower nibble is zero
+    
+    jnz         ; if some button pressed, don't use previous move
+    prev_move   ; otherwise use it from r5
+        mov r3 r5
+    label prev_move
+
+    mov r5 r3   ; store move back
+    st
+    ; -----
+
+    immh 0
+    mov r6 r2   ; load snake head's x
+    ld          ; from memory[r2]
+
+    imml 1      ; move right bitmask
+    and r3
+    jz
+    right
+        imml 1
+        add r5
+        mov r5 r1
+        jmp
+        mod_8_x
+    label right
+
+    imml 4      ; move left bitmask
+    and r3
+    jz
+    left
+        imml 15
+        add r5
+        mov r5 r1
+        jmp
+        mod_8_x
+    label left
+
+    ; neither left nor right
+    immh 8
+    imml 8
+    mov r6 r1
+    st
+    jmp
+    move_y
+
+    label mod_8_x
+        immh 0
+        imml 7
+        and r5
+        mov r5 r1
+
+    ; store final x and finish the snake move
+    immh 8
+    imml 8
+    mov r6 r1
+    st
+    jmp
+    move_fin
+
+    label move_y
+
+    immh 4      ; load snake head's y
+    imml 0      ; from memory[r2 + 40]
+    add r2
+    mov r6 r1
+    ld
+
+    immh 0      ; move down bitmask
+    imml 8
+    and r3
+    jz
+    down
+        imml 1
+        add r5
+        mov r5 r1
+        jmp
+        mod_8_y
+    label down
+
+    immh 0      ; move up bitmask
+    imml 2
+    and r3
+    jz
+    up
+        imml 15
+        add r5
+        mov r5 r1
+        jmp
+        mod_8_y
+    label up
+
+    label mod_8_y
+        immh 0
+        imml 7
+        and r5
+        mov r5 r1
+
+    ; store final y
+    immh 8
+    imml 9
+    mov r6 r1
+    st
+
+    label move_fin
+
+    ; ----------
+
+    ; check if food eaten
+    ; if so, make snake longer and don't shift
+    ; if not, shift the array
+
+    immh 9      ; load food x from 0x90
+    imml 0
+    mov r6 r1
+    ld
+    mov r3 r5
+
+    immh 8
+    imml 8
+    mov r6 r1
+    ld
+    mov r1 r5
+
+    sub r3
+    jnz
+    food_not_eaten
+
+    immh 9      ; load food y from 0x91
+    imml 1
+    mov r6 r1
+    ld
+    mov r3 r5
+
+    immh 8
+    imml 9
+    mov r6 r1
+    ld
+    mov r1 r5
+
+    sub r3
+    jnz
+    food_not_eaten
+
+    ; make snake longer
+    immh 8
+    imml 3
+    mov r6 r1
+    immh 0
+    imml 1
+    add r2
+    mov r2 r1
+    mov r5 r1
+    st
+
+    jmp
+    food
+
+    label food_not_eaten
+
+        ; shift snake positions
+        mov r6 r2
+        ld
+        mov r3 r5
+        label shift_x
+            immh 0xf
+            imml 0xf
+            add r6      ; i--
+            mov r6 r1   
+            ld
+            mov r4 r5   ; r4 = x[i]
+            mov r5 r3
+            st          ; x[i] = r3
+            mov r3 r4   ; r3 = r4
+            jnz
+            shift_x
+
+        immh 4
+        imml 0
+        add r2
+        mov r6 r1
+        ld
+        mov r3 r5
+        label shift_y
+            immh 0xf
+            imml 0xf
+            add r6
+            mov r6 r1
+            ; add -40
+            immh 0xC
+            imml 0x0
+            add r6
+            ld
+            mov r4 r5
+            mov r5 r3
+            st
+            mov r3 r4
+            jnz
+            shift_y
+
+    label food_fin
+
+    ; load x
+    immh 8
+    imml 8
+    mov r6 r1
+    ld
+    mov r6 r2   ; snake length
+    st          ; store x
+    mov r1 r5   
+    immh 0b1000
+    mov r7 r1   ; set cursor x
+
+    ; load y
+    immh 8
+    imml 9
+    mov r6 r1
+    ld
+    immh 4
+    imml 0      
+    add r2      ; snake length + 0x40
+    mov r6 r1
+    st          ; store y
+    mov r1 r5   
+    immh 0b1001
+    mov r7 r1   ; set cursor y
+
+    ; print "S"
+    immh 0x5
+    imml 0x3
+    mov r7 r1
+
+    ; draw food
+
+    immh 9
+    imml 1
+    mov r6 r1
+    ld
+    mov r1 r5
+    immh 0b1001
+    mov r7 r1
+
+    imml 0
+    mov r6 r1
+    ld
+    mov r1 r5
+    immh 0b1000
+    mov r7 r1
+
+    ; print "F"
+    immh 0x4
+    imml 0x6
+    mov r7 r1
+
+    jmp
+    loop

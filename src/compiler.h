@@ -110,7 +110,7 @@ vector<uint8_t> compileAssembly(string &programString) {
         } else if (opcode == "imml" || opcode == "immh") {
             instruction |= stringToInteger(line[1]);
         } else if (opcode == "add" || opcode == "sub" || opcode == "and" ||
-                   opcode == "or" || opcode == "xor" || opcode == "shr") {
+                   opcode == "or" || opcode == "xor") {
             instruction |= registerToken(line[1]);
         } else if (opcode == "jz" || opcode == "jn" || opcode == "jc" ||
                    opcode == "jnz" || opcode == "jnn" || opcode == "jnc" ||

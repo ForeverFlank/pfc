@@ -9,6 +9,10 @@ void printHex(uint8_t value) {
     cout << hex << setfill('0') << setw(2) << static_cast<int>(value);
 }
 
+random_device rd;
+mt19937 gen(rd());
+uniform_int_distribution<> dist(0, 255);
+
 struct ButtonInput {
     ButtonInput() {}
 
@@ -18,6 +22,7 @@ struct ButtonInput {
         if (GetAsyncKeyState('W') & 0x8000) value |= 2;
         if (GetAsyncKeyState('A') & 0x8000) value |= 4;
         if (GetAsyncKeyState('S') & 0x8000) value |= 8;
+        value |= dist(gen) & 0xf0;
         return value;
     }
 };
@@ -31,14 +36,17 @@ struct Display {
     COORD cursorPos;
 
     Display() {
-        grid = vector<vector<char>>(8, vector<char>(16, 0));
+        grid = vector<vector<char>>(8, vector<char>(16, ' '));
         x = 0;
         y = 0;
         mode = 0;
     }
 
     void update(uint8_t value) {
-        if ((value & 0b10000000) == 0) {
+        if (value == 0xff) {
+            grid = vector<vector<char>>(8, vector<char>(16, ' '));
+            printGrid();
+        } else if ((value & 0b10000000) == 0) {
             grid[y][x] = value & 0b01111111;
             if (mode == 1) {
                 x++;
@@ -54,6 +62,7 @@ struct Display {
                     y = 7;
                 }
             }
+            printGrid();
         } else {
             if ((value & 0b01000000) == 0) {
                 if ((value & 0b00010000) == 0) {
@@ -65,10 +74,9 @@ struct Display {
                 mode = value & 0x0f;
             }
         }
-        printGrid();
     }
 
-    void setPrintPos() {
+    void init() {
         resetPrint = true;
 
         for (int row = 0; row < 10; row++) {
@@ -88,14 +96,15 @@ struct Display {
             SetConsoleCursorPosition(hConsole, cursorPos);
         }
 
-        cout << endl;
+        string printString = "\n";
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 16; col++) {
-                cout << grid[row][col];
+                printString += grid[row][col];
             }
-            cout << endl;
+            printString += "\n";
         }
-        cout << endl;
+        printString += "\n";
+        cout << printString;
     }
 };
 
@@ -133,6 +142,27 @@ struct Computer {
     void bindInput(function<uint8_t()> func) { inputFunction = func; }
 
     void bindOutput(function<void(uint8_t)> func) { outputFunction = func; }
+
+    void memoryDump() {
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        COORD cursorPos;
+        cursorPos.X = cursorPos.Y = 0;
+        SetConsoleCursorPosition(hConsole, cursorPos);
+
+        string printString = "\n";
+        for (int i = 0; i < 32; i++) {
+            stringstream line;
+            line << " ";
+            line << hex << setfill('0') << setw(2) << (i * 8);
+            line << " | ";
+            for (int j = 0; j < 8; j++) {
+                line << hex << setfill('0') << setw(2)
+                     << static_cast<int>(ram[8 * i + j]) << " ";
+            }
+            printString += line.str() + "\n";
+        }
+        cout << printString;
+    }
 
     Op decode(uint8_t instruction) {
         if (instruction == 0xff) return Op::Halt;
@@ -291,6 +321,8 @@ struct Computer {
     void ret(uint8_t instruction) {}
 
     bool execute(int delayMicroseconds, int verbose) {
+        auto start = chrono::high_resolution_clock::now();
+
         uint8_t instruction = program[pc];
 
         bool read_next = false;
@@ -330,7 +362,7 @@ struct Computer {
             }
         }
 
-        if (verbose >= 1) {
+        if (verbose & 4) {
             cout << " ";
             printHex(pc);
             cout << " ";
@@ -348,10 +380,15 @@ struct Computer {
             cout << endl;
         }
 
+        if (verbose & 8) {
+            memoryDump();
+        }
+
         pc = next_pc;
         prev_read_next = read_next;
 
-        this_thread::sleep_for(chrono::microseconds(delayMicroseconds));
+        while (chrono::high_resolution_clock::now() - start <
+               chrono::microseconds(delayMicroseconds));
 
         return true;
     }
@@ -390,10 +427,13 @@ void printOutputFile(string& outputFilename, vector<uint8_t>& program) {
 }
 
 int main(int argc, char* argv[]) {
+    system("cls");
+    // cout.sync_with_stdio(false);
+
     int verbose = 0;
     string inputFilename;
     string outputFilename;
-    int clockSpeed = 10000;
+    int clockSpeed = 1000;
 
     for (int i = 1; i < argc; ++i) {
         string arg = argv[i];
@@ -418,7 +458,7 @@ int main(int argc, char* argv[]) {
     stringstream buffer;
     buffer << file.rdbuf();
     string programString = buffer.str();
-    if (verbose >= 2) printInputFile(inputFilename, programString);
+    if (verbose & 1) printInputFile(inputFilename, programString);
 
     vector<uint8_t> program = compileAssembly(programString);
 
@@ -428,9 +468,9 @@ int main(int argc, char* argv[]) {
                       program.size());
         outFile.close();
     }
-    if (verbose >= 2) printOutputFile(outputFilename, program);
+    if (verbose & 2) printOutputFile(outputFilename, program);
 
-    if (verbose >= 1) {
+    if (verbose & 4) {
         cout << "CPU Emulation:" << endl;
         cout << " pc in   r1 r2 r3 r4 r5 r6   znc " << endl;
     }
@@ -438,7 +478,12 @@ int main(int argc, char* argv[]) {
     Computer computer;
     ButtonInput buttonInput;
     Display display;
-    if (verbose == 0) display.setPrintPos();
+
+    if (verbose & 8) {
+        for (int i = 0; i < 34; ++i) cout << endl;
+    }
+    if ((verbose & 4) == 0) display.init();
+
     computer.loadProgram(program);
     computer.bindInput(
         [&buttonInput]() -> uint8_t { return buttonInput.getButtons(); });
