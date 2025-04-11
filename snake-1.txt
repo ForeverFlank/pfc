@@ -346,5 +346,5 @@ label food_fin
     mov r7 r1
     ; ----------
 
-    jmp
-    loop
+jmp
+loop
