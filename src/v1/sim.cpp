@@ -115,7 +115,7 @@ struct Computer {
     uint8_t pc, sp;
     uint8_t r1, r2, r3, r4, r5, r6;
     bool zf, nf, cf;
-    bool prev_read_next;
+    bool prev_set_pc;
 
     uint8_t inputValue;
     function<uint8_t()> inputFunction;
@@ -136,7 +136,7 @@ struct Computer {
         pc = sp = 0;
         r1 = r2 = r3 = r4 = r5 = r6 = 0;
         zf = nf = cf = false;
-        prev_read_next = false;
+        prev_set_pc = false;
     }
 
     void bindInput(function<uint8_t()> func) { inputFunction = func; }
@@ -316,19 +316,26 @@ struct Computer {
         return res ^ neg;
     }
 
-    void call(uint8_t instruction) {}
+    void call(uint8_t instruction) {
+        stack[sp] = pc + 2;
+        sp++;
+    }
 
-    void ret(uint8_t instruction) {}
+    uint8_t ret(uint8_t instruction) {
+        sp--;
+        uint8_t top = stack[sp];
+        return top;
+    }
 
     bool execute(int delayMicroseconds, int verbose) {
         auto start = chrono::high_resolution_clock::now();
 
         uint8_t instruction = program[pc];
 
-        bool read_next = false;
+        bool set_pc = false;
         uint8_t next_pc = pc + 1;
 
-        if (prev_read_next) {
+        if (prev_set_pc) {
             next_pc = instruction;
         } else {
             Op op = decode(instruction);
@@ -349,10 +356,17 @@ struct Computer {
                     alu(instruction);
                     break;
                 case Op::Jmp:
-                    read_next = jmp(instruction);
-                    if (!read_next) {
+                    set_pc = jmp(instruction);
+                    if (!set_pc) {
                         next_pc = pc + 2;
                     }
+                    break;
+                case Op::Call:
+                    call(instruction);
+                    set_pc = true;
+                    break;
+                case Op::Ret:
+                    next_pc = ret(instruction);
                     break;
                 case Op::Halt:
                     return false;
@@ -385,7 +399,7 @@ struct Computer {
         }
 
         pc = next_pc;
-        prev_read_next = read_next;
+        prev_set_pc = set_pc;
 
         while (chrono::high_resolution_clock::now() - start <
                chrono::microseconds(delayMicroseconds));

@@ -74,7 +74,7 @@ vector<uint8_t> compileAssembly(string &programString) {
     vector<vector<string>> tokens = tokenize(programString);
     map<string, int> labels;
 
-    bool prev_jmp = false;
+    bool read_next = false;
     int address = 0;
     for (vector<string> &line : tokens) {
         if (line[0] == "label") {
@@ -89,8 +89,8 @@ vector<uint8_t> compileAssembly(string &programString) {
     for (vector<string> &line : tokens) {
         if (line[0] == "label") continue;
 
-        if (prev_jmp) {
-            prev_jmp = false;
+        if (read_next) {
+            read_next = false;
             uint8_t dest;
             if (labels.count(line[0]) != 0) {
                 dest = labels[line[0]];
@@ -114,8 +114,8 @@ vector<uint8_t> compileAssembly(string &programString) {
             instruction |= registerToken(line[1]);
         } else if (opcode == "jz" || opcode == "jn" || opcode == "jc" ||
                    opcode == "jnz" || opcode == "jnn" || opcode == "jnc" ||
-                   opcode == "jmp") {
-            prev_jmp = true;
+                   opcode == "jmp" || opcode == "call") {
+            read_next = true;
         }
 
         res.push_back(instruction);

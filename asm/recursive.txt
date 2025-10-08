@@ -1,0 +1,29 @@
+jmp
+start
+
+label func
+    mov r1 r3
+    add r2
+    mov r3 r1
+    immh 15
+    imml 15
+    add r2
+    mov r2 r1
+    jnz
+    recursive
+        ret
+    label recursive
+        call
+        func
+        ret
+
+label start
+    immh 0
+    imml 5
+    mov r2 r1
+
+    mov r3 r0
+    call
+    func
+
+halt

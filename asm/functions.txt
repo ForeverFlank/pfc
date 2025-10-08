@@ -1,0 +1,24 @@
+jmp
+start
+
+label func
+mov r1 r2
+add r3
+mov r4 r1
+ret
+
+label start
+immh 0
+imml 1
+mov r2 r1
+immh 0
+imml 2
+mov r3 r1
+call
+func
+
+immh 0
+imml 4
+add r4
+
+halt

@@ -1,11 +1,11 @@
-; a = 24 = 0x18
-immh 0x1
-imml 0x8
+; a = 5
+imm1h 0x0
+imm1l 0x5
 mov r2 r1
 
-; b = 7 = 0x07
-immh 0x0
-imml 0x7
+; b = 3
+imm1h 0x0
+imm1l 0x3
 mov r3 r1
 
 ; clear result and counter
@@ -19,8 +19,8 @@ label loop
     mov r4 r1
 
     ; decrement b
-    imml 0xf
-    immh 0xf
+    imm1l 0xf
+    imm1h 0xf
     add r3
     mov r3 r1
 
