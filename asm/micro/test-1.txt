@@ -1,0 +1,36 @@
+xor 0       ; init
+mov 3 0
+st  0
+iml 0 1
+mov 3 0
+st  0
+add 0
+mov 3 0
+iml 0 10
+st  0
+mov 0 0
+mov 0 0
+xor 0       ; loop start
+mov 3 0
+ld  1
+iml 0 1
+mov 3 0
+ld  2
+mov 0 1
+add 2
+st  0
+xor 0
+mov 3 0
+st  2
+iml 0 2
+mov 3 0
+ld  0
+imh 1 0
+iml 1 1
+sub 1
+iml 1 2
+mov 3 1
+st  0
+jnz 12
+
+hlt
