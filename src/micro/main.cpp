@@ -41,7 +41,7 @@ void print_display(uint8_t data[256])
     {
         for (int col = 0; col < 16; ++col)
         {
-            cout << data[row * 16 + col] << ' ';
+            cout << data[row * 16 + col];
         }
         cout << '\n';
     }
@@ -125,8 +125,9 @@ void compile(ifstream &src, uint8_t *program)
         }
         else if (opcode == "mov")
         {
-            int d, s;
-            ss >> d >> s;
+            string rd, rs; int d, s;
+            ss >> rd >> rs;
+            d = reg_to_num(rd); s = reg_to_num(rs);
             curr = 0b00000000 | (d << 2) | s;
         }
         else if (opcode == "iml")
@@ -256,13 +257,13 @@ void run(uint8_t *program)
             uint8_t h = (inst >> 5) & 1;
             if (r == 0)
             {
-                *ra = !h
+                *ra = h == 0
                     ? (*ra & 0xF0) | (inst & 0x0F)
                     : (*ra & 0x0F) | ((inst & 0x0F) << 4);
             }
             else
             {
-                *rb = !h
+                *rb = h == 0
                     ? (*rb & 0xF0) | (inst & 0x0F)
                     : (*rb & 0x0F) | ((inst & 0x0F) << 4);
             }
@@ -306,21 +307,21 @@ void run(uint8_t *program)
     }
 
     cout << "Press any key to continue...";
-    cin.get();
+    getchar();
 
     cout << "\033[?1049l" << flush;
 
-    // cout << endl;
+    cout << endl;
 
-    // for (size_t i = 0; i < 256; i++)
-    // {
-    //     cout << hex(ram[i]) << " ";
+    for (size_t i = 0; i < 256; i++)
+    {
+        cout << hex(ram[i]) << " ";
 
-    //     if (i % 16 == 15)
-    //     {
-    //         cout << endl;
-    //     }
-    // }
+        if (i % 16 == 15)
+        {
+            cout << endl;
+        }
+    }
 }
 
 int main(int argc, char **argv)
