@@ -22,19 +22,12 @@ st  ra
 label gen_food
     in  rd  1               ; input random value from port 1
     imh ra  7               ; mask 0b01110111
-    iml ra  7
-    and rd
+    iml ra  7               ; could make the input randomize
+    and rd                  ; just those 6 bits but ok
     imh rb  0               ; store to 0x02
     iml rb  2
     st  ra
-    mov rb  ra              ; add 0x80
-    imh ra  8
-    iml ra  0
-    add rb
-    mov rb  ra          
-    imh ra  4               ; draw food 'F'
-    iml ra  6
-    st  ra
+    iml ra  1
     jnz eat_fin
 
 iml ra  1
@@ -161,6 +154,7 @@ label loop
     label moving_fin
     ; ------
 
+    ; ------ check if snake ate food
     imh rb  0               ; load snake's length
     iml rb  1
     ld  rc
@@ -177,6 +171,7 @@ label loop
     sub rc                  ; compare
     jnz eat_fin
 
+    ; ------ if snake did eat the food
     imh rb  0               ; load snake's length
     iml rb  1
     ld  ra
@@ -192,6 +187,7 @@ label loop
     jnz gen_food
 
     label eat_fin
+    ; ------
 
     ; ------ remove snake's tail
     imh rb  3               ; load snake's tail position
@@ -206,6 +202,7 @@ label loop
     st  ra
     ; ------
 
+    ; ------ draw snake's head
     imh rb  0               ; load snake's length
     iml rb  1
     ld  rb
@@ -218,12 +215,23 @@ label loop
     iml ra  0
     add rb
     mov rb  ra
-    imh ra  5               ; draw snake's head 'S'
-    iml ra  3
+    imh ra  4               ; draw snake's head 'O'
+    iml ra  15
     st  ra
-
-
-
+    ; ------
+    
+    ; ------ draw food
+    imh rb  0               ; load food position
+    iml rb  2
+    ld  ra
+    imh rb  8               ; add 0x80
+    iml rb  0
+    add rb
+    mov rb  ra
+    imh ra  2               ; draw food '*'
+    iml ra  10
+    st  ra
+    ; ------
 
     in  ra  0               ; update snake's direction
     jnz change_movement
