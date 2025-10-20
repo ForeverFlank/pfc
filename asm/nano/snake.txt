@@ -9,17 +9,15 @@ mov ra  rb
 iml ra  4
 st  ra
 
-iml rb  1                   ; set snake's length to 1
-st  rb
+iml rb  1                   ; set snake's length to 0
+iml ra  0
+st  ra
 
 imh rb  4                   ; set snake's position to (3, 3)
 iml rb  0
 imh ra  3
 iml ra  3
 st  ra
-
-iml ra  1
-jnz loop
 
 label gen_food
     in  rd  1               ; input random value from port 1
@@ -29,17 +27,21 @@ label gen_food
     imh rb  0               ; store to 0x02
     iml rb  2
     st  ra
-    mov rc  ra              ; add 0x80
+    mov rb  ra              ; add 0x80
     imh ra  8
     iml ra  0
-    add rc
+    add rb
     mov rb  ra          
     imh ra  4               ; draw food 'F'
     iml ra  6
     st  ra
     jnz eat_fin
 
+iml ra  1
+jnz loop
+
 label loop
+    ; ------ remove snake's tail
     imh rb  4               ; load snake's tail position
     iml rb  0
     ld  rc
@@ -47,26 +49,20 @@ label loop
     iml ra  0
     add rc
     mov rb  ra
-    imh ra  2               ; set display to space
+    imh ra  0               ; set display to space
     iml ra  0
     st  ra
+    ; ------
 
-    imh rb  4
+    ; ------ move snake's head
+    imh rb  0               ; load snake's length
     iml rb  1
-    label shift_snake
-        ld  rd              ; rd <- ram[i]
-        imh ra  15
-        iml ra  15
-        add rb
-        st  rd              ; ram[i - 1] <- rd
-        imh ra  0
-        iml ra  2
-        add rb
-        imh ra  8
-        iml ra  2
-        sub ra
-        jnz shift_snake
-
+    ld  rd
+    imh ra  4               ; add 0x40
+    iml ra  0
+    add rd
+    mov rd  ra              ; keep in rd
+    
     imh rb  0               ; load snake's direction
     iml rb  0
     ld  rc
@@ -88,63 +84,102 @@ label loop
     jnz moving_fin
 
     label moving_up
-        imh rb  4
-        iml rb  0
+        mov rb  rd
         ld  rc
-        imh ra  15
+        imh ra  7
         iml ra  0
         add rc
+        mov rc  ra
+        imh ra  7
+        iml ra  7
+        and rc
         st  ra
         jnz moving_fin
 
     label moving_down
-        imh rb  4
-        iml rb  0
+        mov rb  rd
         ld  rc
         imh ra  1
         iml ra  0
         add rc
+        mov rc  ra
+        imh ra  7
+        iml ra  7
+        and rc
         st  ra
         jnz moving_fin
 
     label moving_right
-        imh rb  4
-        iml rb  0
+        mov rb  rd
         ld  rc
         imh ra  0
         iml ra  1
         add rc
+        mov rc  ra
+        imh ra  7
+        iml ra  7
+        and rc
         st  ra
         jnz moving_fin
 
     label moving_left
-        imh rb  4
-        iml rb  0
+        mov rb  rd
         ld  rc
         imh ra  0
-        iml ra  15
+        iml ra  7
         add rc
+        mov rc  ra
+        imh ra  7
+        iml ra  7
+        and rc
         st  ra
         jnz moving_fin
 
     label moving_fin
+    ; ------
 
-    imh rb  4               ; load head position
+    ; ------ shift snake's positions
+    imh rb  4
     iml rb  0
+    label shift_snake
+        ld  rd              ; rd <- ram[i]
+        imh ra  15          ; i -= 1
+        iml ra  15
+        add rb
+        mov rb  ra
+        st  rd              ; ram[i] <- rd
+        imh ra  0           ; i += 2
+        iml ra  2
+        add rb
+        mov rb  ra
+        imh ra  8
+        iml ra  2
+        sub ra
+        jnz shift_snake
+    ; ------
+
+    imh rb  0               ; load snake's length
+    iml rb  1
     ld  rc
+    imh ra  4               ; add 0x40
+    iml ra  0
+    add rc
+    mov rb  ra              ; load snake's head position
+    ld  rc                  ; keep in rc
+
     imh rb  0               ; load food position
     iml rb  2
-    ld  rd
+    ld  rd                  ; keep in rd
     mov ra  rd
     sub rc                  ; compare
     jnz eat_fin
 
-    imh rb  0               ; load snake length
+    imh rb  0               ; load snake's length
     iml rb  1
     ld  ra
     add rb                  ; inc by 1
     st  ra
-    imh rb  8
+    imh rb  4
     iml rb  0
     add rb
     st  rd
@@ -162,17 +197,16 @@ label loop
     iml ra  3
     st  ra
 
-    in  ra  0               ; input current button input'
+    in  ra  0               ; update snake's direction
     jnz change_movement
     iml ra  1
     jnz change_movement_end
     label change_movement
         imh rb  0
-        iml rb  1
+        iml rb  0
         st  ra    
     label change_movement_end
 
-    iml ra  1
     jnz loop
 
 hlt
