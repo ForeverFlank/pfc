@@ -257,7 +257,6 @@ void run(uint8_t *program)
         cout << oss.str();
 
         io[0] = get_wasd_inputs();
-        cout << (int)io[0];
         io[1] = rand() % 256;
 
         uint8_t inst = program[pc++];
@@ -328,14 +327,17 @@ void run(uint8_t *program)
             if (*ra != 0) pc = dest;
         }
 
-        if (framenumber % 16 == 0)
+        if (framenumber % 256 == 0)
         {
-            this_thread::sleep_for(chrono::milliseconds(20));
+            this_thread::sleep_for(chrono::milliseconds(2));
         }
         framenumber++;
 
         // getchar();
     }
+
+    cout << "Press any key to continue...";
+    getchar();
 
     for (size_t i = 0; i < 256; i++)
     {
@@ -347,6 +349,8 @@ void run(uint8_t *program)
 int main(int argc, char **argv)
 {
     signal(SIGINT, sigint);
+
+    srand(time(NULL));
 
     if (argc < 2)
     {
@@ -398,5 +402,6 @@ int main(int argc, char **argv)
     }
 
     run(program);
+
     return 0;
 }

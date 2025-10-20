@@ -41,25 +41,32 @@ iml ra  1
 jnz loop
 
 label loop
-    ; ------ remove snake's tail
-    imh rb  4               ; load snake's tail position
+    ; ------ shift snake's positions
+    imh rb  4
     iml rb  0
-    ld  rc
-    imh ra  8               ; add 0x80
-    iml ra  0
-    add rc
-    mov rb  ra
-    imh ra  0               ; set display to space
-    iml ra  0
-    st  ra
+    label shift_snake
+        ld  rd              ; rd <- ram[i]
+        imh ra  15          ; i -= 1
+        iml ra  15
+        add rb
+        mov rb  ra
+        st  rd              ; ram[i] <- rd
+        imh ra  0           ; i += 2
+        iml ra  2
+        add rb
+        mov rb  ra
+        imh ra  8
+        iml ra  0
+        sub rb
+        jnz shift_snake
     ; ------
 
     ; ------ move snake's head
     imh rb  0               ; load snake's length
     iml rb  1
     ld  rd
-    imh ra  4               ; add 0x40
-    iml ra  0
+    imh ra  3               ; add 0x3F
+    iml ra  15
     add rd
     mov rd  ra              ; keep in rd
     
@@ -86,6 +93,10 @@ label loop
     label moving_up
         mov rb  rd
         ld  rc
+        imh ra  0
+        iml ra  1
+        add rb
+        mov rb  ra
         imh ra  7
         iml ra  0
         add rc
@@ -99,6 +110,10 @@ label loop
     label moving_down
         mov rb  rd
         ld  rc
+        imh ra  0
+        iml ra  1
+        add rb
+        mov rb  ra
         imh ra  1
         iml ra  0
         add rc
@@ -114,6 +129,10 @@ label loop
         ld  rc
         imh ra  0
         iml ra  1
+        add rb
+        mov rb  ra
+        imh ra  0
+        iml ra  1
         add rc
         mov rc  ra
         imh ra  7
@@ -126,6 +145,10 @@ label loop
         mov rb  rd
         ld  rc
         imh ra  0
+        iml ra  1
+        add rb
+        mov rb  ra
+        imh ra  0
         iml ra  7
         add rc
         mov rc  ra
@@ -136,26 +159,6 @@ label loop
         jnz moving_fin
 
     label moving_fin
-    ; ------
-
-    ; ------ shift snake's positions
-    imh rb  4
-    iml rb  0
-    label shift_snake
-        ld  rd              ; rd <- ram[i]
-        imh ra  15          ; i -= 1
-        iml ra  15
-        add rb
-        mov rb  ra
-        st  rd              ; ram[i] <- rd
-        imh ra  0           ; i += 2
-        iml ra  2
-        add rb
-        mov rb  ra
-        imh ra  8
-        iml ra  2
-        sub ra
-        jnz shift_snake
     ; ------
 
     imh rb  0               ; load snake's length
@@ -182,6 +185,7 @@ label loop
     imh rb  4
     iml rb  0
     add rb
+    mov rb  ra
     st  rd
 
     iml ra  1
@@ -189,13 +193,37 @@ label loop
 
     label eat_fin
 
+    ; ------ remove snake's tail
+    imh rb  3               ; load snake's tail position
+    iml rb  15
+    ld  rc
     imh ra  8               ; add 0x80
     iml ra  0
     add rc
     mov rb  ra
+    imh ra  2               ; set display to empty
+    iml ra  0
+    st  ra
+    ; ------
+
+    imh rb  0               ; load snake's length
+    iml rb  1
+    ld  rb
+    imh ra  4               ; add 0x40
+    iml ra  0
+    add rb
+    mov rb  ra
+    ld  rb
+    imh ra  8               ; add 0x80
+    iml ra  0
+    add rb
+    mov rb  ra
     imh ra  5               ; draw snake's head 'S'
     iml ra  3
     st  ra
+
+
+
 
     in  ra  0               ; update snake's direction
     jnz change_movement
