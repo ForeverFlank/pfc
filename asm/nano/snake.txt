@@ -1,0 +1,50 @@
+; last snake direction  = 0x00
+; snake length          = 0x01
+; snake pos             = 0x40 - 0x7f
+
+imh rb  0  
+iml rb  1
+st  rb
+
+imh rb  4
+iml rb  0
+imh ra  3
+iml ra  3
+st  ra
+
+imh ra  4
+iml ra  0
+
+label shift_snake
+    imh rb  0
+    iml rb  1
+    mov rc  rb
+    sub rc
+
+    jnz shift_snake
+
+in  rd  1
+imh ra  7
+iml ra  7
+and rd
+mov rc  ra
+imh ra  8
+iml ra  0
+add rc
+mov rb  ra
+imh ra  4
+iml ra  6
+st  ra
+
+imh rb  4           ; load head position
+iml rb  0
+ld  rc
+imh ra  8           ; add 0x80
+iml ra  0
+add rc
+mov rb  ra
+imh ra  5           ; draw snake's head 'S'
+iml ra  3
+st  ra
+
+hlt

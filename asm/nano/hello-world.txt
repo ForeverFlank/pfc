@@ -1,81 +1,69 @@
 xor ra
 
 ; H
-imh rb  8
+imh rb  8cl
 iml rb  0
-mov rd  rb
 imh ra  4
 iml ra  8
 st  ra
 
 ; e
 iml rb  1
-mov rd  rb
 imh ra  6
 iml ra  5
 st  ra
 
 ; l
 iml rb  2
-mov rd  rb
 iml ra  12
 st  ra
 
 ; l
 iml rb  3
-mov rd  rb
 st  ra
 
 ; o
 iml rb  4
-mov rd  rb
 iml ra  15
 st  ra
 
 ;
 iml rb  5
-mov rd  rb
 imh ra  2
 iml ra  0
 st  ra
 
 ; W
 iml rb  6
-mov rd  rb
 imh ra  5
 iml ra  7
 st  ra
 
 ; o
 iml rb  7
-mov rd  rb
 imh ra  6
 iml ra  15
 st  ra
 
 ; r
 iml rb  8
-mov rd  rb
 imh ra  7
 iml ra  2
 st  ra
 
 ; l
 iml rb  9
-mov rd  rb
 imh ra  6
 iml ra  12
 st  ra
 
 ; d
 iml rb  10
-mov rd  rb
 iml ra  4
 st  ra
 
 ; !
 iml rb  11
-mov rd  rb
 imh ra  2
 iml ra  1
 st  ra

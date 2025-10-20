@@ -15,8 +15,8 @@ add     Rs      1 0 0 1 0 0 [Rs]    RA <- RA + Rs
 sub     Rs      1 0 0 1 0 1 [Rs]    RA <- RA - Rs
 adc     Rs      1 0 0 1 1 0 [Rs]    RA <- RA + Rs + CF
 sbc     Rs      1 0 0 1 1 1 [Rs]    RA <- RA - Rs + CF - 1
-st      Rs      1 0 1 0 x x [Rs]    Memory[RD] <- Rs
-ld  Rd          1 0 1 1 [Rd]x x     Rd <- Memory[RD]
+st      Rs      1 0 1 0 x x [Rs]    Memory[RB] <- Rs
+ld  Rd          1 0 1 1 [Rd]x x     Rd <- Memory[RB]
 hlt             1 0 1 1 1 1 1 1     Halt
 jnz dest        1 1 [dest      ]    RC <- dest << 2
 

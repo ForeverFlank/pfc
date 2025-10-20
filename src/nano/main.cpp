@@ -41,7 +41,8 @@ void print_display(uint8_t data[256])
     {
         for (int col = 0; col < 16; ++col)
         {
-            cout << data[row * 16 + col];
+            char c = data[row * 16 + col];
+            cout << (c == 0 ? ' ' : c);
         }
         cout << '\n';
     }
@@ -69,8 +70,6 @@ void compile(ifstream &src, uint8_t *program)
         };
 
     unordered_map<string, uint8_t> labels;
-
-    unordered_map<string, size_t> label_addrs;
     vector<string> source_lines;
 
     while (getline(src, line))
@@ -99,7 +98,7 @@ void compile(ifstream &src, uint8_t *program)
                 line_num++;
             }
 
-            label_addrs[label_name] = line_num;
+            labels[label_name] = line_num;
         }
 
         ++line_num;
@@ -130,18 +129,40 @@ void compile(ifstream &src, uint8_t *program)
             d = reg_to_num(rd); s = reg_to_num(rs);
             curr = 0b00000000 | (d << 2) | s;
         }
+        else if (opcode == "in")
+        {
+            string rd; int d, s;
+            ss >> rd >> s;
+            d = reg_to_num(rd);
+            curr = 0b00010000 | (d << 2) | s;
+        }
+        else if (opcode == "out")
+        {
+            string rs; int d, s;
+            ss >> d >> rs;
+            s = reg_to_num(rs);
+            curr = 0b00100000 | (d << 2) | s;
+        }
         else if (opcode == "iml")
         {
             string reg; int val, r;
             ss >> reg >> val;
-            r = reg_to_num(reg);
+
+            if (reg == "ra") r = 0;
+            else if (reg == "rb") r = 1;
+            else throw runtime_error("Unexpected register: " + reg);
+
             curr = 0b01000000 | (r << 4) | val;
         }
         else if (opcode == "imh")
         {
             string reg; int val, r;
             ss >> reg >> val;
-            r = reg_to_num(reg);
+
+            if (reg == "ra") r = 0;
+            else if (reg == "rb") r = 1;
+            else throw runtime_error("Unexpected register: " + reg);
+
             curr = 0b01100000 | (r << 4) | val;
         }
         else if (opcode == "and")
@@ -202,13 +223,13 @@ void compile(ifstream &src, uint8_t *program)
             string target;
             ss >> target;
 
-            auto it = label_addrs.find(target);
-            if (it == label_addrs.end())
+            auto it = labels.find(target);
+            if (it == labels.end())
             {
                 throw runtime_error("Unknown label: " + target);
             }
 
-            uint8_t addr = static_cast<uint8_t>(it->second);
+            uint8_t addr = (it->second) >> 2;
             curr = 0b11000000 | (addr & 0b00111111);
         }
         else
@@ -222,7 +243,7 @@ void compile(ifstream &src, uint8_t *program)
 
 void run(uint8_t *program)
 {
-    uint8_t reg[8] = {0}, pc = 0;
+    uint8_t reg[4] = {0}, io[4] = {0}, pc = 0;
     uint8_t ram[256] = {0};
     uint8_t *ra = reg + 0;
     uint8_t *rb = reg + 1;
@@ -243,13 +264,27 @@ void run(uint8_t *program)
         cout << "rd: " << setw(3) << (int)*rd << " ";
         cout << endl << flush;
 
+        io[1] = rand() % 256;
+
         uint8_t inst = program[pc++];
 
-        if (match(inst, "00xxxxxx"))
+        if (match(inst, "0000xxxx"))
         {
             uint8_t d = (inst >> 2) & 3;
             uint8_t s = (inst >> 0) & 3;
             reg[d] = reg[s];
+        }
+        else if (match(inst, "0001xxxx"))
+        {
+            uint8_t d = (inst >> 2) & 3;
+            uint8_t s = (inst >> 0) & 3;
+            reg[d] = io[s];
+        }
+        else if (match(inst, "0010xxxx"))
+        {
+            uint8_t d = (inst >> 2) & 3;
+            uint8_t s = (inst >> 0) & 3;
+            io[d] = reg[s];
         }
         else if (match(inst, "01xxxxxx"))
         {
@@ -292,12 +327,12 @@ void run(uint8_t *program)
         else if (match(inst, "1010xxxx"))
         {
             uint8_t s = inst & 3;
-            ram[*rd] = reg[s];
+            ram[*rb] = reg[s];
         }
         else if (match(inst, "1011xxxx"))
         {
             uint8_t d = (inst >> 2) & 3;
-            reg[d] = ram[*rd];
+            reg[d] = ram[*rb];
         }
         else if (match(inst, "11xxxxxx"))
         {
@@ -327,6 +362,8 @@ void run(uint8_t *program)
 int main(int argc, char **argv)
 {
     signal(SIGINT, sigint);
+
+    srand(time(NULL));
 
     string input_file;
     bool print_hex = false;
