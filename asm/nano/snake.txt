@@ -1,50 +1,178 @@
 ; last snake direction  = 0x00
 ; snake length          = 0x01
+; food pos              = 0x02
 ; snake pos             = 0x40 - 0x7f
 
-imh rb  0  
-iml rb  1
+imh rb  0                   ; set snake's direction to right
+iml rb  0
+mov ra  rb
+iml ra  4
+st  ra
+
+iml rb  1                   ; set snake's length to 1
 st  rb
 
-imh rb  4
+imh rb  4                   ; set snake's position to (3, 3)
 iml rb  0
 imh ra  3
 iml ra  3
 st  ra
 
-imh ra  4
-iml ra  0
+iml ra  1
+jnz loop
 
-label shift_snake
-    imh rb  0
+label gen_food
+    in  rd  1               ; input random value from port 1
+    imh ra  7               ; mask 0b01110111
+    iml ra  7
+    and rd
+    imh rb  0               ; store to 0x02
+    iml rb  2
+    st  ra
+    mov rc  ra              ; add 0x80
+    imh ra  8
+    iml ra  0
+    add rc
+    mov rb  ra          
+    imh ra  4               ; draw food 'F'
+    iml ra  6
+    st  ra
+    jnz eat_fin
+
+label loop
+    imh rb  4               ; load snake's tail position
+    iml rb  0
+    ld  rc
+    imh ra  8               ; add 0x80
+    iml ra  0
+    add rc
+    mov rb  ra
+    imh ra  2               ; set display to space
+    iml ra  0
+    st  ra
+
+    imh rb  4
     iml rb  1
-    mov rc  rb
-    sub rc
+    label shift_snake
+        ld  rd              ; rd <- ram[i]
+        imh ra  15
+        iml ra  15
+        add rb
+        st  rd              ; ram[i - 1] <- rd
+        imh ra  0
+        iml ra  2
+        add rb
+        imh ra  8
+        iml ra  2
+        sub ra
+        jnz shift_snake
 
-    jnz shift_snake
+    imh rb  0               ; load snake's direction
+    iml rb  0
+    ld  rc
+    imh ra  0
+    iml ra  1               ; mask 0b00000001
+    and rc
+    jnz moving_up
+    iml ra  2               ; mask 0b00000010
+    and rc
+    jnz moving_down
+    iml ra  4               ; mask 0b00000100
+    and rc
+    jnz moving_right
+    iml ra  8               ; mask 0b00001000
+    and rc
+    jnz moving_left
 
-in  rd  1
-imh ra  7
-iml ra  7
-and rd
-mov rc  ra
-imh ra  8
-iml ra  0
-add rc
-mov rb  ra
-imh ra  4
-iml ra  6
-st  ra
+    iml ra  1
+    jnz moving_fin
 
-imh rb  4           ; load head position
-iml rb  0
-ld  rc
-imh ra  8           ; add 0x80
-iml ra  0
-add rc
-mov rb  ra
-imh ra  5           ; draw snake's head 'S'
-iml ra  3
-st  ra
+    label moving_up
+        imh rb  4
+        iml rb  0
+        ld  rc
+        imh ra  15
+        iml ra  0
+        add rc
+        st  ra
+        jnz moving_fin
+
+    label moving_down
+        imh rb  4
+        iml rb  0
+        ld  rc
+        imh ra  1
+        iml ra  0
+        add rc
+        st  ra
+        jnz moving_fin
+
+    label moving_right
+        imh rb  4
+        iml rb  0
+        ld  rc
+        imh ra  0
+        iml ra  1
+        add rc
+        st  ra
+        jnz moving_fin
+
+    label moving_left
+        imh rb  4
+        iml rb  0
+        ld  rc
+        imh ra  0
+        iml ra  15
+        add rc
+        st  ra
+        jnz moving_fin
+
+    label moving_fin
+
+    imh rb  4               ; load head position
+    iml rb  0
+    ld  rc
+    imh rb  0               ; load food position
+    iml rb  2
+    ld  rd
+    mov ra  rd
+    sub rc                  ; compare
+    jnz eat_fin
+
+    imh rb  0               ; load snake length
+    iml rb  1
+    ld  ra
+    add rb                  ; inc by 1
+    st  ra
+    imh rb  8
+    iml rb  0
+    add rb
+    st  rd
+
+    iml ra  1
+    jnz gen_food
+
+    label eat_fin
+
+    imh ra  8               ; add 0x80
+    iml ra  0
+    add rc
+    mov rb  ra
+    imh ra  5               ; draw snake's head 'S'
+    iml ra  3
+    st  ra
+
+    in  ra  0               ; input current button input'
+    jnz change_movement
+    iml ra  1
+    jnz change_movement_end
+    label change_movement
+        imh rb  0
+        iml rb  1
+        st  ra    
+    label change_movement_end
+
+    iml ra  1
+    jnz loop
 
 hlt

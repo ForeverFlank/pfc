@@ -6,11 +6,73 @@
 #include <cstdlib>
 #include <csignal>
 #include <cstring>
+#include <unistd.h>
+#include <termios.h>
+#include <fcntl.h>
 #include <vector>
 #include <unordered_map>
 #include <algorithm>
+#include <thread>
+#include <chrono>
 
 using namespace std;
+
+struct termios orig_termios;
+
+void sigint(int)
+{
+    cout << "\033[?1049l" << flush;
+    exit(0);
+}
+
+void disable_raw_mode()
+{
+    tcsetattr(STDIN_FILENO, TCSANOW, &orig_termios);
+}
+
+void enable_raw_mode()
+{
+    tcgetattr(STDIN_FILENO, &orig_termios);
+    atexit(disable_raw_mode);
+
+    struct termios raw = orig_termios;
+
+    raw.c_lflag &= ~(ICANON | ECHO);
+    raw.c_cc[VMIN] = 0;
+    raw.c_cc[VTIME] = 0;
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &raw);
+}
+
+void set_non_blocking(bool enable)
+{
+    int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+    if (enable)
+    {
+        fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
+    }
+    else
+    {
+        fcntl(STDIN_FILENO, F_SETFL, flags & ~O_NONBLOCK);
+    }
+}
+
+uint8_t check_arrow_key_press()
+{
+    char buf[3];
+    int n = read(STDIN_FILENO, buf, 3);
+    if (n < 1) return 0;
+
+    uint8_t res = 0;
+    if (buf[0] == '\x1b' && buf[1] == '[')
+    {
+        if (buf[2] == 'A') res |= 1;
+        if (buf[2] == 'B') res |= 2;
+        if (buf[2] == 'C') res |= 4;
+        if (buf[2] == 'D') res |= 8;
+    }
+    return res;
+}
 
 string hex(uint8_t val)
 {
@@ -35,7 +97,7 @@ bool match(uint8_t val, string pattern)
 
 void print_display(uint8_t data[256])
 {
-    cout << "\033[2J\033[1;1H";
+    // cout << "\033[2J\033[1;1H";
 
     for (int row = 8; row < 16; ++row)
     {
@@ -48,18 +110,8 @@ void print_display(uint8_t data[256])
     }
 }
 
-void sigint(int)
-{
-    cout << "\033[?1049l" << flush;
-    exit(0);
-}
-
 void compile(ifstream &src, uint8_t *program)
 {
-    uint8_t curr;
-    size_t line_num = 0;
-    string line;
-
     auto reg_to_num = [] (string r) -> int
         {
             if (r == "ra") return 0;
@@ -71,16 +123,19 @@ void compile(ifstream &src, uint8_t *program)
 
     unordered_map<string, uint8_t> labels;
     vector<string> source_lines;
+    string line;
 
     while (getline(src, line))
     {
         source_lines.push_back(line);
     }
 
-    line_num = 0;
-    for (size_t i = 0; i < source_lines.size(); i++)
+    size_t line_num = 0;
+    vector<string> aligned_lines;
+
+    for (size_t i = 0; i < source_lines.size(); ++i)
     {
-        string &raw_line = source_lines[i];
+        string raw_line = source_lines[i];
         string processed_line = raw_line.substr(0, raw_line.find(';'));
         stringstream ss(processed_line);
         string opcode;
@@ -93,19 +148,21 @@ void compile(ifstream &src, uint8_t *program)
 
             while (line_num % 4 != 0)
             {
-                source_lines.insert(source_lines.begin() + i, "nop");
-                i++;
-                line_num++;
+                aligned_lines.push_back("nop");
+                ++line_num;
             }
 
-            labels[label_name] = line_num;
+            labels[label_name] = static_cast<uint8_t>(line_num);
+            continue;
         }
 
+        aligned_lines.push_back(raw_line);
         ++line_num;
     }
 
+
     line_num = 0;
-    for (string &raw_line : source_lines)
+    for (const string &raw_line : aligned_lines)
     {
         string processed_line = raw_line.substr(0, raw_line.find(';'));
         stringstream ss(processed_line);
@@ -114,55 +171,43 @@ void compile(ifstream &src, uint8_t *program)
 
         uint8_t curr = 0;
 
-        if (opcode == "label")
-        {
-            continue;
-        }
-        else if (opcode == "nop")
+        if (opcode == "nop")
         {
             curr = 0;
         }
         else if (opcode == "mov")
         {
-            string rd, rs; int d, s;
+            string rd, rs;
             ss >> rd >> rs;
-            d = reg_to_num(rd); s = reg_to_num(rs);
+            int d = reg_to_num(rd), s = reg_to_num(rs);
             curr = 0b00000000 | (d << 2) | s;
         }
         else if (opcode == "in")
         {
-            string rd; int d, s;
+            string rd; int s;
             ss >> rd >> s;
-            d = reg_to_num(rd);
+            int d = reg_to_num(rd);
             curr = 0b00010000 | (d << 2) | s;
         }
         else if (opcode == "out")
         {
-            string rs; int d, s;
+            string rs; int d;
             ss >> d >> rs;
-            s = reg_to_num(rs);
+            int s = reg_to_num(rs);
             curr = 0b00100000 | (d << 2) | s;
         }
         else if (opcode == "iml")
         {
-            string reg; int val, r;
+            string reg; int val;
             ss >> reg >> val;
-
-            if (reg == "ra") r = 0;
-            else if (reg == "rb") r = 1;
-            else throw runtime_error("Unexpected register: " + reg);
-
+            int r = reg_to_num(reg);
             curr = 0b01000000 | (r << 4) | val;
         }
         else if (opcode == "imh")
         {
-            string reg; int val, r;
+            string reg; int val;
             ss >> reg >> val;
-
-            if (reg == "ra") r = 0;
-            else if (reg == "rb") r = 1;
-            else throw runtime_error("Unexpected register: " + reg);
-
+            int r = reg_to_num(reg);
             curr = 0b01100000 | (r << 4) | val;
         }
         else if (opcode == "and")
@@ -229,7 +274,7 @@ void compile(ifstream &src, uint8_t *program)
                 throw runtime_error("Unknown label: " + target);
             }
 
-            uint8_t addr = (it->second) >> 2;
+            uint8_t addr = it->second >> 2;
             curr = 0b11000000 | (addr & 0b00111111);
         }
         else
@@ -264,7 +309,14 @@ void run(uint8_t *program)
         cout << "rd: " << setw(3) << (int)*rd << " ";
         cout << endl << flush;
 
+        enable_raw_mode();
+        set_non_blocking(true);
+
+        io[0] = check_arrow_key_press();
         io[1] = rand() % 256;
+
+        disable_raw_mode();
+        set_non_blocking(false);
 
         uint8_t inst = program[pc++];
 
@@ -339,6 +391,8 @@ void run(uint8_t *program)
             uint8_t dest = (inst & 0b00111111) << 2;
             if (*ra != 0) pc = dest;
         }
+
+        this_thread::sleep_for(chrono::milliseconds(1));
     }
 
     cout << "Press any key to continue...";
