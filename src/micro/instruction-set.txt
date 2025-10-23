@@ -18,5 +18,5 @@ sbc     Rs      1 0 0 1 1 1 [Rs]    RA <- RA - Rs + CF - 1
 st      Rs      1 0 1 0 x x [Rs]    Memory[RB] <- Rs
 ld  Rd          1 0 1 1 [Rd]x x     Rd <- Memory[RB]
 hlt             1 0 1 1 1 1 1 1     Halt
-jnz dest        1 1 [dest      ]    RC <- dest << 2
+jz dest         1 1 [dest      ]    PC <- RA == 0 ? dest << 2 : 1
 

@@ -195,7 +195,7 @@ void compile(ifstream &src, uint8_t *program)
         {
             curr = 0b10111111;
         }
-        else if (opcode == "jnz")
+        else if (opcode == "jz")
         {
             string target;
             ss >> target;
@@ -324,12 +324,12 @@ void run(uint8_t *program)
         else if (match(inst, "11xxxxxx"))
         {
             uint8_t dest = (inst & 0b00111111) << 2;
-            if (*ra != 0) pc = dest;
+            if (*ra == 0) pc = dest;
         }
 
         if (framenumber % 256 == 0)
         {
-            this_thread::sleep_for(chrono::milliseconds(2));
+            this_thread::sleep_for(chrono::milliseconds(1));
         }
         framenumber++;
 
