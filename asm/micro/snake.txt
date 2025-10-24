@@ -27,11 +27,11 @@ label gen_food
     imh rb  0               ; store to 0x02
     iml rb  2
     st  ra
-    xor ra
-    jz  eat_fin
+    iml ra  1
+    jnz eat_fin
 
-xor ra
-jz loop
+iml ra  1
+jnz loop
 
 label loop
     ; ------ shift snake's positions
@@ -51,11 +51,7 @@ label loop
         imh ra  8
         iml ra  0
         sub rb
-        jz  shift_snake_end
-
-        xor ra
-        jz  shift_snake
-    label shift_snake_end
+        jnz shift_snake
     ; ------
 
     ; ------ move snake's head
@@ -73,7 +69,21 @@ label loop
     imh ra  0
     iml ra  1               ; mask 0b00000001
     and rc
-    jz  moving_up_fin
+    jnz moving_up
+    iml ra  2               ; mask 0b00000010
+    and rc
+    jnz moving_down
+    iml ra  4               ; mask 0b00000100
+    and rc
+    jnz moving_right
+    iml ra  8               ; mask 0b00001000
+    and rc
+    jnz moving_left
+
+    iml ra  1
+    jnz moving_fin
+
+    label moving_up
         mov rb  rd
         ld  rc
         imh ra  0
@@ -88,14 +98,9 @@ label loop
         iml ra  7
         and rc
         st  ra
+        jnz moving_fin
 
-        xor ra
-        jz  moving_fin
-    label moving_up_fin
-
-    iml ra  2               ; mask 0b00000010
-    and rc
-    jz  moving_down_fin
+    label moving_down
         mov rb  rd
         ld  rc
         imh ra  0
@@ -110,14 +115,9 @@ label loop
         iml ra  7
         and rc
         st  ra
+        jnz moving_fin
 
-        xor ra
-        jz  moving_fin
-    label moving_down_fin
-
-    iml ra  4               ; mask 0b00000100
-    and rc
-    jz  moving_right_fin
+    label moving_right
         mov rb  rd
         ld  rc
         imh ra  0
@@ -132,14 +132,9 @@ label loop
         iml ra  7
         and rc
         st  ra
+        jnz moving_fin
 
-        xor ra
-        jz  moving_fin
-    label moving_right_fin
-
-    iml ra  8               ; mask 0b00001000
-    and rc
-    jz  moving_left_fin
+    label moving_left
         mov rb  rd
         ld  rc
         imh ra  0
@@ -154,10 +149,7 @@ label loop
         iml ra  7
         and rc
         st  ra
-
-        xor ra
-        jz  moving_fin
-    label moving_left_fin
+        jnz moving_fin
 
     label moving_fin
     ; ------
@@ -177,25 +169,22 @@ label loop
     ld  rd                  ; keep in rd
     mov ra  rd
     sub rc                  ; compare
-    jz  eat_food
-    xor ra
-    jz  eat_fin
+    jnz eat_fin
 
     ; ------ if snake did eat the food
-    label eat_food
-        imh rb  0               ; load snake's length
-        iml rb  1
-        ld  ra
-        add rb                  ; inc by 1
-        st  ra
-        imh rb  4
-        iml rb  0
-        add rb
-        mov rb  ra
-        st  rd
+    imh rb  0               ; load snake's length
+    iml rb  1
+    ld  ra
+    add rb                  ; inc by 1
+    st  ra
+    imh rb  4
+    iml rb  0
+    add rb
+    mov rb  ra
+    st  rd
 
-        xor ra
-        jz  gen_food
+    iml ra  1
+    jnz gen_food
 
     label eat_fin
     ; ------
@@ -245,13 +234,15 @@ label loop
     ; ------
 
     in  ra  0               ; update snake's direction
-    jz  change_movement_end
+    jnz change_movement
+    iml ra  1
+    jnz change_movement_end
+    label change_movement
         imh rb  0
         iml rb  0
         st  ra    
     label change_movement_end
 
-    xor ra
-    jz  loop
+    jnz loop
 
 hlt

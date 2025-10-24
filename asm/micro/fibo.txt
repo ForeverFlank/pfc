@@ -1,0 +1,24 @@
+iml rb  1
+st  rb
+
+iml ra  13
+mov rd  ra
+
+label loop
+    iml rb  0
+    ld  ra
+    iml rb  1
+    ld  rc
+    add rc
+    st  ra
+    iml rb  0
+    st  rc
+
+    imh ra  15
+    iml ra  15
+    add rd
+    mov rd  ra
+
+    jnz loop
+
+hlt

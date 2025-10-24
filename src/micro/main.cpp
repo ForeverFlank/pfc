@@ -133,6 +133,7 @@ void compile(ifstream &src, uint8_t *program)
             string reg; int val;
             ss >> reg >> val;
             int r = reg_to_num(reg);
+            if (r > 2) throw runtime_error("Unexpected register in iml: " + reg);
             curr = 0b01000000 | (r << 4) | val;
         }
         else if (opcode == "imh")
@@ -140,6 +141,7 @@ void compile(ifstream &src, uint8_t *program)
             string reg; int val;
             ss >> reg >> val;
             int r = reg_to_num(reg);
+            if (r > 2) throw runtime_error("Unexpected register in iml: " + reg);
             curr = 0b01100000 | (r << 4) | val;
         }
         else if (opcode == "and")
@@ -195,7 +197,7 @@ void compile(ifstream &src, uint8_t *program)
         {
             curr = 0b10111111;
         }
-        else if (opcode == "jz")
+        else if (opcode == "jnz")
         {
             string target;
             ss >> target;
@@ -247,11 +249,11 @@ void run(uint8_t *program)
             oss << '\n';
         }
 
-        oss << "pc: " << setw(2) << hex << (int)pc << "\t";
-        oss << "ra: " << setw(2) << hex << (int)*ra << "\t";
-        oss << "rb: " << setw(2) << hex << (int)*rb << "\t";
-        oss << "rc: " << setw(2) << hex << (int)*rc << "\t";
-        oss << "rd: " << setw(2) << hex << (int)*rd << "\t";
+        oss << "pc: " << hex(pc) << "\t";
+        oss << "ra: " << hex(*ra) << "\t";
+        oss << "rb: " << hex(*rb) << "\t";
+        oss << "rc: " << hex(*rc) << "\t";
+        oss << "rd: " << hex(*rd) << "\t";
         oss << '\n';
 
         cout << oss.str();
@@ -324,12 +326,12 @@ void run(uint8_t *program)
         else if (match(inst, "11xxxxxx"))
         {
             uint8_t dest = (inst & 0b00111111) << 2;
-            if (*ra == 0) pc = dest;
+            if (*ra != 0) pc = dest;
         }
 
         if (framenumber % 256 == 0)
         {
-            this_thread::sleep_for(chrono::milliseconds(1));
+            this_thread::sleep_for(chrono::milliseconds(2));
         }
         framenumber++;
 
@@ -392,7 +394,6 @@ int main(int argc, char **argv)
 
     if (dump_program)
     {
-        cout << "Compiled program dump:\n";
         for (int i = 0; i < 256; ++i)
         {
             cout << hex << setw(2) << setfill('0') << (int)program[i] << " ";
