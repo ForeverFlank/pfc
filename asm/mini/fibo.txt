@@ -1,3 +1,7 @@
+xor ra
+mov rb  ra
+st  rb
+
 iml rb  1
 st  rb
 

@@ -19,6 +19,19 @@ imh ra  3
 iml ra  3
 st  ra
 
+imh rb  8
+iml rb  0
+imh ra  2
+iml ra  0
+mov rc  ra
+label init_output
+    st  rc
+    imh ra  0
+    iml ra  1
+    add rb
+    mov rb  ra
+    jnz init_output
+
 label gen_food
     in  rd  1               ; input random value from port 1
     imh ra  7               ; mask 0b01110111
@@ -243,6 +256,21 @@ label loop
         st  ra    
     label change_movement_end
 
+    ; ------ copying terminal buffer to output
+    imh rb  8
+    iml rb  0
+    out 0   rb
+    label copy
+        ld  rc
+        out 0   rc
+        imh ra  0
+        iml ra  1
+        add rb
+        mov rb  ra
+        jnz copy
+    ; ------
+
+    iml ra  1
     jnz loop
 
 hlt
