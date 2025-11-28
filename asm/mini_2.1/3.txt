@@ -1,0 +1,23 @@
+xor a
+st  a 0
+
+imm b 1
+st  b 
+
+imm a 13
+mov d a 
+
+label loop
+    ld  a 0
+    ld  c 1
+    add c 
+    st  a 1
+    st  c 0
+
+    imm a -1
+    add d 
+    mov d a 
+
+    jnz loop
+
+halt

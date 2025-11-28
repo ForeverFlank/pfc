@@ -1,0 +1,13 @@
+imm a 1
+st  a 0
+
+imm a 5
+st  a 1
+
+imm c 2
+st  c 5
+
+imm b 1
+ld  b
+
+halt

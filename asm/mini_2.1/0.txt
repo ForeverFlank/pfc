@@ -1,0 +1,16 @@
+imm a 2     ; a <- 2
+imm b 3     ; b <- 3
+add b       ; a <- a + b
+mov c a     ; c <- a
+
+imm a 5     ; a <- 3
+imm d 4     ; d <- 4
+sub d       ; a <- a - d
+mov b a     ; b <- a
+
+mov a c     ; a <- c
+mov b c     ; a <- c
+and b       ; a <- a AND b
+mov d a     ; d <- a
+
+halt
