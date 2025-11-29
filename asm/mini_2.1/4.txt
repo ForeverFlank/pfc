@@ -1,0 +1,21 @@
+; 0x03cc + 0x07dd = 0x0ba9
+imm a 204
+imm b 221
+add b
+mov c a
+imm a 3
+imm b 7
+adc b
+mov d a
+
+; 0x226 - 0x12c = 0x0fa
+imm a 38
+imm b 44
+sub b
+mov c a
+imm a 2
+imm b 1
+sbc b
+mov d a
+
+halt
