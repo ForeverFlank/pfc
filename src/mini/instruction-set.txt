@@ -1,5 +1,5 @@
-Mne             Inst                Pseudocode
-                7 6 5 4 3 2 1 0
+Mnemonic        Encoding            Description
+
 mov Rd  Rs      0 0 0 0 [Rd][Rs]    Rd <- Rs
 in  Rd  Ps      0 0 0 1 [Rd][Ps]    Rd <- Ps
 out Pd  Rs      0 0 1 0 [Pd][Rs]    Pd <- Rs

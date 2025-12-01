@@ -126,22 +126,23 @@ void compile(ifstream &src, uint8_t *program)
         {
             program[pos] = 0x00;
         }
+        if (op == "halt")
+        {
+            program[pos] = 0x10;
+        }
         if (op == "mov")
         {
-            program[pos] = 0x10 | (getRegister(arg1) << 2) | getRegister(arg2);
+            program[pos] = 0x20 | (getRegister(arg1) << 2) | getRegister(arg2);
         }
         if (op == "imm")
         {
-            program[pos] = 0x20 | (getRegister(arg1) << 2);
+            program[pos] = 0x30 | (getRegister(arg1) << 2);
             program[pos + 1] = stoi(arg2);
-        }
-        if (op == "halt")
-        {
-            program[pos] = 0x30;
         }
         if (op == "st")
         {
-            if (arg2.empty())
+            // TODO: update this
+            if (arg2.empty()) // it's now st rs ra
             {
                 program[pos] = 0x40 | getRegister(arg1);
             }

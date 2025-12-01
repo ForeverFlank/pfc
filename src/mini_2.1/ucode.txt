@@ -1,0 +1,17 @@
+0001xxxx halt
+0010xxxx wr_32  rd_10
+0011xxxx wr_32  rd_opnd
+0100xxxx wr_mem rd_32   addr_10
+0101xxxx wr_mem rd_32   addr_opnd
+0110xxxx wr_32  rd_mem  addr_10
+0111xxxx wr_32  rd_mem  addr_opnd
+1000xxxx alu    rd_10   st_z st_n st_c st_o
+10010xxx alu    rd_10   st_z st_n
+100110xx alu    rd_10   st_z st_n
+100111xx alu            st_z st_n st_c
+1010xxxx alu    rd_opnd st_z st_n st_c st_o
+10110xxx alu    rd_opnd st_z st_n
+101110xx alu    rd_opnd st_z st_n
+101111xx alu            st_z st_n st_c
+110xxxxx jmp
+111xxxxx jmp_cond

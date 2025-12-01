@@ -1,0 +1,7 @@
+Mnemonic        Encoding            Description
+
+nop             0 0 0 0 x x x x     No operation
+halt            0 0 0 1 x x x x     Halt
+mov Rd  Rs      0 0 1 0 [Rd][Rs]    Rd <- Rs
+imm Rd  #imm    0 0 1 1 [Rd]x x     Rd <- #imm
+...
