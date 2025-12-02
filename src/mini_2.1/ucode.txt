@@ -5,13 +5,13 @@
 0101xxxx wr_mem rd_32   addr_opnd
 0110xxxx wr_32  rd_mem  addr_10
 0111xxxx wr_32  rd_mem  addr_opnd
-1000xxxx wr_a   rd_10   alu st_z st_n st_c st_o
-10010xxx wr_a   rd_10   alu st_z st_n
-100110xx wr_a   rd_10   alu st_z st_n
-100111xx wr_a           alu st_z st_n st_c
-1010xxxx wr_a   rd_opnd alu st_z st_n st_c st_o
-10110xxx wr_a   rd_opnd alu st_z st_n
-101110xx wr_a   rd_opnd alu st_z st_n
-101111xx wr_a           alu st_z st_n st_c
+1000xxxx wr_a   rd_10   alu st_c st_o
+10010xxx wr_a   rd_10   alu
+100110xx wr_a   rd_10   alu
+100111xx wr_a           alu st_c
+1010xxxx wr_a   rd_opnd alu st_c st_o
+10110xxx wr_a   rd_opnd alu
+101110xx wr_a   rd_opnd alu
+101111xx wr_a           alu st_c
 110xxxxx jmp
 111xxxxx jmp_cond

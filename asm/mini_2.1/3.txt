@@ -4,20 +4,15 @@ st  a 0
 imm a 1
 st  a 1
 
-imm a 13
-mov d a 
-
 label loop
     ld  a 0
-    ld  c 1
-    add c 
+    ld  b 1
+    add b
     st  a 1
-    st  c 0
+    st  b 0
+    mov c b
 
-    imm a -1
-    add d 
-    mov d a 
-
-    jnz loop
+    sub b
+    jnn loop
 
 halt

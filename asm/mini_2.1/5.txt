@@ -2,23 +2,28 @@
 imm a 85
 imm b 51
 and b
+st  a 0
 
 ; 0b01010101 OR 0b00110011 = 0b01110111
 imm a 85
 imm b 51
 or  b
+st  a 1
 
 ; 0b01010101 OR 0b00110011 = 0b01100110
 imm a 85
 imm b 51
 xor b
+st  a 2
 
 ; 0b00001011 >> 1 = 0b00000101
 imm a 11
 shr
+st  a 3
 
 ; (CF)0b01100110 >> 1 = 0b10110011
 imm a 102
 ror
+st  a 4
 
 halt
