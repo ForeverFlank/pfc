@@ -1,12 +1,12 @@
 imm a 25
 imm b 6
-st  a
+st  a b
 
 imm c 18
 st  c 5
 
 imm b 5
-ld  a
+ld  a b
 ld  d 6
 sub d
 mov c a

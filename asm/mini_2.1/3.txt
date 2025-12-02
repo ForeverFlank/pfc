@@ -1,8 +1,8 @@
 xor a
 st  a 0
 
-imm b 1
-st  b 
+imm a 1
+st  a 1
 
 imm a 13
 mov d a 

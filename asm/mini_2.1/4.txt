@@ -7,6 +7,8 @@ imm a 3
 imm b 7
 adc b
 mov d a
+st  c 1
+st  d 0
 
 ; 0x226 - 0x12c = 0x0fa
 imm a 38
@@ -17,5 +19,7 @@ imm a 2
 imm b 1
 sbc b
 mov d a
+st  c 3
+st  d 2
 
 halt

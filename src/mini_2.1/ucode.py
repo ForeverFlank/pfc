@@ -87,15 +87,16 @@ with open("src/mini_2.1/ucode.txt", "r") as file:
     
     # for encoding in uprograms_encoding:
     #     print(f"{encoding:032b}")
-
-# for encoding in uprograms_encoding:
+    
+# with open("src/mini_2.1/ucode.bin", "wb") as bin_file:
 #     for i in range(4):
-#         byte = (encoding >> (8 * i)) & 0xFF
-#         print(f"{byte:02x}", end=" ")
-#     print()
+#         for encoding in uprograms_encoding:
+#             byte = (encoding >> (8 * i)) & 0xFF
+#             bin_file.write(byte.to_bytes(1, 'little'))
 
-with open("src/mini_2.1/ucode.bin", "wb") as bin_file:
-    for i in range(4):
-        for encoding in uprograms_encoding:
+with open("src/mini_2.1/ucode.hex", "w") as bin_file:
+    for encoding in uprograms_encoding:
+        for i in range(4):
             byte = (encoding >> (8 * i)) & 0xFF
-            bin_file.write(byte.to_bytes(1, 'little'))
+            bin_file.write(f"{byte:02x} ")
+        bin_file.write("\n")

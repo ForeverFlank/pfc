@@ -8,6 +8,6 @@ imm c 2
 st  c 5
 
 imm b 1
-ld  b
+ld  b b
 
 halt

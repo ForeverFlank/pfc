@@ -28,7 +28,7 @@ string removeComment(string s)
     return s;
 }
 
-uint8_t getRegister(string str)
+int getRegister(string str)
 {
     if (str == "a") return 0;
     if (str == "b") return 1;
@@ -62,14 +62,14 @@ struct Inst
 
     uint8_t getSize()
     {
-        uint8_t reg = getRegister(arg1);
+        int reg = getRegister(arg1);
 
         bool isImm =
             op == "imm";
 
         bool isAddrImm =
-            op == "st" && !arg2.empty() ||
-            op == "ld" && !arg2.empty();
+            op == "st" && (getRegister(arg2) == -1) ||
+            op == "ld" && (getRegister(arg2) == -1);
 
         bool isALUImm = reg == -1 && (
             op == "add" || op == "sub" ||
@@ -141,26 +141,29 @@ void compile(ifstream &src, uint8_t *program)
         }
         if (op == "st")
         {
-            // TODO: update this
-            if (arg2.empty()) // it's now st rs ra
+            int rs = getRegister(arg1) << 2;
+            int ra = getRegister(arg2);
+            if (ra != -1)
             {
-                program[pos] = 0x40 | getRegister(arg1);
+                program[pos] = 0x40 | rs | ra;
             }
             else
             {
-                program[pos] = 0x50 | getRegister(arg1);
+                program[pos] = 0x50 | rs;
                 program[pos + 1] = stoi(arg2);
             }
         }
         if (op == "ld")
         {
-            if (arg2.empty())
+            int rd = getRegister(arg1) << 2;
+            int ra = getRegister(arg2);
+            if (ra != -1)
             {
-                program[pos] = 0x60 | (getRegister(arg1) << 2);
+                program[pos] = 0x60 | rd | ra;
             }
             else
             {
-                program[pos] = 0x70 | (getRegister(arg1) << 2);
+                program[pos] = 0x70 | rd;
                 program[pos + 1] = stoi(arg2);
             }
         }
@@ -185,7 +188,7 @@ void compile(ifstream &src, uint8_t *program)
                 byte = 0x98;
             if (op == "shr")
                 byte = 0x9c;
-            if (op == "shr")
+            if (op == "ror")
                 byte = 0xbc;
 
             if (inst.getSize() == 1)
@@ -256,7 +259,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < 256; ++i)
     {
         cout << hex << setw(2) << setfill('0') << (int)program[i] << " ";
-        if (i % 16 == 15) cout << endl;
+        if (i % 32 == 31) cout << endl;
     }
 
     return 0;
