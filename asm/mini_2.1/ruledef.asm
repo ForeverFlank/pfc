@@ -32,13 +32,13 @@
     or  {imm: i8}               => 0xb4 @ imm
     xor {imm: i8}               => 0xb8 @ imm
     ror                         => 0xbc
-    jmp                         => 0xc0
-    jz                          => 0xe0
-    jn                          => 0xe4
-    jc                          => 0xe8
-    jo                          => 0xec
-    jnz                         => 0xf0
-    jnn                         => 0xf4
-    jnc                         => 0xf8
-    jno                         => 0xfc
+    jmp {dest: i8}              => 0xc0 @ dest
+    jz  {dest: i8}              => 0xe0 @ dest
+    jn  {dest: i8}              => 0xe4 @ dest
+    jc  {dest: i8}              => 0xe8 @ dest
+    jo  {dest: i8}              => 0xec @ dest
+    jnz {dest: i8}              => 0xf0 @ dest
+    jnn {dest: i8}              => 0xf4 @ dest
+    jnc {dest: i8}              => 0xf8 @ dest
+    jno {dest: i8}              => 0xfc @ dest
 }
