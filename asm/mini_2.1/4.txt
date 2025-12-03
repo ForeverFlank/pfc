@@ -17,7 +17,7 @@ sub b
 mov c a
 imm a 2
 imm b 1
-sbc b
+sbb b
 mov d a
 st  c 3
 st  d 2

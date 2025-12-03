@@ -73,7 +73,7 @@ struct Inst
 
         bool isALUImm = reg == -1 && (
             op == "add" || op == "sub" ||
-            op == "adc" || op == "sbc" ||
+            op == "adc" || op == "sbb" ||
             op == "and" || op == "or" ||
             op == "xor");
 
@@ -167,7 +167,7 @@ void compile(ifstream &src, uint8_t *program)
                 program[pos + 1] = stoi(arg2);
             }
         }
-        if (op == "add" || op == "sub" || op == "adc" || op == "sbc" ||
+        if (op == "add" || op == "sub" || op == "adc" || op == "sbb" ||
             op == "and" || op == "or" || op == "xor" ||
             op == "shr" || op == "ror")
         {
@@ -178,7 +178,7 @@ void compile(ifstream &src, uint8_t *program)
                 byte = 0x84;
             if (op == "adc")
                 byte = 0x88;
-            if (op == "sbc")
+            if (op == "sbb")
                 byte = 0x8c;
             if (op == "and")
                 byte = 0x90;
