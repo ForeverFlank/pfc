@@ -10,9 +10,9 @@
 ; button input      = 0xfc
 ; rng               = 0xfd
 
-empty_char = 0
-snake_char = 1
-food_char = 2
+empty_char = 0x20
+snake_char = 0x53
+food_char  = 0x46
 
 imm a, 4
 st  a, 0
@@ -25,27 +25,15 @@ st  a, 0x40
 
 gen_food:
     ld  a, 0xfd
-    and 0x77
+    and 0b00111111
     st  a, 3
 
 loop:
     ; button input
     imm c, 0
-    ld  b, 0xfc
-    mov a, b
-    and 1
-    jnz btn_pressed
-    mov a, b
-    and 2
-    jnz btn_pressed
-    mov a, b
-    and 4
-    jnz btn_pressed
-    mov a, b
-    and 8
-    jnz btn_pressed
-    jmp btn_end
-btn_pressed:
+    ld  a, 0xfc
+    add c
+    jz  btn_end
     st  a, c
 btn_end:
 
@@ -56,7 +44,7 @@ btn_end:
     st  b, a
 
     ; shift snake
-    xor a
+    imm a, 0x40
     imm c, 1
     shift:
         add c
@@ -65,9 +53,11 @@ btn_end:
         st  b, a
         add c
         mov b, a
-        sub 0x40
+        sub 0x80
         mov a, b
         jnz shift
+    
+    jmp loop
     
     ; move head
     ld  b, 0
