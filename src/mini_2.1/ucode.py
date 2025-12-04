@@ -10,7 +10,7 @@ def match_pattern(i, pattern):
     return True
 
 uinsts_list = [
-    "",
+    "len_2",
     "wr_a",
     "wr_b",
     "wr_c",
@@ -77,8 +77,8 @@ with open("src/mini_2.1/ucode.txt", "r") as file:
                     uinst = uinst[:-2] + suffix
                 encoding += uinsts_encoding[uinst]
         
-        if any(map(lambda p: match_pattern(i, p), two_bytes_insts)):
-            encoding |= 1
+        # if any(map(lambda p: match_pattern(i, p), two_bytes_insts)):
+            # encoding |= 1
         
         uprograms_encoding[i] = encoding
     
