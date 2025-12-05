@@ -1,20 +1,41 @@
 #include "ruledef.asm"
 
-; snake direction   = 0x00
-; snake length      = 0x01
-; food pos          = 0x02
-; head pos          = 0x03
-; video buffer      = 0x10 - 0x17
+; video buffer      = 0x20 - 0x27
 ; snake pos         = 0x40 - 0x7f
 
 ; button input      = 0xfc
 ; rng               = 0xfd
 
-snake_dir_addr = 0x01
-snake_len_addr = 0x02
-food_pos_addr  = 0x03
-head_pos_addr  = 0x04
+snake_dir_addr = 0x10
+snake_len_addr = 0x11
+food_pos_addr  = 0x12
+head_pos_addr  = 0x13
 
+vbuf_begin_addr = 0x20
+vbuf_end_addr   = 0x28
+
+snake_pos_begin_addr = 0x40
+snake_pos_last_addr  = 0x7f
+
+btn_addr = 0xfc
+rng_addr = 0xfd
+matrix_data_addr = 0xfc
+matrix_ctrl_addr = 0xfd
+
+; generate x shift lookup
+imm a, 0x01
+imm b, 8
+gen_shift:
+    mov c, a
+    mov a, b
+    sub 1
+    mov b, a
+    mov a, c
+    st  a, b
+    add a
+    jnz gen_shift
+
+; init variables
 imm a, 4
 st  a, snake_dir_addr
 
@@ -22,27 +43,37 @@ imm a, 1
 st  a, snake_len_addr
 
 imm a, 0b00011011
-st  a, 0x40
+st  a, snake_pos_begin_addr
 
 gen_food:
-    ld  a, 0xfd
+    ld  a, rng_addr
     and 0b00111111
     st  a, food_pos_addr
 
 loop:
     ; button input
-    imm c, 0
-    ld  a, 0xfc
-    add c
+    ld  a, btn_addr
+    cmp 0
     jz  btn_end
-    st  a, c
+    st  a, snake_dir_addr
 btn_end:
 
-    ; ; delete tail
-    ; ld  a, 0x40             ; load tail pos
-    ; add 0x80                ; shift to video buffer
-    ; imm b, empty_char       ; write empty char
-    ; st  b, a
+    ; delete tail
+    ld  b, snake_pos_begin_addr             ; load tail pos
+    mov a, b
+    and 0b00111000          ; y pos
+    shr                     ; >> 3
+    shr
+    shr
+    add vbuf_begin_addr     ; offset to the destinated row address
+    mov d, a                ; keep in register d
+    mov a, b
+    and 0b00000111          ; x pos
+    ld  a, a                ; load value single pixel
+    xor 0xff                ; invert for bitmask
+    ld  b, d                ; load existing row
+    and b                   ; clear pixel
+    st  a, d                ; store row with added pixel
     
     ; move head
     ld  b, snake_dir_addr   ; load snake direction
@@ -91,18 +122,18 @@ move_end:
     st  a, head_pos_addr    ; keep moved head pos
 
     ; shift snake
-    imm a, 0x40
+    imm a, snake_pos_begin_addr
     imm c, 1
-    shift:
-        add c
-        ld  b, a
-        sub c
-        st  b, a
-        add c
-        mov b, a
-        sub 0x7f
-        mov a, b
-        jnz shift
+shift:
+    add c
+    ld  b, a                ; load mem[x + 1]
+    sub c
+    st  b, a                ; store at mem[x]
+    add c
+    mov b, a
+    sub snake_pos_last_addr
+    mov a, b
+    jnz shift
     
     ld  b, head_pos_addr    ; load the moved head pos
     st  b, d                ; store it at the end of pos array
@@ -110,16 +141,30 @@ move_end:
     ; draw snake
     mov a, b
     and 0b00111000          ; y pos
+    shr                     ; >> 3
     shr
     shr
-    shr
-    add 0x10
+    add vbuf_begin_addr     ; offset to the destinated row address
     mov d, a                ; keep in register d
     mov a, b
     and 0b00000111          ; x pos
-    imm c, 1
-    shl:
-        
+    ld  b, a                ; load value single pixel
+    ld  a, d                ; load existing row
+    or  b                   ; add pixel
+    st  a, d                ; store row with added pixel
+
+    ; upload vbuf to matrix display
+    imm a, 1
+    st  a, matrix_ctrl_addr
+    imm a, vbuf_begin_addr
+    upload_vbuf:
+        ld  b, a
+        st  b, matrix_data_addr
+        add 1
+        cmp vbuf_end_addr
+        jnz upload_vbuf
+    imm a, 2
+    st  a, matrix_ctrl_addr
 
     jmp loop
 

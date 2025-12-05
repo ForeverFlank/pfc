@@ -12,7 +12,7 @@
     imm {rd: reg}, {val: i8}    => 0x1 @ rd @ 0b00 @ val
     nop                         => 0x20
     halt                        => 0x28
-    
+
     jmp {dest: i8}              => 0x30 @ dest
     jz  {dest: i8}              => 0x38 @ dest
     jn  {dest: i8}              => 0x39 @ dest
@@ -39,11 +39,11 @@
     and {rs: reg}               => 0xa @ 0b00 @ rs
     or  {rs: reg}               => 0xa @ 0b01 @ rs
     xor {rs: reg}               => 0xa @ 0b10 @ rs
-    shr                         => 0xa @ 0b11 @ 0b00
+    shr                         => 0xa @ 0b1100
     and {imm: i8}               => 0xb @ 0b0000 @ imm
     or  {imm: i8}               => 0xb @ 0b0100 @ imm
     xor {imm: i8}               => 0xb @ 0b1000 @ imm
-    ror                         => 0xb @ 0b11 @ 0b00
+    ror                         => 0xb @ 0b1100
 
     cmp {rs: reg}               => 0xc @ 0b01 @ rs
     cmp {imm: i8}               => 0xd @ 0b0100 @ imm
