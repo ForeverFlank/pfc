@@ -15,10 +15,12 @@
 
     jmp {dest: i8}              => 0x30 @ dest
     jz  {dest: i8}              => 0x38 @ dest
+    je  {dest: i8}              => 0x38 @ dest
     jn  {dest: i8}              => 0x39 @ dest
     jc  {dest: i8}              => 0x3a @ dest
     jo  {dest: i8}              => 0x3b @ dest
     jnz {dest: i8}              => 0x3c @ dest
+    jne {dest: i8}              => 0x3c @ dest
     jnn {dest: i8}              => 0x3d @ dest
     jnc {dest: i8}              => 0x3e @ dest
     jno {dest: i8}              => 0x3f @ dest

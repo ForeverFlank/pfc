@@ -10,6 +10,7 @@ snake_dir_addr = 0x10
 snake_len_addr = 0x11
 food_pos_addr  = 0x12
 head_pos_addr  = 0x13
+tail_pos_addr  = 0x14
 
 vbuf_begin_addr = 0x20
 vbuf_end_addr   = 0x28
@@ -49,12 +50,13 @@ gen_food:
     ld  a, rng_addr
     and 0b00111111
     st  a, food_pos_addr
+    jmp gen_food_end
 
 loop:
     ; button input
     ld  a, btn_addr
     cmp 0
-    jz  btn_end
+    je  btn_end
     st  a, snake_dir_addr
 btn_end:
 
@@ -74,14 +76,13 @@ btn_end:
     ld  b, d                ; load existing row
     and b                   ; clear pixel
     st  a, d                ; store row with added pixel
-    
+
     ; move head
-    ld  b, snake_dir_addr   ; load snake direction
     ld  a, snake_len_addr   ; load snake length
     add 0x3f                ; shift to last element in array
     ld  c, a                ; load snake head pos
     mov d, a                ; keep head address in register d
-
+    ld  b, snake_dir_addr   ; load snake direction
     mov a, b
     and 1
     jz  move_up_end
@@ -121,6 +122,20 @@ move_end:
     or  b
     st  a, head_pos_addr    ; keep moved head pos
 
+    ; check if food eaten
+    ld  b, food_pos_addr
+    cmp b
+    jne food_not_eaten
+    ld  a, snake_len_addr
+    add 1
+    st  a, snake_len_addr
+    mov a, d                ; increment head pos address in array
+    add 1
+    mov d, a
+    jmp gen_food
+gen_food_end:
+
+food_not_eaten:
     ; shift snake
     imm a, snake_pos_begin_addr
     imm c, 1
@@ -135,6 +150,8 @@ shift:
     mov a, b
     jnz shift
     
+store_head:
+    ; store head pos
     ld  b, head_pos_addr    ; load the moved head pos
     st  b, d                ; store it at the end of pos array
 
@@ -153,6 +170,22 @@ shift:
     or  b                   ; add pixel
     st  a, d                ; store row with added pixel
 
+    ; draw food
+    ld  b, food_pos_addr
+    mov a, b
+    and 0b00111000
+    shr
+    shr
+    shr
+    add vbuf_begin_addr
+    mov d, a
+    mov a, b
+    and 0b00000111
+    ld  b, a
+    ld  a, d
+    or  b
+    st  a, d 
+
     ; upload vbuf to matrix display
     imm a, 1
     st  a, matrix_ctrl_addr
@@ -162,7 +195,7 @@ shift:
         st  b, matrix_data_addr
         add 1
         cmp vbuf_end_addr
-        jnz upload_vbuf
+        jne upload_vbuf
     imm a, 2
     st  a, matrix_ctrl_addr
 
