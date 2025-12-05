@@ -9,49 +9,19 @@ def match_pattern(i, pattern):
             return False
     return True
 
-uinsts_list = [
-    "len_2",
-    "wr_a",
-    "wr_b",
-    "wr_c",
-    "wr_d",
-    "wr_mem",
-    "rd_a",
-    "rd_b",
-    "rd_c",
-    "rd_d",
-    "rd_mem",
-    "rd_opnd",
-    "addr_a",
-    "addr_b",
-    "addr_c",
-    "addr_d",
-    "addr_opnd",
-    "alu",
-    "st_c",
-    "st_o",
-    "jmp",
-    "jmp_cond",
-    "halt"
-]
-
 uinsts_encoding = {}
-for i in range(len(uinsts_list)):
-    uinsts_encoding[uinsts_list[i]] = 1 << i
 
-two_bytes_insts = [
-    "0011xxxx",
-    "01x1xxxx", 
-    "1010xxxx",
-    "10110xxx",
-    "101110xx",
-    "11xxxxxx"
-]
+with open("src/mini_2.1/uinst.txt", "r") as file:
+    text = file.read()
+    for line in text.splitlines():
+        (uinst, offset, value) = line.split()
+        offset = int(offset)
+        value = int(value)
+        uinsts_encoding[uinst] = value << offset
 
 uprograms_encoding = [_ for _ in range(256)]
 with open("src/mini_2.1/ucode.txt", "r") as file:
     text = file.read()
-    
     uprograms = []
     for line in text.splitlines():
         ls = line.split()
@@ -83,7 +53,7 @@ with open("src/mini_2.1/ucode.txt", "r") as file:
         uprograms_encoding[i] = encoding
     
     # for encoding in uprograms_encoding:
-    #     print(f"{encoding:032b}")
+    #     print(f"{encoding:016b}")
     
 # with open("src/mini_2.1/ucode.bin", "wb") as bin_file:
 #     for i in range(4):
@@ -91,7 +61,7 @@ with open("src/mini_2.1/ucode.txt", "r") as file:
 #             byte = (encoding >> (8 * i)) & 0xFF
 #             bin_file.write(byte.to_bytes(1, 'little'))
 
-for offset in range(3):
+for offset in range(2):
     with open(f"src/mini_2.1/ucode-{offset + 1}.bin", "wb") as bin_file:
         for i in range(256):
             encoding = uprograms_encoding[i]
