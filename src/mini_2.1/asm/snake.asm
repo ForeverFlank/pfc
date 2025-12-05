@@ -23,18 +23,23 @@ rng_addr = 0xfd
 matrix_data_addr = 0xfc
 matrix_ctrl_addr = 0xfd
 
-; generate x shift lookup
-imm a, 0x01
-imm b, 8
-gen_shift:
-    mov c, a
-    mov a, b
+; generate shift lookup and clear vbuf
+imm a, 8
+imm b, 0x01
+imm c, 0
+init_arr:
     sub 1
+    jn  init_arr_end
+    st  b, a
+    mov d, a
+    add vbuf_begin_addr
+    st  c, a
+    mov a, b
+    add a                   ; effectively shr
     mov b, a
-    mov a, c
-    st  a, b
-    add a
-    jnz gen_shift
+    mov a, d
+    jmp init_arr
+init_arr_end:
 
 ; init variables
 imm a, 4
@@ -44,7 +49,7 @@ imm a, 0x40
 st  a, head_ptr_addr
 
 imm a, 0b00011011
-st  a, snake_pos_begin_addr
+st  a, head_pos_addr
 
 gen_food:
     ld  a, rng_addr
