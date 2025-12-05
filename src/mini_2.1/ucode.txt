@@ -1,17 +1,21 @@
-0001xxxx halt
-0010xxxx wr_32  rd_10
-0011xxxx wr_32  rd_opnd                         len_2
+0000xxxx wr_32  rd_10
+0001xxxx wr_32  rd_opnd                 len_2
+00101xxx halt
+00110xxx jmp                            len_2
+00111xxx jmp_cond                       len_2
 0100xxxx wr_mem rd_32   addr_10
-0101xxxx wr_mem rd_32   addr_opnd               len_2
+0101xxxx wr_mem rd_32   addr_opnd       len_2
 0110xxxx wr_32  rd_mem  addr_10
-0111xxxx wr_32  rd_mem  addr_opnd               len_2
-1000xxxx wr_a   rd_10   alu     st_c    st_o
-10010xxx wr_a   rd_10   alu
-100110xx wr_a   rd_10   alu
-100111xx wr_a           alu     st_c
-1010xxxx wr_a   rd_opnd alu     st_c    st_o    len_2
-10110xxx wr_a   rd_opnd alu                     len_2
-101110xx wr_a   rd_opnd alu                     len_2
-101111xx wr_a           alu     st_c
-110xxxxx jmp                                    len_2
-111xxxxx jmp_cond                               len_2
+0111xxxx wr_32  rd_mem  addr_opnd       len_2
+1000xxxx wr_a   rd_10   alu st_c st_o
+1001xxxx wr_a   rd_opnd alu st_c st_o   len_2
+10100xxx wr_a   rd_10   alu
+101010xx wr_a   rd_10   alu
+101011xx wr_a           alu st_c
+10110xxx wr_a   rd_opnd alu             len_2
+101110xx wr_a   rd_opnd alu             len_2
+101111xx wr_a           alu st_c
+110001xx        rd_10   alu st_c st_o
+110101xx        rd_opnd alu st_c st_o   len_2
+111000xx        rd_10   alu
+111100xx        rd_opnd alu             len_2

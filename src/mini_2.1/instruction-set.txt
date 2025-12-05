@@ -1,7 +1,16 @@
-Mnemonic        Encoding            Description
-
-nop             0 0 0 0 x x x x     No operation
-halt            0 0 0 1 x x x x     Halt
-mov Rd  Rs      0 0 1 0 [Rd][Rs]    Rd <- Rs
-imm Rd  #imm    0 0 1 1 [Rd]x x     Rd <- #imm
+Mnemonic    Encoding    Flags   Description
+mov d s     0000ddss    ----    
+imm d #     0001ddxx #  ----
+nop         00100xxx    ----
+halt        00101xxx    ----
+jmp #       00110xxx #  ----
+jcc #       00111ccc #  ----
+st  s a     0100ssaa    ----
+st  s #     0101ssxx #  ----
+ld  d a     0110ddaa    ----
+ld  d #     0111ddxx #  ----
+add s       100000ss    ocnz
+sub s       100001ss    ocnz
+adc s       100010ss    ocnz
+sbb s       100011ss    ocnz
 ...

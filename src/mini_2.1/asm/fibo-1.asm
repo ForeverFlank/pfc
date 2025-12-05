@@ -12,9 +12,6 @@ loop:
     add b
     st  a, 1
     st  b, 0
-    mov c, b
-
-    sub b
-    jnn loop
+    jnc loop
 
 halt
