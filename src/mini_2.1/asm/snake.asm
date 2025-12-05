@@ -7,7 +7,7 @@
 ; rng               = 0xfd
 
 snake_dir_addr = 0x10
-snake_len_addr = 0x11
+head_ptr_addr  = 0x11
 food_pos_addr  = 0x12
 head_pos_addr  = 0x13
 tail_pos_addr  = 0x14
@@ -40,8 +40,8 @@ gen_shift:
 imm a, 4
 st  a, snake_dir_addr
 
-imm a, 1
-st  a, snake_len_addr
+imm a, 0x40
+st  a, head_ptr_addr
 
 imm a, 0b00011011
 st  a, snake_pos_begin_addr
@@ -78,10 +78,8 @@ btn_end:
     st  a, d                ; store row with added pixel
 
     ; move head
-    ld  a, snake_len_addr   ; load snake length
-    add 0x3f                ; shift to last element in array
+    ld  a, head_ptr_addr    ; load snake head ptr
     ld  c, a                ; load snake head pos
-    mov d, a                ; keep head address in register d
     ld  b, snake_dir_addr   ; load snake direction
     mov a, b
     and 1
@@ -126,12 +124,9 @@ move_end:
     ld  b, food_pos_addr
     cmp b
     jne food_not_eaten
-    ld  a, snake_len_addr
+    ld  a, head_ptr_addr    ; if eaten, increment head ptr
     add 1
-    st  a, snake_len_addr
-    mov a, d                ; increment head pos address in array
-    add 1
-    mov d, a
+    st  a, head_ptr_addr
     jmp gen_food
 gen_food_end:
 
@@ -149,14 +144,14 @@ shift:
     sub snake_pos_last_addr
     mov a, b
     jnz shift
-    
 store_head:
     ; store head pos
-    ld  b, head_pos_addr    ; load the moved head pos
-    st  b, d                ; store it at the end of pos array
+    ld  a, head_pos_addr    ; load the moved head pos to register b
+    ld  b, head_ptr_addr    ; load head ptr
+    st  a, b                ; store head pos at head ptr
 
     ; draw snake
-    mov a, b
+    mov b, a
     and 0b00111000          ; y pos
     shr                     ; >> 3
     shr
