@@ -11,7 +11,7 @@ def match_pattern(i, pattern):
 
 uinsts_encoding = {}
 
-with open("src/mini_2.1/uinst.txt", "r") as file:
+with open("src/mini_v3/uinst.txt", "r") as file:
     text = file.read()
     for line in text.splitlines():
         (uinst, offset, value) = line.split()
@@ -20,7 +20,7 @@ with open("src/mini_2.1/uinst.txt", "r") as file:
         uinsts_encoding[uinst] = value << offset
 
 uprograms_encoding = [_ for _ in range(256)]
-with open("src/mini_2.1/ucode.txt", "r") as file:
+with open("src/mini_v3/ucode.txt", "r") as file:
     text = file.read()
     uprograms = []
     for line in text.splitlines():
@@ -55,14 +55,21 @@ with open("src/mini_2.1/ucode.txt", "r") as file:
     # for encoding in uprograms_encoding:
     #     print(f"{encoding:016b}")
     
-# with open("src/mini_2.1/ucode.bin", "wb") as bin_file:
+# with open("src/mini_v3/ucode.bin", "wb") as bin_file:
 #     for i in range(4):
 #         for encoding in uprograms_encoding:
 #             byte = (encoding >> (8 * i)) & 0xFF
 #             bin_file.write(byte.to_bytes(1, 'little'))
 
+with open(f"src/mini_v3/ucode.bin", "wb") as bin_file:
+    for offset in range(2):
+        for i in range(256):
+            encoding = uprograms_encoding[i]
+            byte = (encoding >> (8 * offset)) & 0xFF
+            bin_file.write(byte.to_bytes(1, "little"))
+            
 for offset in range(2):
-    with open(f"src/mini_2.1/ucode-{offset + 1}.bin", "wb") as bin_file:
+    with open(f"src/mini_v3/ucode-{offset + 1}.bin", "wb") as bin_file:
         for i in range(256):
             encoding = uprograms_encoding[i]
             byte = (encoding >> (8 * offset)) & 0xFF
