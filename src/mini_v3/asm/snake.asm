@@ -133,7 +133,6 @@ move_end:
     add 1
     st  a, head_ptr_addr
     jmp gen_food
-gen_food_end:
 
 food_not_eaten:
     ; shift snake
@@ -149,7 +148,7 @@ shift:
     sub snake_pos_last_addr
     mov a, b
     jnz shift
-store_head:
+gen_food_end:
     ; store head pos
     ld  a, head_pos_addr    ; load the moved head pos to register b
     ld  b, head_ptr_addr    ; load head ptr
@@ -200,5 +199,3 @@ store_head:
     st  a, matrix_ctrl_addr
 
     jmp loop
-
-halt
