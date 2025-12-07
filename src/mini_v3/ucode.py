@@ -46,34 +46,12 @@ with open("src/mini_v3/ucode.txt", "r") as file:
                     suffix = ['a', 'b', 'c', 'd'][idx]
                     uinst = uinst[:-2] + suffix
                 encoding += uinsts_encoding[uinst]
-        
-        # if any(map(lambda p: match_pattern(i, p), two_bytes_insts)):
-            # encoding |= 1
-        
-        uprograms_encoding[i] = encoding
-    
-    # for encoding in uprograms_encoding:
-    #     print(f"{encoding:016b}")
-    
-# with open("src/mini_v3/ucode.bin", "wb") as bin_file:
-#     for i in range(4):
-#         for encoding in uprograms_encoding:
-#             byte = (encoding >> (8 * i)) & 0xFF
-#             bin_file.write(byte.to_bytes(1, 'little'))
 
-with open(f"src/mini_v3/ucode.bin", "wb") as bin_file:
-    for offset in range(2):
-        for i in range(256):
-            encoding = uprograms_encoding[i]
-            byte = (encoding >> (8 * offset)) & 0xFF
-            bin_file.write(byte.to_bytes(1, "little"))
-            
+        uprograms_encoding[i] = encoding
+
 for offset in range(2):
     with open(f"src/mini_v3/ucode-{offset + 1}.bin", "wb") as bin_file:
         for i in range(256):
             encoding = uprograms_encoding[i]
             byte = (encoding >> (8 * offset)) & 0xFF
             bin_file.write(byte.to_bytes(1, "little"))
-            # bin_file.write(f"{byte:02x} ")
-            # if i % 16 == 15:
-            #     bin_file.write("\n")
