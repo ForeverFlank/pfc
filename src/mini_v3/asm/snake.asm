@@ -120,8 +120,10 @@ gen_food_end:
     st  a                   ; store head pos at head ptr
 
     ; draw snake
+    mov a, b
+    add 1
+    mov c, a
     imm a, snake_pos_begin_addr
-    mov c, b
 draw_snake:
     mov b, a
     ld  d
