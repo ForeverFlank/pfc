@@ -8,24 +8,21 @@
 
 #ruledef
 {
+    nop                         => 0x00
     mov {rd: reg}, {rs: reg}    => 0x0 @ rd @ rs
     imm {rd: reg}, {val: i8}    => 0x1 @ rd @ 0b00 @ val
-    nop                         => 0x20
-    halt                        => 0x28
-
-    jmp {dest: i8}              => 0x30 @ dest
-    jz  {dest: i8}              => 0x38 @ dest
-    je  {dest: i8}              => 0x38 @ dest
-    jn  {dest: i8}              => 0x39 @ dest
-    jl  {dest: i8}              => 0x39 @ dest
-    jc  {dest: i8}              => 0x3a @ dest
-    jo  {dest: i8}              => 0x3b @ dest
-    jnz {dest: i8}              => 0x3c @ dest
-    jne {dest: i8}              => 0x3c @ dest
-    jnn {dest: i8}              => 0x3d @ dest
-    jge {dest: i8}              => 0x3d @ dest
-    jnc {dest: i8}              => 0x3e @ dest
-    jno {dest: i8}              => 0x3f @ dest
+    halt                        => 0x20
+    jz  {dest: i8}              => 0x30 @ dest
+    je  {dest: i8}              => 0x30 @ dest
+    jn  {dest: i8}              => 0x31 @ dest
+    jl  {dest: i8}              => 0x31 @ dest
+    jc  {dest: i8}              => 0x32 @ dest
+    jmp {dest: i8}              => 0x33 @ dest
+    jnz {dest: i8}              => 0x34 @ dest
+    jne {dest: i8}              => 0x34 @ dest
+    jnn {dest: i8}              => 0x35 @ dest
+    jge {dest: i8}              => 0x35 @ dest
+    jnc {dest: i8}              => 0x36 @ dest
 
     st  {rs: reg}               => 0x4 @ 0b00 @ rs
     st  {rs: reg}, {addr: i8}   => 0x5 @ 0b00 @ rs @ addr

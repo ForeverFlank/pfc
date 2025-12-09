@@ -13,9 +13,7 @@ rd_c        6   6
 rd_d        6   7
 rd_mem      6   1
 rd_opnd     6   2
-alu         11  1
-st_c        12  1
-st_o        13  1
-jmp         14  1
-jmp_cond    14  2
-halt        14  3
+alu         9   1
+st_c        10  1
+jmp         11  1
+halt        12  1
