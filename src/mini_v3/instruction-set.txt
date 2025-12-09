@@ -5,9 +5,9 @@ nop         00100xxx    ----
 halt        00101xxx    ----
 jmp #       00110xxx #  ----
 jcc #       00111ccc #  ----
-st  s a     0100ssaa    ----
-st  s #     0101ssxx #  ----
-ld  d a     0110ddaa    ----
+st  s       0100xxss    ----
+st  s #     0101xxss #  ----
+ld  d       0110ddxx    ----
 ld  d #     0111ddxx #  ----
 add s       100000ss    ocnz
 sub s       100001ss    ocnz

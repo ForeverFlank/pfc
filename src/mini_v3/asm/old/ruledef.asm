@@ -1,3 +1,8 @@
+; this is old version with "any register" addressing mode.
+
+; newer version hardwired register b as the only
+; addressable register to make hardware simpler.
+
 #ruledef reg
 {
     a => 0b00
@@ -27,9 +32,9 @@
     jnc {dest: i8}              => 0x3e @ dest
     jno {dest: i8}              => 0x3f @ dest
 
-    st  {rs: reg}               => 0x4 @ 0b00 @ rs
-    st  {rs: reg}, {addr: i8}   => 0x5 @ 0b00 @ rs @ addr
-    ld  {rd: reg}               => 0x6 @ rd @ 0b00
+    st  {rs: reg}, {ra: reg}    => 0x4 @ rs @ ra
+    st  {rs: reg}, {addr: i8}   => 0x5 @ rs @ 0b00 @ addr
+    ld  {rd: reg}, {ra: reg}    => 0x6 @ rd @ ra
     ld  {rd: reg}, {addr: i8}   => 0x7 @ rd @ 0b00 @ addr
 
     add {rs: reg}               => 0x8 @ 0b00 @ rs

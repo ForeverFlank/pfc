@@ -3,9 +3,9 @@
 00101xxx halt
 00110xxx jmp                                len_2
 00111xxx jmp_cond                           len_2
-0100xxxx wr_mem rd_32   addr_10     wr_mar
-0101xxxx wr_mem rd_32   addr_opnd   wr_mar  len_2
-0110xxxx wr_32  rd_mem  addr_10     wr_mar
+0100xxxx wr_mem rd_10   addr_b      wr_mar
+0101xxxx wr_mem rd_10   addr_opnd   wr_mar  len_2
+0110xxxx wr_32  rd_mem  addr_b      wr_mar
 0111xxxx wr_32  rd_mem  addr_opnd   wr_mar  len_2
 1000xxxx wr_a   rd_10   alu st_c st_o
 1001xxxx wr_a   rd_opnd alu st_c st_o       len_2
