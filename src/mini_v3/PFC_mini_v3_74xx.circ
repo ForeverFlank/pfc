@@ -5,7 +5,7 @@
   <lib desc="#Wiring" name="0">
     <tool name="Pin">
       <a name="appearance" val="classic"/>
-      <a name="facing" val="south"/>
+      <a name="facing" val="west"/>
     </tool>
     <tool name="Constant">
       <a name="facing" val="west"/>
@@ -809,19 +809,19 @@
     <comp lib="0" loc="(3120,1670)" name="Clock">
       <a name="appearance" val="NewPins"/>
     </comp>
-    <comp lib="0" loc="(320,770)" name="Tunnel">
+    <comp lib="0" loc="(320,810)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="Program_out"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(320,790)" name="Tunnel">
+    <comp lib="0" loc="(320,830)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="Opcode"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(350,810)" name="Tunnel">
+    <comp lib="0" loc="(350,850)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="n_Fetch_1"/>
       <a name="labelfont" val="SansSerif bold 10"/>
@@ -862,7 +862,7 @@
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(680,370)" name="Ground"/>
-    <comp lib="0" loc="(690,820)" name="Splitter">
+    <comp lib="0" loc="(690,860)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
       <a name="bit11" val="1"/>
@@ -885,7 +885,7 @@
     <comp lib="0" loc="(700,370)" name="Power">
       <a name="facing" val="south"/>
     </comp>
-    <comp lib="0" loc="(700,820)" name="Splitter">
+    <comp lib="0" loc="(700,860)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="bit10" val="6"/>
       <a name="bit11" val="7"/>
@@ -903,43 +903,43 @@
       <a name="incoming" val="16"/>
       <a name="spacing" val="2"/>
     </comp>
+    <comp lib="0" loc="(720,1010)" name="Tunnel">
+      <a name="label" val="JMP"/>
+      <a name="labelfont" val="SansSerif bold 10"/>
+    </comp>
+    <comp lib="0" loc="(720,1030)" name="Tunnel">
+      <a name="label" val="Halt"/>
+      <a name="labelfont" val="SansSerif bold 10"/>
+    </comp>
     <comp lib="0" loc="(720,570)" name="Ground"/>
-    <comp lib="0" loc="(720,830)" name="Tunnel">
+    <comp lib="0" loc="(720,870)" name="Tunnel">
       <a name="label" val="Length_2"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(720,850)" name="Tunnel">
+    <comp lib="0" loc="(720,890)" name="Tunnel">
       <a name="label" val="WR_MAR"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(720,870)" name="Tunnel">
+    <comp lib="0" loc="(720,910)" name="Tunnel">
       <a name="label" val="ADDR"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(720,890)" name="Tunnel">
+    <comp lib="0" loc="(720,930)" name="Tunnel">
       <a name="label" val="WR"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="3"/>
     </comp>
-    <comp lib="0" loc="(720,910)" name="Tunnel">
+    <comp lib="0" loc="(720,950)" name="Tunnel">
       <a name="label" val="RD"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="3"/>
     </comp>
-    <comp lib="0" loc="(720,930)" name="Tunnel">
+    <comp lib="0" loc="(720,970)" name="Tunnel">
       <a name="label" val="ALU_En_ROM"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(720,950)" name="Tunnel">
-      <a name="label" val="Set_CF_ROM"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-    </comp>
-    <comp lib="0" loc="(720,970)" name="Tunnel">
-      <a name="label" val="JMP"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-    </comp>
     <comp lib="0" loc="(720,990)" name="Tunnel">
-      <a name="label" val="Halt"/>
+      <a name="label" val="Set_CF_ROM"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(870,1000)" name="Tunnel">
@@ -1100,11 +1100,24 @@
     <comp lib="4" loc="(1520,270)" name="ROM">
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 8 8
-a8 50 0 50 1 50 3 10
-1 50 2 70 0 74 2 81
-51 0 50 2 8 70 1 74
-3 89 51 1 50 3 32 26
-52 fc 50 fd 33 b 20
+10 4 50 10 10 40 50 11
+10 1b 50 13 70 fd b0 3f
+50 12 33 70 70 fc d4 0
+30 1c 50 10 70 11 4 68
+74 10 1 b0 1 30 2c 2
+94 8 33 4b 1 b0 2 30
+36 2 90 8 33 4b 1 b0
+4 30 40 2 90 1 33 43
+2 94 1 b0 7 4 2 b0
+38 33 51 b0 38 4 2 b0
+7 a5 50 13 74 12 c5 34
+61 70 11 90 1 50 11 33
+c 10 40 18 1 82 4 6c
+86 4 43 82 d4 7f 34 65
+70 13 74 11 40 1 90 1
+8 10 40 4 6c 53 fe 90
+1 c6 31 7b 70 12 50 fe
+33 14
 </a>
       <a name="label" val="Program_Memory"/>
       <a name="labelvisible" val="true"/>
@@ -1131,7 +1144,7 @@ a8 50 0 50 1 50 3 10
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="16"/>
     </comp>
-    <comp lib="4" loc="(410,770)" name="ROM">
+    <comp lib="4" loc="(410,810)" name="ROM">
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 8 8
 20 60 a0 e0 28 68 a8 e8
@@ -1152,7 +1165,7 @@ a0 e0 20 60 a0 e0 16*a1 20
       <a name="label" val="uCode_ROM_1"/>
       <a name="labelvisible" val="true"/>
     </comp>
-    <comp lib="4" loc="(410,940)" name="ROM">
+    <comp lib="4" loc="(410,980)" name="ROM">
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 8 8
 16*1 16*0 16*10 16*8 32*1 32*0 16*7 16*6
@@ -1218,6 +1231,9 @@ a0 e0 20 60 a0 e0 16*a1 20
     <comp lib="6" loc="(2460,390)" name="7400"/>
     <comp lib="6" loc="(2500,970)" name="7400"/>
     <comp lib="6" loc="(2830,1190)" name="7404"/>
+    <comp lib="6" loc="(430,1370)" name="74161">
+      <a name="ShowInternalStructure" val="true"/>
+    </comp>
     <comp lib="6" loc="(440,540)" name="7410"/>
     <comp lib="6" loc="(590,340)" name="74138"/>
     <comp lib="6" loc="(590,540)" name="74151"/>
@@ -1260,7 +1276,7 @@ a0 e0 20 60 a0 e0 16*a1 20
     <comp loc="(1950,830)" name="Status_Flags_Module"/>
     <comp loc="(2640,1350)" name="LED_Matrix_Emulator"/>
     <comp loc="(3020,1460)" name="Bin_to_BCD_16"/>
-    <comp loc="(330,780)" name="Mux_2_to_1_8_bit_Module"/>
+    <comp loc="(330,820)" name="Mux_2_to_1_8_bit_Module"/>
     <comp loc="(400,340)" name="TTL_74175"/>
     <wire from="(1010,1100)" to="(1010,1130)"/>
     <wire from="(1010,1190)" to="(1010,1220)"/>
@@ -1713,16 +1729,16 @@ a0 e0 20 60 a0 e0 16*a1 20
     <wire from="(3100,1540)" to="(3100,1620)"/>
     <wire from="(3180,1630)" to="(3190,1630)"/>
     <wire from="(3190,1500)" to="(3190,1630)"/>
-    <wire from="(320,770)" to="(330,770)"/>
-    <wire from="(320,790)" to="(330,790)"/>
-    <wire from="(350,800)" to="(350,810)"/>
-    <wire from="(370,780)" to="(390,780)"/>
+    <wire from="(320,810)" to="(330,810)"/>
+    <wire from="(320,830)" to="(330,830)"/>
+    <wire from="(350,840)" to="(350,850)"/>
+    <wire from="(370,820)" to="(390,820)"/>
     <wire from="(380,290)" to="(380,600)"/>
     <wire from="(380,290)" to="(510,290)"/>
     <wire from="(380,600)" to="(510,600)"/>
-    <wire from="(390,780)" to="(390,950)"/>
-    <wire from="(390,780)" to="(410,780)"/>
-    <wire from="(390,950)" to="(410,950)"/>
+    <wire from="(390,820)" to="(390,990)"/>
+    <wire from="(390,820)" to="(410,820)"/>
+    <wire from="(390,990)" to="(410,990)"/>
     <wire from="(400,430)" to="(400,590)"/>
     <wire from="(400,430)" to="(430,430)"/>
     <wire from="(400,590)" to="(490,590)"/>
@@ -1778,8 +1794,8 @@ a0 e0 20 60 a0 e0 16*a1 20
     <wire from="(640,370)" to="(640,410)"/>
     <wire from="(640,410)" to="(740,410)"/>
     <wire from="(640,570)" to="(640,590)"/>
-    <wire from="(650,1000)" to="(670,1000)"/>
-    <wire from="(650,830)" to="(670,830)"/>
+    <wire from="(650,1040)" to="(670,1040)"/>
+    <wire from="(650,870)" to="(670,870)"/>
     <wire from="(660,500)" to="(660,510)"/>
     <wire from="(660,500)" to="(670,500)"/>
     <wire from="(660,570)" to="(660,590)"/>
@@ -1787,11 +1803,11 @@ a0 e0 20 60 a0 e0 16*a1 20
     <wire from="(670,490)" to="(670,500)"/>
     <wire from="(670,500)" to="(680,500)"/>
     <wire from="(670,590)" to="(670,600)"/>
-    <wire from="(670,850)" to="(670,1000)"/>
+    <wire from="(670,890)" to="(670,1040)"/>
     <wire from="(680,500)" to="(680,510)"/>
     <wire from="(680,570)" to="(680,590)"/>
     <wire from="(680,590)" to="(760,590)"/>
-    <wire from="(690,820)" to="(700,820)"/>
+    <wire from="(690,860)" to="(700,860)"/>
     <wire from="(700,270)" to="(700,310)"/>
     <wire from="(700,270)" to="(940,270)"/>
     <wire from="(700,430)" to="(700,510)"/>
@@ -3045,6 +3061,14 @@ a0 e0 20 60 a0 e0 16*a1 20
     <appear>
       <rect fill="none" height="90" stroke="#000000" stroke-width="2" width="100" x="50" y="50"/>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="100" y="64">Accumulator</text>
+      <visible-led height="10" path="/LED(480,540)" stroke-width="0" width="10" x="60" y="90"/>
+      <visible-led height="10" path="/LED(500,540)" stroke-width="0" width="10" x="70" y="90"/>
+      <visible-led height="10" path="/LED(520,540)" stroke-width="0" width="10" x="80" y="90"/>
+      <visible-led height="10" path="/LED(540,540)" stroke-width="0" width="10" x="90" y="90"/>
+      <visible-led height="10" path="/LED(560,540)" stroke-width="0" width="10" x="100" y="90"/>
+      <visible-led height="10" path="/LED(580,540)" stroke-width="0" width="10" x="110" y="90"/>
+      <visible-led height="10" path="/LED(600,540)" stroke-width="0" width="10" x="120" y="90"/>
+      <visible-led height="10" path="/LED(620,540)" stroke-width="0" width="10" x="130" y="90"/>
       <circ-anchor facing="east" x="50" y="60"/>
       <circ-port dir="in" pin="250,120" x="50" y="100"/>
       <circ-port dir="in" pin="250,240" x="50" y="60"/>
