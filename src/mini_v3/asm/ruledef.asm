@@ -44,7 +44,6 @@
     and {imm: i8}               => 0xb @ 0b0000 @ imm
     or  {imm: i8}               => 0xb @ 0b0100 @ imm
     xor {imm: i8}               => 0xb @ 0b1000 @ imm
-    ror                         => 0xb @ 0b1100
 
     cmp {rs: reg}               => 0xc @ 0b01 @ rs
     cmp {imm: i8}               => 0xd @ 0b0100 @ imm
