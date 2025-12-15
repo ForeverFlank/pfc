@@ -1,6 +1,6 @@
 def match_pattern(i, pattern):
     pattern = pattern[::-1]
-    for bit in range(8):
+    for bit in range(13):
         if pattern[bit] == 'x':
             continue
         if pattern[bit] == '0' and ((i >> bit) & 1) == 1:
@@ -10,48 +10,68 @@ def match_pattern(i, pattern):
     return True
 
 uinsts_encoding = {}
+uinsts_inv = {}
 
-with open("src/mini_v3/uinst.txt", "r") as file:
+with open("src/mini/uinst.txt", "r") as file:
     text = file.read()
+    offset = 0
+    
     for line in text.splitlines():
-        (uinst, offset, value) = line.split()
+        uinst = line.strip()
+        if uinst == "":
+            continue
+        
         offset = int(offset)
-        value = int(value)
-        uinsts_encoding[uinst] = value << offset
+        value = 1 << offset
+        
+        print(f"{uinst:16} = 1 << {offset}")
+        
+        if uinst[0] == "!":
+            uinst = uinst[1:]
+            uinsts_inv[uinst] = value            
+        uinsts_encoding[uinst] = value
+        offset += 1
 
-uprograms_encoding = [_ for _ in range(256)]
-with open("src/mini_v3/ucode.txt", "r") as file:
+uprograms_encoding = [_ for _ in range(8192)]
+with open("src/mini/ucode.txt", "r") as file:
     text = file.read()
     uprograms = []
     for line in text.splitlines():
+        line = line.strip()
+        if line == "":
+            continue
         ls = line.split()
         pattern = ls[0]
         uinsts = ls[1:]
         uprograms.append((pattern, uinsts))
     
-    
-    for i in range(256):
+    for i in range(8192):
         encoding = 0
         
-        for (pattern, uinsts) in uprograms:
-            if not match_pattern(i, pattern):
-                continue
+        uinsts = []
+        for (pattern, curr_uinsts) in uprograms:
+            if match_pattern(i, pattern):
+                uinsts = curr_uinsts
+                break
             
-            for uinst in uinsts:
-                if uinst[-2:] in ["10", "32"]:
-                    if uinst[-2:] == "10":
-                        idx = i & 0x03
-                    else:
-                        idx = (i & 0x0c) >> 2
-                    suffix = ['a', 'b', 'c', 'd'][idx]
-                    uinst = uinst[:-2] + suffix
-                encoding += uinsts_encoding[uinst]
-
+        for uinst in uinsts:
+            if uinst[-2:] in ["10", "32"]:
+                if uinst[-2:] == "10":
+                    idx = i & 0x03
+                else:
+                    idx = (i & 0x0c) >> 2
+                suffix = ['a', 'b', 'c', 'd'][idx]
+                uinst = uinst[:-2] + suffix
+            encoding |= uinsts_encoding[uinst]
+        
+        for value in uinsts_inv.values():
+            encoding ^= value
+            
         uprograms_encoding[i] = encoding
 
-for offset in range(2):
-    with open(f"src/mini_v3/ucode-{offset + 1}.bin", "wb") as bin_file:
-        for i in range(256):
+for offset in range(3):
+    with open(f"src/mini/ucode-{offset + 1}.bin", "wb") as bin_file:
+        for i in range(8192):
             encoding = uprograms_encoding[i]
             byte = (encoding >> (8 * offset)) & 0xFF
             bin_file.write(byte.to_bytes(1, "little"))

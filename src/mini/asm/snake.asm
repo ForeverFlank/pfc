@@ -23,15 +23,16 @@ rng_addr = 0xfd
 matrix_data_addr = 0xfc
 matrix_ctrl_addr = 0xfd
 
-; init variables
-imm a, 4
-st  a, snake_dir_addr
+start:
+    ; init variables
+    imm a, 4
+    st  a, snake_dir_addr
 
-imm a, 0x40
-st  a, head_ptr_addr
+    imm a, 0x40
+    st  a, head_ptr_addr
 
-imm a, 0b00011011
-st  a, head_pos_addr
+    imm a, 0b00011011
+    st  a, head_pos_addr
 
 gen_food:
     ld  a, rng_addr

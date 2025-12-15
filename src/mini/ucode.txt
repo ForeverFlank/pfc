@@ -1,28 +1,57 @@
-0000xxxx wr_32  rd_10
-0001xxxx wr_32  rd_opnd
-0010xxxx halt
-0011xxxx jmp
-0100xxxx wr_mem rd_10   addr_b
-0101xxxx wr_mem rd_10   addr_opnd
-0110xxxx wr_32  rd_mem  addr_b
-0111xxxx wr_32  rd_mem  addr_opnd
-100000xx wr_a   rd_10   alu st_c
-100001xx wr_a   rd_10   alu st_c    alu_sub         
-100010xx wr_a   rd_10   alu st_c    alu_adc_sbb
-100011xx wr_a   rd_10   alu st_c    alu_adc_sbb
-101000xx wr_a   rd_10   alu
-101001xx wr_a   rd_10   alu
-101010xx wr_a   rd_10   alu
-101011xx wr_a           alu st_c    alu_shr
-100100xx wr_a   rd_opnd alu st_c
-100101xx wr_a   rd_opnd alu st_c    alu_sub
-100110xx wr_a   rd_opnd alu st_c    alu_adc_sbb
-100111xx wr_a   rd_opnd alu st_c    alu_adc_sbb
-101100xx wr_a   rd_opnd alu
-101101xx wr_a   rd_opnd alu
-101110xx wr_a   rd_opnd alu
-101111xx wr_a           alu st_c    alu_shr
-110001xx        rd_10   alu st_c    alu_sub
-110101xx        rd_opnd alu st_c    alu_sub
-111000xx        rd_10   alu
-111100xx        rd_opnd alu
+00xxxxxxxxxxx   inc_pc
+
+01xxx0001xxxx   inc_pc
+01xxx001xx1xx   inc_pc
+01xxx010xx1xx   inc_pc
+01xxx0110xxxx   inc_pc
+01xxx1xxxx1xx   inc_pc
+
+10xxx001xx0xx
+10xxx001xx1xx   addr_opnd
+
+11xxx0000xxxx   wr_32   rd_10
+11xxx0001xxxx   wr_10   rd_opnd
+11xxx0010x0xx   wr_mem  rd_10
+11xxx0010x1xx   wr_mem  rd_10
+11xxx0011x0xx   wr_10   rd_mem
+11xxx0011x1xx   wr_10   rd_mem
+
+11xxx0100x0xx           rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b
+11xxx0101x0xx           rd_10   alu_en
+
+11xxx0100x1xx           rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b
+11xxx0101x1xx           rd_opnd alu_en
+
+11xxx01100xxx   jmp_en
+11xx101101000   jmp_en
+11x1x01101001   jmp_en
+111xx01101010   jmp_en
+11xx101101011   jmp_en
+11x1x01101011   jmp_en
+11xx001101100   jmp_en
+11x0x01101101   jmp_en
+110xx01101110   jmp_en
+11x0001101111   jmp_en
+
+11xxx0111xxxx   halt
+
+11xxx1000x0xx   wr_a    rd_10   alu_en  alu_sel_adder
+11xxx1001x0xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b
+110xx1010x0xx   wr_a    rd_10   alu_en  alu_sel_adder
+111xx1010x0xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin
+110xx1011x0xx   wr_a    rd_10   alu_en  alu_sel_adder           alu_inv_b
+111xx1011x0xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b
+11xxx1100x0xx   wr_a    rd_10   alu_en
+11xxx1101x0xx   wr_a    rd_10   alu_en          alu_s0
+11xxx1110x0xx   wr_a    rd_10   alu_en  alu_s1
+11xxx1111xxxx   wr_a    rd_10   alu_en  alu_s1  alu_s0  alu_shr
+
+11xxx1000x1xx   wr_a    rd_opnd alu_en  alu_sel_adder
+11xxx1001x1xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b
+110xx1010x1xx   wr_a    rd_opnd alu_en  alu_sel_adder
+111xx1010x1xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin
+110xx1011x1xx   wr_a    rd_opnd alu_en  alu_sel_adder           alu_inv_b
+111xx1011x1xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b
+11xxx1100x1xx   wr_a    rd_opnd alu_en
+11xxx1101x1xx   wr_a    rd_opnd alu_en          alu_s0
+11xxx1110x1xx   wr_a    rd_opnd alu_en  alu_s1

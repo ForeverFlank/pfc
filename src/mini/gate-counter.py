@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from collections import Counter
 
 # Load XML
-tree = ET.parse("src/mini_v3/PFC_mini_v3_74xx.circ")
+tree = ET.parse("src/mini/PFC_mini_74xx.circ")
 root = tree.getroot()
 
 # ------------------------------------------------------------
@@ -92,7 +92,7 @@ print("\n=== FINAL total 74xx counts (expanded) ===")
 keys = list(expanded_74xx.keys())
 keys.sort(key=lambda x: int(x))
 for part in keys:
-    print(f"  {part}, {expanded_74xx[part]}")
+    print(f"  {part} {expanded_74xx[part]}")
     
 # for part, cnt in expanded_74xx.items():
 #     print(f"  {part}: {cnt}")

@@ -1,20 +1,26 @@
-wr_a        0   4   
-wr_b        0   5
-wr_c        0   6
-wr_d        0   7
-wr_mem      0   1
-rd_a        3   4
-rd_b        3   5
-rd_c        3   6
-rd_d        3   7
-rd_mem      3   1
-rd_opnd     3   2
-addr_b      6   0
-addr_opnd   6   1
-alu         7   1
-st_c        8   1 
-alu_sub     9   1
-alu_adc_sbb 10  1
-alu_shr     11  1
-jmp         12  1
-halt        13  1
+inc_pc
+!jmp_en
+halt
+
+!wr_a
+!wr_b
+!wr_c
+!wr_d
+!wr_mem
+
+!rd_a
+!rd_b
+!rd_c
+!rd_d
+!rd_mem
+!rd_opnd
+
+addr_opnd
+
+!alu_en
+alu_cin
+alu_inv_b
+alu_sel_adder
+alu_s0
+alu_s1
+alu_shr
