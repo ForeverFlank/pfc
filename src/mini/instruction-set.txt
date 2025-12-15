@@ -1,22 +1,16 @@
-Mnemonic        Encoding            Description
-
-mov Rd  Rs      0 0 0 0 [Rd][Rs]    Rd <- Rs
-in  Rd  Ps      0 0 0 1 [Rd][Ps]    Rd <- Ps
-out Pd  Rs      0 0 1 0 [Pd][Rs]    Pd <- Rs
-iml RA  imm     0 1 0 0 [imm   ]    RA[3:0] <- imm
-iml RB  imm     0 1 0 1 [imm   ]    RB[3:0] <- imm
-imh RA  imm     0 1 1 0 [imm   ]    RA[7:4] <- imm
-imh RB  imm     0 1 1 1 [imm   ]    RB[7:4] <- imm
-and     Rs      1 0 0 0 0 0 [Rs]    RA <- RA & Rs
-or      Rs      1 0 0 0 0 1 [Rs]    RA <- RA | Rs
-xor     Rs      1 0 0 0 1 0 [Rs]    RA <- RA ^ Rs
-shr     Rs      1 0 0 0 1 1 x x     RA <- RA >> 1
-add     Rs      1 0 0 1 0 0 [Rs]    RA <- RA + Rs
-sub     Rs      1 0 0 1 0 1 [Rs]    RA <- RA - Rs
-adc     Rs      1 0 0 1 1 0 [Rs]    RA <- RA + Rs + CF
-sbc     Rs      1 0 0 1 1 1 [Rs]    RA <- RA - Rs + CF - 1
-st      Rs      1 0 1 0 x x [Rs]    Memory[RB] <- Rs
-ld  Rd          1 0 1 1 [Rd]x x     Rd <- Memory[RB]
-hlt             1 0 1 1 1 1 1 1     Halt
-jnz dest        1 1 [dest      ]    RC <- dest << 2
-
+Mnemonic    Encoding    Flags   Description
+mov d s     0000ddss    ----    
+imm d #     0001ddxx #  ----
+nop         00100xxx    ----
+halt        00101xxx    ----
+jmp #       00110xxx #  ----
+jcc #       00111ccc #  ----
+st  s       0100xxss    ----
+st  s #     0101xxss #  ----
+ld  d       0110ddxx    ----
+ld  d #     0111ddxx #  ----
+add s       100000ss    ocnz
+sub s       100001ss    ocnz
+adc s       100010ss    ocnz
+sbb s       100011ss    ocnz
+...

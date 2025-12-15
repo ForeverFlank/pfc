@@ -59,24 +59,38 @@
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="8000.0"/>
-    <comp lib="0" loc="(550,500)" name="Clock">
+    <comp lib="0" loc="(1170,570)" name="Clock">
       <a name="appearance" val="NewPins"/>
     </comp>
-    <comp lib="4" loc="(1240,430)" name="Register">
-      <a name="appearance" val="logisim_evolution"/>
-      <a name="label" val="MEM_WB"/>
+    <comp lib="0" loc="(1470,570)" name="Clock">
+      <a name="appearance" val="NewPins"/>
     </comp>
-    <comp lib="4" loc="(550,430)" name="Register">
-      <a name="appearance" val="logisim_evolution"/>
-      <a name="label" val="IF_ID"/>
+    <comp lib="0" loc="(1760,570)" name="Clock">
+      <a name="appearance" val="NewPins"/>
     </comp>
-    <comp lib="4" loc="(740,430)" name="Register">
+    <comp lib="0" loc="(650,570)" name="Clock">
+      <a name="appearance" val="NewPins"/>
+    </comp>
+    <comp lib="4" loc="(1170,500)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
       <a name="label" val="ID_EX"/>
     </comp>
-    <comp lib="4" loc="(970,430)" name="Register">
+    <comp lib="4" loc="(1470,500)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
       <a name="label" val="EX_MEM"/>
+    </comp>
+    <comp lib="4" loc="(1760,500)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="MEM_WB"/>
+    </comp>
+    <comp lib="4" loc="(650,500)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="label" val="IF_ID"/>
+    </comp>
+    <comp lib="4" loc="(800,480)" name="ROM">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="uCode"/>
+      <a name="labelvisible" val="true"/>
     </comp>
   </circuit>
 </project>
