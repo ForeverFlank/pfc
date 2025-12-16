@@ -1,6 +1,6 @@
 inc_pc
 !jmp_en
-halt
+!halt
 
 !wr_a
 !wr_b

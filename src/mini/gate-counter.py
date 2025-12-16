@@ -3,13 +3,9 @@
 import xml.etree.ElementTree as ET
 from collections import Counter
 
-# Load XML
 tree = ET.parse("src/mini/PFC_mini_74xx.circ")
 root = tree.getroot()
 
-# ------------------------------------------------------------
-# Helper: extract the name of the circuit, return Counter of 74xx parts
-# ------------------------------------------------------------
 def count_74xx_in_circuit(circuit_element):
     counter = Counter()
     for comp in circuit_element.iter("comp"):
@@ -19,31 +15,23 @@ def count_74xx_in_circuit(circuit_element):
         if name.startswith("TTL_"):
             name = name[4:]
             counter[name] += 1
+        if name.startswith("CD"):
+            name = name[2:]
+            counter[name] += 1
     return counter
 
-# ------------------------------------------------------------
-# Find all circuits
-# ------------------------------------------------------------
-circuits = {}  # maps circuit name → circuit XML element
+circuits = {}
 
 for circuit in root.iter("circuit"):
     cname = circuit.get("name")
     circuits[cname] = circuit
 
-# Extract main circuit
 main = circuits.get("main")
 if main is None:
     raise RuntimeError("No main circuit found.")
 
-# ------------------------------------------------------------
-# Count 74xx parts in MAIN
-# ------------------------------------------------------------
 main_74xx = count_74xx_in_circuit(main)
 
-# ------------------------------------------------------------
-# Count how many <comp name="Module"> appear inside main
-# i.e. number of sub-circuit instances
-# ------------------------------------------------------------
 subcircuit_instance_counts = Counter()
 
 for comp in main.iter("comp"):
@@ -51,48 +39,34 @@ for comp in main.iter("comp"):
     if name in circuits and name != "main":
         subcircuit_instance_counts[name] += 1
 
-# ------------------------------------------------------------
-# Count 74xx parts inside each sub-circuit (not main)
-# ------------------------------------------------------------
 subcircuits_74xx = {
     cname: count_74xx_in_circuit(circ)
     for cname, circ in circuits.items()
     if cname != "main"
 }
 
-# ------------------------------------------------------------
-# Multiply each subcircuit's 74xx counts
-# by number of times the subcircuit is instantiated in main
-# ------------------------------------------------------------
-expanded_74xx = Counter(main_74xx)  # start with main's parts
+expanded_74xx = Counter(main_74xx)
 
 for cname, instance_count in subcircuit_instance_counts.items():
     for part, cnt in subcircuits_74xx[cname].items():
         expanded_74xx[part] += cnt * instance_count
 
-# ------------------------------------------------------------
-# Output results
-# ------------------------------------------------------------
-print("=== 74xx inside MAIN circuit ===")
+print("74xx inside MAIN circuit")
 for part, cnt in main_74xx.items():
     print(f"  {part}: {cnt}")
 
-print("\n=== Subcircuit instance counts inside MAIN ===")
+print("\nSubcircuit instance counts inside MAIN")
 for cname, cnt in subcircuit_instance_counts.items():
     print(f"  {cname}: {cnt}")
 
-print("\n=== 74xx inside each subcircuit (one instance) ===")
+print("\n74xx inside each subcircuit (one instance)")
 for cname, counter in subcircuits_74xx.items():
     print(f"  {cname}:")
     for part, cnt in counter.items():
         print(f"    {part}: {cnt}")
 
-print("\n=== FINAL total 74xx counts (expanded) ===")
-# lines below is written by me
+print("\nFINAL total 74xx counts (expanded)")
 keys = list(expanded_74xx.keys())
 keys.sort(key=lambda x: int(x))
 for part in keys:
-    print(f"  {part} {expanded_74xx[part]}")
-    
-# for part, cnt in expanded_74xx.items():
-#     print(f"  {part}: {cnt}")
+    print(f"  {part}, {expanded_74xx[part]}")
