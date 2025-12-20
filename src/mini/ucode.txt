@@ -38,18 +38,16 @@
 01xxx101000xx   wr_a    rd_10   alu_en                                      // and
 01xxx101010xx   wr_a    rd_10   alu_en          alu_s0                      // or
 01xxx101100xx   wr_a    rd_10   alu_en  alu_s1                              // xor
-01xxx10111xxx   wr_a            alu_en  alu_s1                              // not
+01xxx10111xxx   wr_a            alu_en  alu_s1                  alu_inv_b   // not
 01xxx11000xxx   wr_a    rd_a    alu_en  alu_sel_adder                       // shl
-010xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder                       // rol  CF=0
-011xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder   alu_cin             //      CF=1
+010xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder           alu_shr     // rol  CF=0
+011xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder   alu_cin alu_shr     //      CF=1
 01xxx11010xxx   wr_a            alu_en  alu_s1  alu_s0          alu_shr     // shr
 010xx11011xxx   wr_a            alu_en  alu_s1  alu_s0          alu_shr     // ror  CF=0
 011xx11011xxx   wr_a            alu_en  alu_s1  alu_s0  alu_cin alu_shr     //      CF=1
 
 01xxx111000xx           rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   // cmp
-01xxx111001xx           rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b   // cmp #
 01xxx111010xx           rd_10   alu_en                                      // tst
-01xxx111011xx           rd_opnd alu_en                                      // tst #
 
 // immediate operand ALU operations
 01xxx100001xx   wr_a    rd_opnd alu_en  alu_sel_adder
@@ -61,6 +59,9 @@
 01xxx101001xx   wr_a    rd_opnd alu_en 
 01xxx101011xx   wr_a    rd_opnd alu_en          alu_s0
 01xxx101101xx   wr_a    rd_opnd alu_en  alu_s1
+
+01xxx111001xx           rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b
+01xxx111011xx           rd_opnd alu_en
 
 // ----- state 2 -----
 

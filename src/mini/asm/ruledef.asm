@@ -48,7 +48,7 @@
     or  {imm: i8}               => 0xa @ 0b1100 @ imm
     xor {rs: reg}               => 0xb @ 0b00 @ rs
     xor {imm: i8}               => 0xb @ 0b0100 @ imm
-    not {rs: reg}               => 0xb8
+    not                         => 0xb8
     shl                         => 0xc0
     rol                         => 0xc8
     shr                         => 0xd0
