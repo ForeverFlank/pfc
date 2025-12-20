@@ -88,24 +88,7 @@
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(1120,440)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="B"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-      <a name="width" val="8"/>
-    </comp>
-    <comp lib="0" loc="(1120,460)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="Operand"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-      <a name="width" val="8"/>
-    </comp>
-    <comp lib="0" loc="(1150,480)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="label" val="Addr_opnd"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-    </comp>
-    <comp lib="0" loc="(1180,450)" name="Tunnel">
+    <comp lib="0" loc="(1090,590)" name="Tunnel">
       <a name="label" val="Address_bus"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
@@ -587,34 +570,30 @@
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(590,1040)" name="Tunnel">
-      <a name="label" val="Addr_opnd"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-    </comp>
-    <comp lib="0" loc="(590,1060)" name="Tunnel">
       <a name="label" val="n_ALU_en"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(590,1090)" name="Tunnel">
+    <comp lib="0" loc="(590,1060)" name="Tunnel">
       <a name="label" val="ALU_Cin"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(590,1110)" name="Tunnel">
+    <comp lib="0" loc="(590,1090)" name="Tunnel">
       <a name="label" val="ALU_inv_B"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(590,1130)" name="Tunnel">
+    <comp lib="0" loc="(590,1110)" name="Tunnel">
       <a name="label" val="ALU_sel_adder"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(590,1150)" name="Tunnel">
+    <comp lib="0" loc="(590,1130)" name="Tunnel">
       <a name="label" val="ALU_s0"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(590,1170)" name="Tunnel">
+    <comp lib="0" loc="(590,1150)" name="Tunnel">
       <a name="label" val="ALU_s1"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(590,1190)" name="Tunnel">
+    <comp lib="0" loc="(590,1170)" name="Tunnel">
       <a name="label" val="ALU_shr"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
@@ -854,17 +833,15 @@
       <a name="addrWidth" val="13"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 13 8
-6272*0 16*4 8*7 8*6 8*0 8*8 16*10 16*4
-16*38 8*7 152*0 16*4 8*7 8*6 8*0 8*8
-16*10 16*4 16*38 8*7 152*0 16*4 8*7 8*6
-8*0 8*8 16*10 16*4 16*38 8*7 152*0 16*4
-8*7 8*6 8*0 8*8 16*10 16*4 16*38 8*7
-152*0 8*4 8*5 16*7 8*0 8*8 16*10 8*4
-8*5 8*38 8*39 8*7 152*0 8*4 8*5 16*7
-8*0 8*8 16*10 8*4 8*5 8*38 8*39 8*7
-152*0 8*4 8*5 16*7 8*0 8*8 16*10 8*4
-8*5 8*38 8*39 8*7 152*0 8*4 8*5 16*7
-8*0 8*8 16*10 8*4 8*5 8*38 8*39 8*7
+6272*0 16*2 16*3 8*0 8*4 16*8 16*2 16*1c
+8*3 152*0 16*2 16*3 8*0 8*4 16*8 16*2
+16*1c 8*3 152*0 16*2 16*3 8*0 8*4 16*8
+16*2 16*1c 8*3 152*0 16*2 16*3 8*0 8*4
+16*8 16*2 16*1c 8*3 152*0 16*2 16*3 8*0
+8*4 16*8 16*2 16*1c 8*3 152*0 16*2 16*3
+8*0 8*4 16*8 16*2 16*1c 8*3 152*0 16*2
+16*3 8*0 8*4 16*8 16*2 16*1c 8*3 152*0
+16*2 16*3 8*0 8*4 16*8 16*2 16*1c 8*3
 </a>
       <a name="label" val="uCode_ROM_3"/>
       <a name="labelvisible" val="true"/>
@@ -977,99 +954,101 @@ f6 ee de be 8*fc 8*fe 4*fc 4*fe
       <a name="addrWidth" val="13"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 13 8
-4164*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
-192*bf be bd bb b7 be bd bb
-b7 be bd bb b7 be bd bb
-b7 16*9f be bd bb b7 be bd
-bb b7 be bd bb b7 be bd
-bb b7 16*af 32*bf 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
+4160*7f 4*7d 4*5f 4*7d 4*5f 4*7d 4*5f 4*7d
+4*5f 224*7f 4*7d 4*5f 4*7d 4*5f 4*7d 4*5f
+4*7d 4*5f 224*7f 4*7d 4*5f 4*7d 4*5f 4*7d
+4*5f 4*7d 4*5f 224*7f 4*7d 4*5f 4*7d 4*5f
+4*7d 4*5f 4*7d 4*5f 224*7f 4*7d 4*5f 4*7d
+4*5f 4*7d 4*5f 4*7d 4*5f 224*7f 4*7d 4*5f
+4*7d 4*5f 4*7d 4*5f 4*7d 4*5f 224*7f 4*7d
+4*5f 4*7d 4*5f 4*7d 4*5f 4*7d 4*5f 224*7f
+4*7d 4*5f 4*7d 4*5f 4*7d 4*5f 4*7d 4*5f
+192*7f 7e 7d 7b 77 7e 7d 7b
+77 7e 7d 7b 77 7e 7d 7b
+77 16*5f 7e 7d 7b 77 7e 7d
+7b 77 7e 7d 7b 77 7e 7d
+7b 77 16*6f 32*7f 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f be bd
+bb b7 4*9f 3e 3d 3b 37 4*1f
 3e 3d 3b 37 4*1f 3e 3d 3b
 37 4*1f 3e 3d 3b 37 4*1f 8*3f
-16*3e 16*3f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 48*bf be bd bb
-b7 be bd bb b7 be bd bb
-b7 be bd bb b7 16*9f be bd
-bb b7 be bd bb b7 be bd
-bb b7 be bd bb b7 16*af 32*bf
+16*3e 16*3f be bd bb b7 4*9f 3e
+3d 3b 37 4*1f 48*7f 7e 7d 7b
+77 7e 7d 7b 77 7e 7d 7b
+77 7e 7d 7b 77 16*5f 7e 7d
+7b 77 7e 7d 7b 77 7e 7d
+7b 77 7e 7d 7b 77 16*6f 32*7f
 3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
+37 4*1f be bd bb b7 4*9f 3e
 3d 3b 37 4*1f 3e 3d 3b 37
 4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-48*bf be bd bb b7 be bd bb
-b7 be bd bb b7 be bd bb
-b7 16*9f be bd bb b7 be bd
-bb b7 be bd bb b7 be bd
-bb b7 16*af 32*bf 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
+3b 37 4*1f 8*3f 16*3e 16*3f be bd
+bb b7 4*9f 3e 3d 3b 37 4*1f
+48*7f 7e 7d 7b 77 7e 7d 7b
+77 7e 7d 7b 77 7e 7d 7b
+77 16*5f 7e 7d 7b 77 7e 7d
+7b 77 7e 7d 7b 77 7e 7d
+7b 77 16*6f 32*7f 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f be bd
+bb b7 4*9f 3e 3d 3b 37 4*1f
 3e 3d 3b 37 4*1f 3e 3d 3b
 37 4*1f 3e 3d 3b 37 4*1f 8*3f
-16*3e 16*3f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 48*bf be bd bb
-b7 be bd bb b7 be bd bb
-b7 be bd bb b7 16*9f be bd
-bb b7 be bd bb b7 be bd
-bb b7 be bd bb b7 16*af 32*bf
+16*3e 16*3f be bd bb b7 4*9f 3e
+3d 3b 37 4*1f 48*7f 7e 7d 7b
+77 7e 7d 7b 77 7e 7d 7b
+77 7e 7d 7b 77 16*5f 7e 7d
+7b 77 7e 7d 7b 77 7e 7d
+7b 77 7e 7d 7b 77 16*6f 32*7f
 3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
+37 4*1f be bd bb b7 4*9f 3e
 3d 3b 37 4*1f 3e 3d 3b 37
 4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-48*bf be bd bb b7 be bd bb
-b7 be bd bb b7 be bd bb
-b7 16*9f be bd bb b7 be bd
-bb b7 be bd bb b7 be bd
-bb b7 16*af 32*bf 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
+3b 37 4*1f 8*3f 16*3e 16*3f be bd
+bb b7 4*9f 3e 3d 3b 37 4*1f
+48*7f 7e 7d 7b 77 7e 7d 7b
+77 7e 7d 7b 77 7e 7d 7b
+77 16*5f 7e 7d 7b 77 7e 7d
+7b 77 7e 7d 7b 77 7e 7d
+7b 77 16*6f 32*7f 3e 3d 3b 37
+4*1f be bd bb b7 4*9f be bd
+bb b7 4*9f be bd bb b7 4*9f
 3e 3d 3b 37 4*1f 3e 3d 3b
 37 4*1f 3e 3d 3b 37 4*1f 8*3f
-16*3e 16*3f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 48*bf be bd bb
-b7 be bd bb b7 be bd bb
-b7 be bd bb b7 16*9f be bd
-bb b7 be bd bb b7 be bd
-bb b7 be bd bb b7 16*af 32*bf
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
+8*3e 8*be 8*3f 8*bf be bd bb b7
+4*9f 3e 3d 3b 37 4*1f 48*7f 7e
+7d 7b 77 7e 7d 7b 77 7e
+7d 7b 77 7e 7d 7b 77 16*5f
+7e 7d 7b 77 7e 7d 7b 77
+7e 7d 7b 77 7e 7d 7b 77
+16*6f 32*7f 3e 3d 3b 37 4*1f be
+bd bb b7 4*9f be bd bb b7
+4*9f be bd bb b7 4*9f 3e 3d
+3b 37 4*1f 3e 3d 3b 37 4*1f
+3e 3d 3b 37 4*1f 8*3f 8*3e 8*be
+8*3f 8*bf be bd bb b7 4*9f 3e
+3d 3b 37 4*1f 48*7f 7e 7d 7b
+77 7e 7d 7b 77 7e 7d 7b
+77 7e 7d 7b 77 16*5f 7e 7d
+7b 77 7e 7d 7b 77 7e 7d
+7b 77 7e 7d 7b 77 16*6f 32*7f
+3e 3d 3b 37 4*1f be bd bb
+b7 4*9f be bd bb b7 4*9f be
+bd bb b7 4*9f 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 8*3f 8*3e 8*be 8*3f 8*bf
+be bd bb b7 4*9f 3e 3d 3b
+37 4*1f 48*7f 7e 7d 7b 77 7e
+7d 7b 77 7e 7d 7b 77 7e
+7d 7b 77 16*5f 7e 7d 7b 77
+7e 7d 7b 77 7e 7d 7b 77
+7e 7d 7b 77 16*6f 32*7f 3e 3d
+3b 37 4*1f be bd bb b7 4*9f
+be bd bb b7 4*9f be bd bb
+b7 4*9f 3e 3d 3b 37 4*1f 3e
 3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-48*bf be bd bb b7 be bd bb
-b7 be bd bb b7 be bd bb
-b7 16*9f be bd bb b7 be bd
-bb b7 be bd bb b7 be bd
-bb b7 16*af 32*bf 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 8*3f
-16*3e 16*3f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 48*bf be bd bb
-b7 be bd bb b7 be bd bb
-b7 be bd bb b7 16*9f be bd
-bb b7 be bd bb b7 be bd
-bb b7 be bd bb b7 16*af 32*bf
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-16*bf
+4*1f 8*3f 8*3e 8*be 8*3f 8*bf be bd
+bb b7 4*9f 3e 3d 3b 37 4*1f
+16*7f
 </a>
       <a name="label" val="uCode_ROM_2"/>
       <a name="labelvisible" val="true"/>
@@ -1152,7 +1131,6 @@ c 30 40 32 1 82 24 53
     <comp loc="(1040,690)" name="Mux_2_to_1_8_bit_Module">
       <a name="facing" val="west"/>
     </comp>
-    <comp loc="(1130,450)" name="Mux_2_to_1_8_bit_Module"/>
     <comp loc="(1310,360)" name="Register_Module">
       <a name="label" val="MAR"/>
     </comp>
@@ -1205,16 +1183,13 @@ c 30 40 32 1 82 24 53
     <wire from="(1070,1140)" to="(1070,1160)"/>
     <wire from="(1070,580)" to="(1070,590)"/>
     <wire from="(1070,590)" to="(1070,680)"/>
+    <wire from="(1070,590)" to="(1090,590)"/>
     <wire from="(1070,680)" to="(1070,750)"/>
     <wire from="(1070,750)" to="(1070,820)"/>
     <wire from="(1070,750)" to="(1310,750)"/>
     <wire from="(1070,820)" to="(1070,880)"/>
     <wire from="(1070,880)" to="(1070,950)"/>
     <wire from="(1070,950)" to="(1070,1010)"/>
-    <wire from="(1120,440)" to="(1130,440)"/>
-    <wire from="(1120,460)" to="(1130,460)"/>
-    <wire from="(1150,470)" to="(1150,480)"/>
-    <wire from="(1170,450)" to="(1180,450)"/>
     <wire from="(1190,1540)" to="(1200,1540)"/>
     <wire from="(1190,1570)" to="(1350,1570)"/>
     <wire from="(1190,1590)" to="(1330,1590)"/>

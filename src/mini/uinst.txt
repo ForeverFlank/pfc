@@ -15,8 +15,6 @@ inc_pc
 !rd_mem
 !rd_opnd
 
-addr_opnd
-
 !alu_en
 alu_cin
 alu_inv_b
