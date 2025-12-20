@@ -37,6 +37,7 @@ with open("src/mini/ucode.txt", "r") as file:
     text = file.read()
     uprograms = []
     for line in text.splitlines():
+        line = line.split("//", 1)[0]
         line = line.strip()
         if line == "":
             continue

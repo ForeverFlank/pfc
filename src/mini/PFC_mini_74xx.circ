@@ -199,17 +199,17 @@
       <a name="width" val="8"/>
     </comp>
     <comp lib="0" loc="(1430,840)" name="Ground"/>
-    <comp lib="0" loc="(1440,570)" name="Tunnel">
+    <comp lib="0" loc="(1440,550)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_RAM_WE"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1440,590)" name="Tunnel">
+    <comp lib="0" loc="(1440,570)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_RAM_OE"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1440,610)" name="Tunnel">
+    <comp lib="0" loc="(1440,590)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_RAM_CS"/>
       <a name="labelfont" val="SansSerif bold 10"/>
@@ -270,7 +270,12 @@
       <a name="label" val="n_MMIO"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1760,480)" name="Ground"/>
+    <comp lib="0" loc="(1760,460)" name="Ground"/>
+    <comp lib="0" loc="(1770,380)" name="Tunnel">
+      <a name="facing" val="south"/>
+      <a name="label" val="n_MMIO"/>
+      <a name="labelfont" val="SansSerif bold 10"/>
+    </comp>
     <comp lib="0" loc="(1780,1240)" name="Splitter">
       <a name="appear" val="right"/>
       <a name="facing" val="west"/>
@@ -282,12 +287,7 @@
       <a name="fanout" val="8"/>
       <a name="incoming" val="8"/>
     </comp>
-    <comp lib="0" loc="(1780,390)" name="Tunnel">
-      <a name="facing" val="south"/>
-      <a name="label" val="n_MMIO"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-    </comp>
-    <comp lib="0" loc="(1790,600)" name="Tunnel">
+    <comp lib="0" loc="(1790,580)" name="Tunnel">
       <a name="label" val="Data_bus"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
@@ -329,19 +329,19 @@
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(1900,1580)" name="Ground"/>
-    <comp lib="0" loc="(1960,380)" name="Tunnel">
+    <comp lib="0" loc="(1960,360)" name="Tunnel">
       <a name="label" val="n_In_0_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1960,400)" name="Tunnel">
+    <comp lib="0" loc="(1960,380)" name="Tunnel">
       <a name="label" val="n_In_1_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1960,420)" name="Tunnel">
+    <comp lib="0" loc="(1960,400)" name="Tunnel">
       <a name="label" val="n_In_2_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1960,440)" name="Tunnel">
+    <comp lib="0" loc="(1960,420)" name="Tunnel">
       <a name="label" val="n_In_3_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
@@ -519,6 +519,12 @@
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="2"/>
     </comp>
+    <comp lib="0" loc="(270,460)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="CPU_state"/>
+      <a name="labelfont" val="SansSerif bold 10"/>
+      <a name="width" val="2"/>
+    </comp>
     <comp lib="0" loc="(270,690)" name="Splitter">
       <a name="bit1" val="0"/>
       <a name="bit10" val="1"/>
@@ -539,12 +545,6 @@
     </comp>
     <comp lib="0" loc="(280,460)" name="Splitter">
       <a name="appear" val="center"/>
-    </comp>
-    <comp lib="0" loc="(280,460)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="CPU_state"/>
-      <a name="labelfont" val="SansSerif bold 10"/>
-      <a name="width" val="2"/>
     </comp>
     <comp lib="0" loc="(290,560)" name="Tunnel">
       <a name="facing" val="north"/>
@@ -777,12 +777,12 @@
       <a name="label" val="n_RD_B"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(970,440)" name="Tunnel">
+    <comp lib="0" loc="(980,440)" name="Tunnel">
       <a name="label" val="Program_out"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(970,480)" name="Tunnel">
+    <comp lib="0" loc="(980,480)" name="Tunnel">
       <a name="label" val="Opcode"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
@@ -802,16 +802,16 @@
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
+    <comp lib="1" loc="(1460,550)" name="NOT Gate">
+      <a name="size" val="20"/>
+    </comp>
     <comp lib="1" loc="(1460,570)" name="NOT Gate">
       <a name="size" val="20"/>
     </comp>
     <comp lib="1" loc="(1460,590)" name="NOT Gate">
       <a name="size" val="20"/>
     </comp>
-    <comp lib="1" loc="(1460,610)" name="NOT Gate">
-      <a name="size" val="20"/>
-    </comp>
-    <comp lib="1" loc="(1510,600)" name="AND Gate">
+    <comp lib="1" loc="(1510,580)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
     <comp lib="1" loc="(2190,1160)" name="NOT Gate">
@@ -832,7 +832,7 @@
     <comp lib="1" loc="(2230,1260)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
-    <comp lib="4" loc="(1540,540)" name="RAM">
+    <comp lib="4" loc="(1540,520)" name="RAM">
       <a name="appearance" val="classic"/>
       <a name="databus" val="bidir"/>
       <a name="enables" val="line"/>
@@ -854,17 +854,17 @@
       <a name="addrWidth" val="13"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 13 8
-6208*0 16*7 48*0 16*4 16*7 16*4 16*6 16*0
-16*8 16*10 16*38 64*0 16*7 48*0 16*4 16*7
-16*4 16*6 16*0 16*8 16*10 16*38 64*0 16*7
-48*0 16*4 16*7 16*4 16*6 16*0 16*8 16*10
-16*38 64*0 16*7 48*0 16*4 16*7 16*4 16*6
-16*0 16*8 16*10 16*38 64*0 16*7 48*0 16*4
-16*7 16*5 16*7 16*0 16*8 16*10 16*38 64*0
-16*7 48*0 16*4 16*7 16*5 16*7 16*0 16*8
-16*10 16*38 64*0 16*7 48*0 16*4 16*7 16*5
-16*7 16*0 16*8 16*10 16*38 64*0 16*7 48*0
-16*4 16*7 16*5 16*7 16*0 16*8 16*10 16*38
+6272*0 16*4 8*7 8*6 8*0 8*8 16*10 16*4
+16*38 8*7 152*0 16*4 8*7 8*6 8*0 8*8
+16*10 16*4 16*38 8*7 152*0 16*4 8*7 8*6
+8*0 8*8 16*10 16*4 16*38 8*7 152*0 16*4
+8*7 8*6 8*0 8*8 16*10 16*4 16*38 8*7
+152*0 8*4 8*5 16*7 8*0 8*8 16*10 8*4
+8*5 8*38 8*39 8*7 152*0 8*4 8*5 16*7
+8*0 8*8 16*10 8*4 8*5 8*38 8*39 8*7
+152*0 8*4 8*5 16*7 8*0 8*8 16*10 8*4
+8*5 8*38 8*39 8*7 152*0 8*4 8*5 16*7
+8*0 8*8 16*10 8*4 8*5 8*38 8*39 8*7
 </a>
       <a name="label" val="uCode_ROM_3"/>
       <a name="labelvisible" val="true"/>
@@ -873,102 +873,102 @@
       <a name="addrWidth" val="13"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 13 8
-2048*ff 16*fe 16*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 20*ff 20*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 16*fe 16*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 20*ff 20*fe 4*ff 4*fe
+2048*ff 48*fe 16*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 36*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 16*fe 16*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 20*ff 20*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 48*fe 16*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 36*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 16*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 48*fe 16*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 36*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 48*fe
 16*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-20*ff 20*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 16*fe 16*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 20*ff 20*fe 4*ff 4*fe 4*ff 4*fe
+36*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 16*fe 16*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 20*ff 20*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 16*fe 16*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 20*ff 20*fe
+4*ff 48*fe 16*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 36*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 16*fe
+4*ff 4*fe 4*ff 48*fe 16*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 36*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 48*fe 16*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 36*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 48*fe
 16*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-20*ff 20*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+36*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
-4*ff 2048*fe 4*f6 4*ee 4*de 4*be f6 ee
-de be f6 ee de be f6 ee
-de be f6 ee de be 16*7e f6
-ee de be f6 ee de be f6
-ee de be f6 ee de be 32*fe
-8*fc 4*fe 4*fc 16*fa 132*f6 4*ee 4*de 4*be
-f6 ee de be f6 ee de be
-f6 ee de be f6 ee de be
-16*7e f6 ee de be f6 ee de
-be f6 ee de be f6 ee de
-be 32*fe 9*fc fe fe fc fe fc
-fc fe 16*fa 132*f6 4*ee 4*de 4*be f6
+4*ff 4*fe 4*ff 4*fe 4*ff 4*fe 4*ff 4*fe
+4*ff 2064*fe 16*fa 4*f6 4*ee 4*de 4*be f6
 ee de be f6 ee de be f6
 ee de be f6 ee de be 16*7e
 f6 ee de be f6 ee de be
 f6 ee de be f6 ee de be
-32*fe 8*fc fe fc fe fc fc fe
-fc fe 16*fa 132*f6 4*ee 4*de 4*be f6
-ee de be f6 ee de be f6
-ee de be f6 ee de be 16*7e
-f6 ee de be f6 ee de be
-f6 ee de be f6 ee de be
-32*fe 10*fc fe fc fe fe fc fe
-16*fa 132*f6 4*ee 4*de 4*be f6 ee de
-be f6 ee de be f6 ee de
-be f6 ee de be 16*7e f6 ee
-de be f6 ee de be f6 ee
-de be f6 ee de be 32*fe 8*fc
-fe fe fc fe fc fc fe fc
-16*fa 132*f6 4*ee 4*de 4*be f6 ee de
-be f6 ee de be f6 ee de
-be f6 ee de be 16*7e f6 ee
-de be f6 ee de be f6 ee
-de be f6 ee de be 32*fe 9*fc
-fe fc fc fe fc fe fe 16*fa
-132*f6 4*ee 4*de 4*be f6 ee de be
+8*fc 12*fe 4*fc 4*fe 4*fc 96*f6 48*fe 16*fa
+4*f6 4*ee 4*de 4*be f6 ee de be
 f6 ee de be f6 ee de be
 f6 ee de be 16*7e f6 ee de
 be f6 ee de be f6 ee de
-be f6 ee de be 32*fe 8*fc fe
-4*fc fe fe fe 16*fa 132*f6 4*ee 4*de
+be f6 ee de be 8*fc 8*fe fc
+fe fe fc fe fc fc fe fc
+fe fe fc fe fc fc fe 96*f6
+48*fe 16*fa 4*f6 4*ee 4*de 4*be f6 ee
+de be f6 ee de be f6 ee
+de be f6 ee de be 16*7e f6
+ee de be f6 ee de be f6
+ee de be f6 ee de be 8*fc
+9*fe fc fe fc fc fe fc fe
+fe fc fe fc fc fe fc fe
+96*f6 48*fe 16*fa 4*f6 4*ee 4*de 4*be f6
+ee de be f6 ee de be f6
+ee de be f6 ee de be 16*7e
+f6 ee de be f6 ee de be
+f6 ee de be f6 ee de be
+8*fc 8*fe fc fc fe fc fe fe
+fc fe fc fc fe fc fe fe
+fc fe 96*f6 48*fe 16*fa 4*f6 4*ee 4*de
 4*be f6 ee de be f6 ee de
 be f6 ee de be f6 ee de
 be 16*7e f6 ee de be f6 ee
 de be f6 ee de be f6 ee
-de be 32*fe 12*fc 4*fe 16*fa 128*f6
+de be 8*fc 10*fe fc fe fc fc
+fe fc fe fe fc fe fc fc
+fe fc 96*f6 48*fe 16*fa 4*f6 4*ee 4*de
+4*be f6 ee de be f6 ee de
+be f6 ee de be f6 ee de
+be 16*7e f6 ee de be f6 ee
+de be f6 ee de be f6 ee
+de be 8*fc 8*fe fc fe fc fc
+fe fc fe fe fc fe fc fc
+fe fc fe fe 96*f6 48*fe 16*fa 4*f6
+4*ee 4*de 4*be f6 ee de be f6
+ee de be f6 ee de be f6
+ee de be 16*7e f6 ee de be
+f6 ee de be f6 ee de be
+f6 ee de be 8*fc 9*fe 4*fc 4*fe
+4*fc fe fe fe 96*f6 48*fe 16*fa 4*f6
+4*ee 4*de 4*be f6 ee de be f6
+ee de be f6 ee de be f6
+ee de be 16*7e f6 ee de be
+f6 ee de be f6 ee de be
+f6 ee de be 8*fc 8*fe 4*fc 4*fe
+4*fc 4*fe 96*f6 32*fe
 </a>
       <a name="label" val="uCode_ROM_1"/>
       <a name="labelvisible" val="true"/>
@@ -977,7 +977,7 @@ de be 32*fe 12*fc 4*fe 16*fa 128*f6
       <a name="addrWidth" val="13"/>
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 13 8
-4132*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
+4164*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
 228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
 228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
 228*bf 4*ff 4*bf 4*ff 4*bf 4*ff 4*bf 4*ff
@@ -989,144 +989,87 @@ de be 32*fe 12*fc 4*fe 16*fa 128*f6
 b7 be bd bb b7 be bd bb
 b7 16*9f be bd bb b7 be bd
 bb b7 be bd bb b7 be bd
-bb b7 16*af 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 32*bf
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
+bb b7 16*af 32*bf 3e 3d 3b 37
 4*1f 3e 3d 3b 37 4*1f 3e 3d
 3b 37 4*1f 3e 3d 3b 37 4*1f
 3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 3e 3d 3b 37 3e 3d
-3b 37 3e 3d 3b 37 be bd
-bb b7 be bd bb b7 be bd
-bb b7 be bd bb b7 16*9f be
-bd bb b7 be bd bb b7 be
-bd bb b7 be bd bb b7 16*af
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 32*bf 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 3e
-3d 3b 37 3e 3d 3b 37 3e
-3d 3b 37 be bd bb b7 be
-bd bb b7 be bd bb b7 be
-bd bb b7 16*9f be bd bb b7
-be bd bb b7 be bd bb b7
-be bd bb b7 16*af 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 32*bf 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 3e 3d 3b 37
-3e 3d 3b 37 3e 3d 3b 37
-be bd bb b7 be bd bb b7
-be bd bb b7 be bd bb b7
-16*9f be bd bb b7 be bd bb
-b7 be bd bb b7 be bd bb
-b7 16*af 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 32*bf 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 3e 3d 3b 37 3e 3d 3b
-37 3e 3d 3b 37 be bd bb
+37 4*1f 3e 3d 3b 37 4*1f 8*3f
+16*3e 16*3f 3e 3d 3b 37 4*1f 3e
+3d 3b 37 4*1f 48*bf be bd bb
 b7 be bd bb b7 be bd bb
 b7 be bd bb b7 16*9f be bd
 bb b7 be bd bb b7 be bd
-bb b7 be bd bb b7 16*af 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 32*bf 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
+bb b7 be bd bb b7 16*af 32*bf
 3e 3d 3b 37 4*1f 3e 3d 3b
 37 4*1f 3e 3d 3b 37 4*1f 3e
 3d 3b 37 4*1f 3e 3d 3b 37
 4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
 3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 3e 3d
-3b 37 3e 3d 3b 37 3e 3d
-3b 37 be bd bb b7 be bd
-bb b7 be bd bb b7 be bd
-bb b7 16*9f be bd bb b7 be
-bd bb b7 be bd bb b7 be
-bd bb b7 16*af 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-32*bf 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 3e 3d 3b 37 3e
-3d 3b 37 3e 3d 3b 37 be
-bd bb b7 be bd bb b7 be
-bd bb b7 be bd bb b7 16*9f
-be bd bb b7 be bd bb b7
-be bd bb b7 be bd bb b7
-16*af 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 32*bf 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 4*1f 3e 3d
-3b 37 4*1f 3e 3d 3b 37 4*1f
-3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 3e 3d 3b 37 4*1f 3e
-3d 3b 37 4*1f 3e 3d 3b 37
-3e 3d 3b 37 3e 3d 3b 37
-3e 3d 3b 37 be bd bb b7
-be bd bb b7 be bd bb b7
-be bd bb b7 16*9f be bd bb
+48*bf be bd bb b7 be bd bb
 b7 be bd bb b7 be bd bb
-b7 be bd bb b7 16*af 3e 3d
+b7 16*9f be bd bb b7 be bd
+bb b7 be bd bb b7 be bd
+bb b7 16*af 32*bf 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f 3e 3d
 3b 37 4*1f 3e 3d 3b 37 4*1f
 3e 3d 3b 37 4*1f 3e 3d 3b
-37 4*1f 32*bf 3e 3d 3b 37 4*1f
+37 4*1f 3e 3d 3b 37 4*1f 8*3f
+16*3e 16*3f 3e 3d 3b 37 4*1f 3e
+3d 3b 37 4*1f 48*bf be bd bb
+b7 be bd bb b7 be bd bb
+b7 be bd bb b7 16*9f be bd
+bb b7 be bd bb b7 be bd
+bb b7 be bd bb b7 16*af 32*bf
 3e 3d 3b 37 4*1f 3e 3d 3b
 37 4*1f 3e 3d 3b 37 4*1f 3e
 3d 3b 37 4*1f 3e 3d 3b 37
 4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
 3b 37 4*1f 3e 3d 3b 37 4*1f
+48*bf be bd bb b7 be bd bb
+b7 be bd bb b7 be bd bb
+b7 16*9f be bd bb b7 be bd
+bb b7 be bd bb b7 be bd
+bb b7 16*af 32*bf 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 3e 3d 3b 37 4*1f
+3e 3d 3b 37 4*1f 3e 3d 3b
+37 4*1f 3e 3d 3b 37 4*1f 8*3f
+16*3e 16*3f 3e 3d 3b 37 4*1f 3e
+3d 3b 37 4*1f 48*bf be bd bb
+b7 be bd bb b7 be bd bb
+b7 be bd bb b7 16*9f be bd
+bb b7 be bd bb b7 be bd
+bb b7 be bd bb b7 16*af 32*bf
 3e 3d 3b 37 4*1f 3e 3d 3b
 37 4*1f 3e 3d 3b 37 4*1f 3e
 3d 3b 37 4*1f 3e 3d 3b 37
-4*1f 3e 3d 3b 37 3e 3d 3b
-37 3e 3d 3b 37 3e 3d 3b
-37
+4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
+3b 37 4*1f 3e 3d 3b 37 4*1f
+48*bf be bd bb b7 be bd bb
+b7 be bd bb b7 be bd bb
+b7 16*9f be bd bb b7 be bd
+bb b7 be bd bb b7 be bd
+bb b7 16*af 32*bf 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 3e 3d 3b 37 4*1f
+3e 3d 3b 37 4*1f 3e 3d 3b
+37 4*1f 3e 3d 3b 37 4*1f 8*3f
+16*3e 16*3f 3e 3d 3b 37 4*1f 3e
+3d 3b 37 4*1f 48*bf be bd bb
+b7 be bd bb b7 be bd bb
+b7 be bd bb b7 16*9f be bd
+bb b7 be bd bb b7 be bd
+bb b7 be bd bb b7 16*af 32*bf
+3e 3d 3b 37 4*1f 3e 3d 3b
+37 4*1f 3e 3d 3b 37 4*1f 3e
+3d 3b 37 4*1f 3e 3d 3b 37
+4*1f 3e 3d 3b 37 4*1f 3e 3d
+3b 37 4*1f 8*3f 16*3e 16*3f 3e 3d
+3b 37 4*1f 3e 3d 3b 37 4*1f
+16*bf
 </a>
       <a name="label" val="uCode_ROM_2"/>
       <a name="labelvisible" val="true"/>
@@ -1134,23 +1077,23 @@ b7 be bd bb b7 16*af 3e 3d
     <comp lib="4" loc="(970,140)" name="ROM">
       <a name="appearance" val="classic"/>
       <a name="contents">addr/data: 8 8
-10 4 24 10 10 40 24 11
-10 1b 24 13 34 fd c4 3f
-24 12 60 70 34 fc 44 0
-68 1c 24 10 34 11 4 32
-35 10 1 c4 1 68 2c 2
-94 8 60 4b 1 c4 2 68
-36 2 84 8 60 4b 1 c4
-4 68 40 2 84 1 60 43
-2 94 1 c4 7 4 2 c4
-38 60 51 c4 38 4 2 c4
-7 d1 24 13 35 12 41 6c
-61 34 11 84 1 24 11 60
-c 10 40 12 1 82 4 33
-92 4 23 82 44 7f 6c 65
-34 13 35 11 20 1 84 1
-8 10 40 4 33 27 fe 84
-1 42 69 7b 34 12 24 fe
+30 4 44 10 30 40 44 11
+30 1b 44 13 54 fd a4 3f
+44 12 60 70 54 fc e4 0
+70 1c 44 10 54 11 24 52
+55 10 21 a4 1 70 2c 22
+94 8 60 4b 21 a4 2 70
+36 22 84 8 60 4b 21 a4
+4 70 40 22 84 1 60 43
+22 94 1 a4 7 24 22 a4
+38 60 51 a4 38 24 22 a4
+7 a9 44 13 55 12 e1 74
+61 54 11 84 1 44 11 60
+c 30 40 32 1 82 24 53
+92 24 43 82 e4 7f 74 65
+54 13 55 11 40 21 84 1
+28 30 40 24 53 47 fe 84
+1 e2 71 7b 54 12 44 fe
 60 14
 </a>
       <a name="label" val="Program_Memory"/>
@@ -1201,7 +1144,7 @@ c 10 40 12 1 82 4 33
     <comp lib="6" loc="(1590,1260)" name="7404"/>
     <comp lib="6" loc="(1590,270)" name="7430"/>
     <comp lib="6" loc="(1750,270)" name="7400"/>
-    <comp lib="6" loc="(1750,450)" name="74139"/>
+    <comp lib="6" loc="(1750,430)" name="74139"/>
     <comp lib="6" loc="(1840,810)" name="7432"/>
     <comp lib="6" loc="(280,510)" name="74161"/>
     <comp lib="6" loc="(450,510)" name="74139"/>
@@ -1345,15 +1288,15 @@ c 10 40 12 1 82 4 33
     <wire from="(1450,750)" to="(1450,780)"/>
     <wire from="(1450,840)" to="(1450,850)"/>
     <wire from="(1450,850)" to="(1540,850)"/>
-    <wire from="(1460,570)" to="(1540,570)"/>
-    <wire from="(1460,590)" to="(1480,590)"/>
-    <wire from="(1460,610)" to="(1470,610)"/>
+    <wire from="(1460,550)" to="(1540,550)"/>
+    <wire from="(1460,570)" to="(1480,570)"/>
+    <wire from="(1460,590)" to="(1470,590)"/>
     <wire from="(1470,1160)" to="(1470,1230)"/>
     <wire from="(1470,1290)" to="(1470,1300)"/>
     <wire from="(1470,1300)" to="(1740,1300)"/>
-    <wire from="(1470,610)" to="(1470,630)"/>
-    <wire from="(1470,610)" to="(1480,610)"/>
-    <wire from="(1470,630)" to="(1530,630)"/>
+    <wire from="(1470,590)" to="(1470,610)"/>
+    <wire from="(1470,590)" to="(1480,590)"/>
+    <wire from="(1470,610)" to="(1530,610)"/>
     <wire from="(1470,760)" to="(1470,780)"/>
     <wire from="(1470,840)" to="(1470,860)"/>
     <wire from="(1470,860)" to="(1540,860)"/>
@@ -1370,20 +1313,20 @@ c 10 40 12 1 82 4 33
     <wire from="(1510,1170)" to="(1510,1230)"/>
     <wire from="(1510,1290)" to="(1510,1310)"/>
     <wire from="(1510,1310)" to="(1750,1310)"/>
-    <wire from="(1510,600)" to="(1520,600)"/>
-    <wire from="(1520,400)" to="(1520,550)"/>
+    <wire from="(1510,580)" to="(1520,580)"/>
+    <wire from="(1520,400)" to="(1520,530)"/>
     <wire from="(1520,400)" to="(1530,400)"/>
-    <wire from="(1520,550)" to="(1540,550)"/>
-    <wire from="(1520,560)" to="(1520,600)"/>
-    <wire from="(1520,560)" to="(1540,560)"/>
+    <wire from="(1520,530)" to="(1540,530)"/>
+    <wire from="(1520,540)" to="(1520,580)"/>
+    <wire from="(1520,540)" to="(1540,540)"/>
     <wire from="(1530,1170)" to="(1530,1230)"/>
     <wire from="(1530,1170)" to="(1760,1170)"/>
-    <wire from="(1530,580)" to="(1530,630)"/>
-    <wire from="(1530,580)" to="(1540,580)"/>
+    <wire from="(1530,560)" to="(1530,610)"/>
+    <wire from="(1530,560)" to="(1540,560)"/>
     <wire from="(1530,840)" to="(1530,900)"/>
     <wire from="(1550,1180)" to="(1550,1230)"/>
-    <wire from="(1550,320)" to="(1570,320)"/>
-    <wire from="(1550,330)" to="(1580,330)"/>
+    <wire from="(1550,320)" to="(1800,320)"/>
+    <wire from="(1550,330)" to="(1820,330)"/>
     <wire from="(1550,340)" to="(1600,340)"/>
     <wire from="(1550,350)" to="(1620,350)"/>
     <wire from="(1550,360)" to="(1640,360)"/>
@@ -1394,11 +1337,7 @@ c 10 40 12 1 82 4 33
     <wire from="(1560,880)" to="(1570,880)"/>
     <wire from="(1570,1180)" to="(1570,1230)"/>
     <wire from="(1570,1180)" to="(1760,1180)"/>
-    <wire from="(1570,320)" to="(1570,400)"/>
-    <wire from="(1570,400)" to="(1800,400)"/>
     <wire from="(1580,1470)" to="(1580,1530)"/>
-    <wire from="(1580,330)" to="(1580,410)"/>
-    <wire from="(1580,410)" to="(1820,410)"/>
     <wire from="(1600,1340)" to="(1600,1410)"/>
     <wire from="(1600,1340)" to="(1760,1340)"/>
     <wire from="(1600,1470)" to="(1600,1520)"/>
@@ -1446,16 +1385,18 @@ c 10 40 12 1 82 4 33
     <wire from="(1740,310)" to="(1820,310)"/>
     <wire from="(1750,1230)" to="(1750,1310)"/>
     <wire from="(1750,1230)" to="(1760,1230)"/>
+    <wire from="(1770,380)" to="(1770,390)"/>
+    <wire from="(1770,390)" to="(1780,390)"/>
     <wire from="(1780,1240)" to="(1780,1280)"/>
     <wire from="(1780,1280)" to="(1790,1280)"/>
     <wire from="(1780,1290)" to="(1780,1330)"/>
     <wire from="(1780,1290)" to="(1790,1290)"/>
     <wire from="(1780,230)" to="(1780,240)"/>
     <wire from="(1780,230)" to="(1800,230)"/>
-    <wire from="(1780,390)" to="(1780,420)"/>
-    <wire from="(1780,600)" to="(1790,600)"/>
+    <wire from="(1780,390)" to="(1780,400)"/>
+    <wire from="(1780,580)" to="(1790,580)"/>
     <wire from="(1800,230)" to="(1800,240)"/>
-    <wire from="(1800,400)" to="(1800,420)"/>
+    <wire from="(1800,320)" to="(1800,400)"/>
     <wire from="(1810,730)" to="(1870,730)"/>
     <wire from="(1810,750)" to="(1930,750)"/>
     <wire from="(1810,770)" to="(1820,770)"/>
@@ -1463,7 +1404,7 @@ c 10 40 12 1 82 4 33
     <wire from="(1810,890)" to="(1910,890)"/>
     <wire from="(1820,210)" to="(1820,240)"/>
     <wire from="(1820,300)" to="(1820,310)"/>
-    <wire from="(1820,410)" to="(1820,420)"/>
+    <wire from="(1820,330)" to="(1820,400)"/>
     <wire from="(1820,770)" to="(1820,850)"/>
     <wire from="(1820,770)" to="(1890,770)"/>
     <wire from="(1820,850)" to="(1870,850)"/>
@@ -1473,24 +1414,24 @@ c 10 40 12 1 82 4 33
     <wire from="(1840,220)" to="(1860,220)"/>
     <wire from="(1840,300)" to="(1840,310)"/>
     <wire from="(1840,310)" to="(1900,310)"/>
-    <wire from="(1840,380)" to="(1840,420)"/>
-    <wire from="(1840,380)" to="(1960,380)"/>
+    <wire from="(1840,360)" to="(1840,400)"/>
+    <wire from="(1840,360)" to="(1960,360)"/>
     <wire from="(1850,840)" to="(1850,870)"/>
     <wire from="(1860,1420)" to="(1860,1430)"/>
     <wire from="(1860,1430)" to="(1940,1430)"/>
     <wire from="(1860,220)" to="(1860,240)"/>
     <wire from="(1860,300)" to="(1860,320)"/>
     <wire from="(1860,320)" to="(1990,320)"/>
-    <wire from="(1860,390)" to="(1860,420)"/>
-    <wire from="(1860,390)" to="(1940,390)"/>
+    <wire from="(1860,370)" to="(1860,400)"/>
+    <wire from="(1860,370)" to="(1940,370)"/>
     <wire from="(1870,1370)" to="(1920,1370)"/>
     <wire from="(1870,730)" to="(1870,780)"/>
     <wire from="(1870,840)" to="(1870,850)"/>
     <wire from="(1870,850)" to="(1930,850)"/>
     <wire from="(1880,230)" to="(1880,240)"/>
     <wire from="(1880,230)" to="(1900,230)"/>
-    <wire from="(1880,400)" to="(1880,420)"/>
-    <wire from="(1880,400)" to="(1930,400)"/>
+    <wire from="(1880,380)" to="(1880,400)"/>
+    <wire from="(1880,380)" to="(1930,380)"/>
     <wire from="(1890,1390)" to="(1960,1390)"/>
     <wire from="(1890,1500)" to="(1900,1500)"/>
     <wire from="(1890,770)" to="(1890,780)"/>
@@ -1499,8 +1440,8 @@ c 10 40 12 1 82 4 33
     <wire from="(1890,870)" to="(2080,870)"/>
     <wire from="(1900,1500)" to="(1900,1520)"/>
     <wire from="(1900,230)" to="(1900,310)"/>
-    <wire from="(1900,410)" to="(1900,420)"/>
-    <wire from="(1900,410)" to="(1920,410)"/>
+    <wire from="(1900,390)" to="(1900,400)"/>
+    <wire from="(1900,390)" to="(1920,390)"/>
     <wire from="(1910,730)" to="(1910,780)"/>
     <wire from="(1910,730)" to="(2020,730)"/>
     <wire from="(1910,840)" to="(1910,890)"/>
@@ -1508,18 +1449,18 @@ c 10 40 12 1 82 4 33
     <wire from="(1920,1490)" to="(1920,1520)"/>
     <wire from="(1920,1490)" to="(2090,1490)"/>
     <wire from="(1920,1580)" to="(1920,1610)"/>
-    <wire from="(1920,410)" to="(1920,440)"/>
-    <wire from="(1920,440)" to="(1960,440)"/>
-    <wire from="(1930,400)" to="(1930,420)"/>
-    <wire from="(1930,420)" to="(1960,420)"/>
+    <wire from="(1920,390)" to="(1920,420)"/>
+    <wire from="(1920,420)" to="(1960,420)"/>
+    <wire from="(1930,380)" to="(1930,400)"/>
+    <wire from="(1930,400)" to="(1960,400)"/>
     <wire from="(1930,750)" to="(1930,780)"/>
     <wire from="(1930,840)" to="(1930,850)"/>
     <wire from="(1940,1430)" to="(1940,1480)"/>
     <wire from="(1940,1480)" to="(1940,1520)"/>
     <wire from="(1940,1480)" to="(2110,1480)"/>
     <wire from="(1940,1580)" to="(1940,1610)"/>
-    <wire from="(1940,390)" to="(1940,400)"/>
-    <wire from="(1940,400)" to="(1960,400)"/>
+    <wire from="(1940,370)" to="(1940,380)"/>
+    <wire from="(1940,380)" to="(1960,380)"/>
     <wire from="(1950,770)" to="(1950,780)"/>
     <wire from="(1950,840)" to="(1950,920)"/>
     <wire from="(1950,920)" to="(2080,920)"/>
@@ -1587,6 +1528,7 @@ c 10 40 12 1 82 4 33
     <wire from="(2380,1350)" to="(2390,1350)"/>
     <wire from="(2390,1240)" to="(2400,1240)"/>
     <wire from="(2400,1110)" to="(2400,1240)"/>
+    <wire from="(270,460)" to="(280,460)"/>
     <wire from="(270,690)" to="(290,690)"/>
     <wire from="(290,1030)" to="(310,1030)"/>
     <wire from="(290,540)" to="(290,560)"/>
@@ -1683,8 +1625,8 @@ c 10 40 12 1 82 4 33
     <wire from="(960,1120)" to="(970,1120)"/>
     <wire from="(960,1160)" to="(980,1160)"/>
     <wire from="(960,150)" to="(970,150)"/>
-    <wire from="(960,440)" to="(970,440)"/>
-    <wire from="(960,480)" to="(970,480)"/>
+    <wire from="(960,440)" to="(980,440)"/>
+    <wire from="(960,480)" to="(980,480)"/>
     <wire from="(960,530)" to="(980,530)"/>
     <wire from="(960,570)" to="(970,570)"/>
     <wire from="(960,610)" to="(980,610)"/>
