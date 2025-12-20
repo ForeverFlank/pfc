@@ -1,71 +1,68 @@
-// ----- state 0: fetch opcode
+// ----- state 0 -----
 
 00xxxxxxxxxxx   inc_pc
 
-// ----- state 1: fetch operand
+// ----- state 1 -----
 
 01xxx0011xxxx   inc_pc
-01xxx0100x1xx   inc_pc
-01xxx0101x1xx   inc_pc
+01xxx010xx1xx   inc_pc
 01xxx0110xxxx   inc_pc
 01xxx0111xxxx   inc_pc
 01xxx1xxxx1xx   inc_pc
 
-// ----- state 2: write MAR
+01xxx0001xxxx   halt                                                        // halt
+01xxx0010xxxx   wr_32   rd_10                                               // mov
+01xxx0011xxxx   wr_10   rd_opnd                                             // imm
 
-10xxx010xx0xx   rd_b
-10xxx010xx1xx   rd_opnd
+// write MAR
+01xxx010xx0xx           rd_b                                                // st|ld
+01xxx010xx1xx           rd_opnd                                             // st|ld #
 
-// ----- state 3: execute
+01xxx0110xxxx   jmp_en                                                      // jmp
+01xx10111x000   jmp_en                                                      // jz|je
+01x1x0111x001   jmp_en                                                      // jn|jl
+011xx0111x010   jmp_en                                                      // jc
+01xx10111x011   jmp_en                                                      // jle
+01x1x0111x011   jmp_en                                                      // jle
+01xx00111x100   jmp_en                                                      // jnz|jne
+01x0x0111x101   jmp_en                                                      // jnn|jge
+010xx0111x110   jmp_en                                                      // jnc
+01x000111x111   jmp_en                                                      // jg
 
-11xxx0001xxxx   halt                                                        // halt
+01xxx100000xx   wr_a    rd_10   alu_en  alu_sel_adder                       // add
+010xx100010xx   wr_a    rd_10   alu_en  alu_sel_adder                       // adc  CF=0
+011xx100010xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin             //      CF=1
+01xxx100100xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   // sub
+010xx100110xx   wr_a    rd_10   alu_en  alu_sel_adder           alu_inv_b   // sbb  CF=0
+011xx100110xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   //      CF=1
+01xxx101000xx   wr_a    rd_10   alu_en                                      // and
+01xxx101010xx   wr_a    rd_10   alu_en          alu_s0                      // or
+01xxx101100xx   wr_a    rd_10   alu_en  alu_s1                              // xor
+01xxx10111xxx   wr_a            alu_en  alu_s1                              // not
+01xxx11000xxx   wr_a    rd_a    alu_en  alu_sel_adder                       // shl
+010xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder                       // rol  CF=0
+011xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder   alu_cin             //      CF=1
+01xxx11010xxx   wr_a            alu_en  alu_s1  alu_s0          alu_shr     // shr
+010xx11011xxx   wr_a            alu_en  alu_s1  alu_s0          alu_shr     // ror  CF=0
+011xx11011xxx   wr_a            alu_en  alu_s1  alu_s0  alu_cin alu_shr     //      CF=1
 
-11xxx0010xxxx   wr_32   rd_10                                               // mov
-11xxx0011xxxx   wr_10   rd_opnd                                             // imm
-11xxx0100x0xx   wr_mem  rd_10                                               // st
-11xxx0100x1xx   wr_mem  rd_10                                               // st #
-11xxx0101x0xx   wr_10   rd_mem                                              // ld
-11xxx0101x1xx   wr_10   rd_mem                                              // ld #
+01xxx111000xx           rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   // cmp
+01xxx111001xx           rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b   // cmp #
+01xxx111010xx           rd_10   alu_en                                      // tst
+01xxx111011xx           rd_opnd alu_en                                      // tst #
 
-11xxx01100xxx   jmp_en                                                      // jmp
-11xx10111x000   jmp_en                                                      // jz, je
-11x1x0111x001   jmp_en                                                      // jn, jl
-111xx0111x010   jmp_en                                                      // jc
-11xx10111x011   jmp_en                                                      // jle
-11x1x0111x011   jmp_en                                                      // jle
-11xx00111x100   jmp_en                                                      // jnz, jne
-11x0x0111x101   jmp_en                                                      // jnn, jge
-110xx0111x110   jmp_en                                                      // jnc
-11x000111x111   jmp_en                                                      // jg
+// immediate operand ALU operations
+01xxx100001xx   wr_a    rd_opnd alu_en  alu_sel_adder
+010xx100011xx   wr_a    rd_opnd alu_en  alu_sel_adder
+011xx100011xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin
+01xxx100101xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b
+010xx100111xx   wr_a    rd_opnd alu_en  alu_sel_adder           alu_inv_b
+011xx100111xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b 
+01xxx101001xx   wr_a    rd_opnd alu_en 
+01xxx101011xx   wr_a    rd_opnd alu_en          alu_s0
+01xxx101101xx   wr_a    rd_opnd alu_en  alu_s1
 
-11xxx100000xx   wr_a    rd_10   alu_en  alu_sel_adder                       // add
-110xx100010xx   wr_a    rd_10   alu_en  alu_sel_adder                       // adc  CF=0
-111xx100010xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin             //      CF=1
-11xxx100100xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   // sub
-110xx100110xx   wr_a    rd_10   alu_en  alu_sel_adder           alu_inv_b   // sbb  CF=0
-111xx100110xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   //      CF=1
-11xxx101000xx   wr_a    rd_10   alu_en                                      // and
-11xxx101010xx   wr_a    rd_10   alu_en          alu_s0                      // or
-11xxx101100xx   wr_a    rd_10   alu_en  alu_s1                              // xor
-11xxx10111xxx   wr_a            alu_en  alu_s1                              // not
-11xxx11000xxx   wr_a    rd_a    alu_en  alu_sel_adder                       // shl
-110xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder                       // rol  CF=0
-111xx11001xxx   wr_a    rd_a    alu_en  alu_sel_adder   alu_cin             //      CF=1
-11xxx11010xxx   wr_a            alu_en  alu_s1  alu_s0          alu_shr     // shr
-110xx11011xxx   wr_a            alu_en  alu_s1  alu_s0          alu_shr     // ror  CF=0
-111xx11011xxx   wr_a            alu_en  alu_s1  alu_s0  alu_cin alu_shr     //      CF=1
+// ----- state 2 -----
 
-11xxx111000xx           rd_10   alu_en  alu_sel_adder   alu_cin alu_inv_b   // cmp
-11xxx111001xx           rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b   // cmp #
-11xxx111010xx           rd_10   alu_en                                      // tst
-11xxx111011xx           rd_opnd alu_en                                      // tst #
-
-11xxx100001xx   wr_a    rd_opnd alu_en  alu_sel_adder
-110xx100011xx   wr_a    rd_opnd alu_en  alu_sel_adder
-111xx100011xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin
-11xxx100101xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b
-110xx100111xx   wr_a    rd_opnd alu_en  alu_sel_adder           alu_inv_b
-111xx100111xx   wr_a    rd_opnd alu_en  alu_sel_adder   alu_cin alu_inv_b 
-11xxx101001xx   wr_a    rd_opnd alu_en 
-11xxx101011xx   wr_a    rd_opnd alu_en          alu_s0
-11xxx101101xx   wr_a    rd_opnd alu_en  alu_s1
+10xxx0100xxxx   wr_mem  rd_10                                               // st
+10xxx0101xxxx   wr_10   rd_mem                                              // ld

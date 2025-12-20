@@ -3,7 +3,7 @@
 imm a, 1
 imm b, 2
 cmp b
-jne case_1
+jne case_2
 
 case_1:
     imm c, 1

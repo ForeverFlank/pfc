@@ -49,21 +49,19 @@ with open("src/mini/ucode.txt", "r") as file:
     for i in range(8192):
         encoding = 0
         
-        uinsts = []
-        for (pattern, curr_uinsts) in uprograms:
-            if match_pattern(i, pattern):
-                uinsts = curr_uinsts
-                break
+        for (pattern, uinsts) in uprograms:
+            if not match_pattern(i, pattern):
+                continue
             
-        for uinst in uinsts:
-            if uinst[-2:] in ["10", "32"]:
-                if uinst[-2:] == "10":
-                    idx = i & 0x03
-                else:
-                    idx = (i & 0x0c) >> 2
-                suffix = ['a', 'b', 'c', 'd'][idx]
-                uinst = uinst[:-2] + suffix
-            encoding |= uinsts_encoding[uinst]
+            for uinst in uinsts:
+                if uinst[-2:] in ["10", "32"]:
+                    if uinst[-2:] == "10":
+                        idx = i & 0x03
+                    else:
+                        idx = (i & 0x0c) >> 2
+                    suffix = ['a', 'b', 'c', 'd'][idx]
+                    uinst = uinst[:-2] + suffix
+                encoding |= uinsts_encoding[uinst]
         
         for value in uinsts_inv.values():
             encoding ^= value
