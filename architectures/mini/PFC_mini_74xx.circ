@@ -150,7 +150,7 @@
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(1270,360)" name="Tunnel">
+    <comp lib="0" loc="(1270,490)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_State_1"/>
       <a name="labelfont" val="SansSerif bold 10"/>
@@ -170,7 +170,7 @@
       <a name="facing" val="south"/>
     </comp>
     <comp lib="0" loc="(1410,840)" name="Ground"/>
-    <comp lib="0" loc="(1420,360)" name="Tunnel">
+    <comp lib="0" loc="(1420,490)" name="Tunnel">
       <a name="label" val="Data_bus"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
@@ -214,7 +214,7 @@
     <comp lib="0" loc="(1510,780)" name="Ground">
       <a name="facing" val="north"/>
     </comp>
-    <comp lib="0" loc="(1530,400)" name="Splitter">
+    <comp lib="0" loc="(1520,400)" name="Splitter">
       <a name="fanout" val="8"/>
       <a name="incoming" val="8"/>
     </comp>
@@ -1096,13 +1096,18 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <comp lib="6" loc="(1750,270)" name="7400"/>
     <comp lib="6" loc="(1750,430)" name="74139"/>
     <comp lib="6" loc="(180,510)" name="7400"/>
+    <comp lib="6" loc="(2300,1600)" name="74193"/>
+    <comp lib="6" loc="(2470,1600)" name="74193"/>
     <comp lib="6" loc="(330,510)" name="74161"/>
     <comp lib="6" loc="(500,510)" name="74139"/>
     <comp lib="6" loc="(610,300)" name="7400"/>
+    <comp lib="8" loc="(2440,1460)" name="Text">
+      <a name="text" val="for actual 7-segment display and RNG module"/>
+    </comp>
     <comp loc="(1020,690)" name="Mux_2_to_1_8_bit_Module">
       <a name="facing" val="west"/>
     </comp>
-    <comp loc="(1310,360)" name="Register_Module">
+    <comp loc="(1310,490)" name="Register_Module">
       <a name="label" val="MAR"/>
     </comp>
     <comp loc="(1310,730)" name="ALU_Module"/>
@@ -1115,6 +1120,8 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <comp loc="(1870,1550)" name="TTL_74173"/>
     <comp loc="(2040,1550)" name="CD4002"/>
     <comp loc="(2230,1070)" name="Bin_to_BCD_16"/>
+    <comp loc="(2300,1520)" name="TTL_74173"/>
+    <comp loc="(2470,1520)" name="TTL_74173"/>
     <comp loc="(860,1080)" name="Register_Module">
       <a name="label" val="D"/>
     </comp>
@@ -1122,7 +1129,7 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
       <a name="label" val="PC"/>
     </comp>
     <comp loc="(860,450)" name="Register_Module">
-      <a name="label" val="Opcode"/>
+      <a name="label" val="IR"/>
     </comp>
     <comp loc="(860,690)" name="Register_Module">
       <a name="label" val="A"/>
@@ -1184,17 +1191,19 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1250,820)" to="(1250,870)"/>
     <wire from="(1250,820)" to="(1310,820)"/>
     <wire from="(1270,1290)" to="(1270,1500)"/>
-    <wire from="(1270,360)" to="(1310,360)"/>
+    <wire from="(1270,490)" to="(1310,490)"/>
     <wire from="(1280,220)" to="(1280,390)"/>
     <wire from="(1280,220)" to="(1840,220)"/>
-    <wire from="(1280,390)" to="(1280,890)"/>
-    <wire from="(1280,390)" to="(1310,390)"/>
+    <wire from="(1280,390)" to="(1280,520)"/>
+    <wire from="(1280,520)" to="(1280,890)"/>
+    <wire from="(1280,520)" to="(1310,520)"/>
     <wire from="(1280,890)" to="(1530,890)"/>
     <wire from="(1290,1160)" to="(1290,1230)"/>
     <wire from="(1290,1160)" to="(1470,1160)"/>
     <wire from="(1290,1290)" to="(1290,1490)"/>
-    <wire from="(1290,400)" to="(1290,690)"/>
-    <wire from="(1290,400)" to="(1310,400)"/>
+    <wire from="(1290,400)" to="(1290,530)"/>
+    <wire from="(1290,530)" to="(1290,690)"/>
+    <wire from="(1290,530)" to="(1310,530)"/>
     <wire from="(1290,690)" to="(1430,690)"/>
     <wire from="(1310,1170)" to="(1310,1230)"/>
     <wire from="(1310,1170)" to="(1510,1170)"/>
@@ -1220,8 +1229,8 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1390,770)" to="(1490,770)"/>
     <wire from="(1410,1220)" to="(1410,1230)"/>
     <wire from="(1410,1220)" to="(1430,1220)"/>
-    <wire from="(1410,360)" to="(1420,360)"/>
-    <wire from="(1410,400)" to="(1520,400)"/>
+    <wire from="(1410,490)" to="(1420,490)"/>
+    <wire from="(1410,530)" to="(1520,530)"/>
     <wire from="(1430,1220)" to="(1430,1300)"/>
     <wire from="(1430,1300)" to="(1450,1300)"/>
     <wire from="(1430,550)" to="(1440,550)"/>
@@ -1258,7 +1267,6 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1510,1310)" to="(1750,1310)"/>
     <wire from="(1510,580)" to="(1520,580)"/>
     <wire from="(1520,400)" to="(1520,530)"/>
-    <wire from="(1520,400)" to="(1530,400)"/>
     <wire from="(1520,530)" to="(1540,530)"/>
     <wire from="(1520,540)" to="(1520,580)"/>
     <wire from="(1520,540)" to="(1540,540)"/>
@@ -1267,15 +1275,15 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1530,560)" to="(1530,610)"/>
     <wire from="(1530,560)" to="(1540,560)"/>
     <wire from="(1530,840)" to="(1530,890)"/>
+    <wire from="(1540,320)" to="(1800,320)"/>
+    <wire from="(1540,330)" to="(1820,330)"/>
+    <wire from="(1540,340)" to="(1600,340)"/>
+    <wire from="(1540,350)" to="(1620,350)"/>
+    <wire from="(1540,360)" to="(1640,360)"/>
+    <wire from="(1540,370)" to="(1660,370)"/>
+    <wire from="(1540,380)" to="(1680,380)"/>
+    <wire from="(1540,390)" to="(1700,390)"/>
     <wire from="(1550,1180)" to="(1550,1230)"/>
-    <wire from="(1550,320)" to="(1800,320)"/>
-    <wire from="(1550,330)" to="(1820,330)"/>
-    <wire from="(1550,340)" to="(1600,340)"/>
-    <wire from="(1550,350)" to="(1620,350)"/>
-    <wire from="(1550,360)" to="(1640,360)"/>
-    <wire from="(1550,370)" to="(1660,370)"/>
-    <wire from="(1550,380)" to="(1680,380)"/>
-    <wire from="(1550,390)" to="(1700,390)"/>
     <wire from="(1550,760)" to="(1550,780)"/>
     <wire from="(1560,880)" to="(1570,880)"/>
     <wire from="(1570,1180)" to="(1570,1230)"/>
@@ -4206,9 +4214,7 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <comp lib="6" loc="(1260,240)" name="7400"/>
     <comp lib="6" loc="(1450,510)" name="74157"/>
     <comp lib="6" loc="(1450,750)" name="74153"/>
-    <comp lib="6" loc="(1450,960)" name="74153">
-      <a name="ShowInternalStructure" val="true"/>
-    </comp>
+    <comp lib="6" loc="(1450,960)" name="74153"/>
     <comp lib="6" loc="(1620,510)" name="74157"/>
     <comp lib="6" loc="(1620,750)" name="74153"/>
     <comp lib="6" loc="(1620,960)" name="74153"/>
