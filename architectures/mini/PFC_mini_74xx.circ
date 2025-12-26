@@ -269,17 +269,17 @@
       <a name="label" val="n_In_0_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1780,820)" name="Tunnel">
+    <comp lib="0" loc="(1780,830)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_In_1_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1780,870)" name="Tunnel">
+    <comp lib="0" loc="(1780,890)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_In_2_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(1780,920)" name="Tunnel">
+    <comp lib="0" loc="(1780,950)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="n_In_3_En"/>
       <a name="labelfont" val="SansSerif bold 10"/>
@@ -305,19 +305,19 @@
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(1840,790)" name="Tunnel">
+    <comp lib="0" loc="(1840,800)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="In_1"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(1840,840)" name="Tunnel">
+    <comp lib="0" loc="(1840,860)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="In_2"/>
       <a name="labelfont" val="SansSerif bold 10"/>
       <a name="width" val="8"/>
     </comp>
-    <comp lib="0" loc="(1840,890)" name="Tunnel">
+    <comp lib="0" loc="(1840,920)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="In_3"/>
       <a name="labelfont" val="SansSerif bold 10"/>
@@ -1114,9 +1114,9 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <comp loc="(1400,810)" name="TTL_74173"/>
     <comp loc="(1790,1250)" name="LED_Matrix_Emulator"/>
     <comp loc="(1850,750)" name="Tri_state_Module_2"/>
-    <comp loc="(1850,800)" name="Tri_state_Module_2"/>
-    <comp loc="(1850,850)" name="Tri_state_Module_2"/>
-    <comp loc="(1850,900)" name="Tri_state_Module_2"/>
+    <comp loc="(1850,810)" name="Tri_state_Module_2"/>
+    <comp loc="(1850,870)" name="Tri_state_Module_2"/>
+    <comp loc="(1850,930)" name="Tri_state_Module_2"/>
     <comp loc="(1870,1550)" name="TTL_74173"/>
     <comp loc="(2040,1550)" name="CD4002"/>
     <comp loc="(2230,1070)" name="Bin_to_BCD_16"/>
@@ -1350,17 +1350,17 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1780,390)" to="(1780,400)"/>
     <wire from="(1780,580)" to="(1790,580)"/>
     <wire from="(1780,770)" to="(1850,770)"/>
-    <wire from="(1780,820)" to="(1850,820)"/>
-    <wire from="(1780,870)" to="(1850,870)"/>
-    <wire from="(1780,920)" to="(1850,920)"/>
+    <wire from="(1780,830)" to="(1850,830)"/>
+    <wire from="(1780,890)" to="(1850,890)"/>
+    <wire from="(1780,950)" to="(1850,950)"/>
     <wire from="(1790,720)" to="(1790,760)"/>
-    <wire from="(1790,760)" to="(1790,810)"/>
+    <wire from="(1790,760)" to="(1790,820)"/>
     <wire from="(1790,760)" to="(1850,760)"/>
-    <wire from="(1790,810)" to="(1790,860)"/>
-    <wire from="(1790,810)" to="(1850,810)"/>
-    <wire from="(1790,860)" to="(1790,910)"/>
-    <wire from="(1790,860)" to="(1850,860)"/>
-    <wire from="(1790,910)" to="(1850,910)"/>
+    <wire from="(1790,820)" to="(1790,880)"/>
+    <wire from="(1790,820)" to="(1850,820)"/>
+    <wire from="(1790,880)" to="(1790,940)"/>
+    <wire from="(1790,880)" to="(1850,880)"/>
+    <wire from="(1790,940)" to="(1850,940)"/>
     <wire from="(1800,230)" to="(1800,240)"/>
     <wire from="(1800,320)" to="(1800,400)"/>
     <wire from="(1820,210)" to="(1820,240)"/>
@@ -1375,9 +1375,9 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1840,360)" to="(1840,400)"/>
     <wire from="(1840,360)" to="(1960,360)"/>
     <wire from="(1840,740)" to="(1850,740)"/>
-    <wire from="(1840,790)" to="(1850,790)"/>
-    <wire from="(1840,840)" to="(1850,840)"/>
-    <wire from="(1840,890)" to="(1850,890)"/>
+    <wire from="(1840,800)" to="(1850,800)"/>
+    <wire from="(1840,860)" to="(1850,860)"/>
+    <wire from="(1840,920)" to="(1850,920)"/>
     <wire from="(1860,1420)" to="(1860,1430)"/>
     <wire from="(1860,1430)" to="(1940,1430)"/>
     <wire from="(1860,220)" to="(1860,240)"/>
@@ -1393,9 +1393,9 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1890,1390)" to="(1960,1390)"/>
     <wire from="(1890,1500)" to="(1900,1500)"/>
     <wire from="(1890,740)" to="(1950,740)"/>
-    <wire from="(1890,790)" to="(1950,790)"/>
-    <wire from="(1890,840)" to="(1950,840)"/>
-    <wire from="(1890,890)" to="(1950,890)"/>
+    <wire from="(1890,800)" to="(1950,800)"/>
+    <wire from="(1890,860)" to="(1950,860)"/>
+    <wire from="(1890,920)" to="(1950,920)"/>
     <wire from="(190,540)" to="(190,550)"/>
     <wire from="(1900,1500)" to="(1900,1520)"/>
     <wire from="(1900,230)" to="(1900,310)"/>
@@ -1415,10 +1415,10 @@ bb b7 4*9f 3e 3d 3b 37 4*1f
     <wire from="(1940,1580)" to="(1940,1610)"/>
     <wire from="(1940,370)" to="(1940,380)"/>
     <wire from="(1940,380)" to="(1960,380)"/>
-    <wire from="(1950,740)" to="(1950,790)"/>
+    <wire from="(1950,740)" to="(1950,800)"/>
     <wire from="(1950,740)" to="(1960,740)"/>
-    <wire from="(1950,790)" to="(1950,840)"/>
-    <wire from="(1950,840)" to="(1950,890)"/>
+    <wire from="(1950,800)" to="(1950,860)"/>
+    <wire from="(1950,860)" to="(1950,920)"/>
     <wire from="(1960,1390)" to="(1960,1470)"/>
     <wire from="(1960,1470)" to="(1960,1520)"/>
     <wire from="(1960,1470)" to="(2130,1470)"/>

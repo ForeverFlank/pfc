@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PFC Homepage</title>
+    <title>PFC Mini</title>
     <link href="../src/output.css" rel="stylesheet"></a>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,28 +18,56 @@
 
         <br>
 
-        <div class="grid grid-cols-2 gap-x-2 gap-y-2">
+        <div class="grid grid-cols-4 gap-x-2 gap-y-2">
             <div class="border border-white p-2">
                 <p class="text-center">PC</p>
-            </div>
-            <div class="border border-white p-2">
-                <p class="text-center">MAR</p>
+                <p id="led-pc"><span>&#x25CF;</span></p>
             </div>
             <div class="border border-white p-2">
                 <p class="text-center">IR</p>
+                <p id="led-ir"></p>
+            </div>
+            <div class="border border-white p-2 col-span-2">
+                <p class="text-center">Program memory</p>
             </div>
             <div class="border border-white p-2">
+                <p class="text-center">MAR</p>
+                <p id="led-mar"></p>
+            </div>
+            <div class="border border-white p-2">
+                <p class="text-center">MMIO</p>
+                <p id="led-mmio"></p>
+            </div>
+            <div class="border border-white p-2 col-span-2">
+                <p class="text-center">Data memory</p>
+            </div>
+            <div class="border border-white p-2 col-span-2 row-span-2">
+                <p class="text-center">ALU</p>
+            </div>
+            <div class="border border-white p-2 row-start-3 col-start-1">
                 <p class="text-center">A</p>
+                <p id="led-reg-a"></p>
             </div>
-            <div class="border border-white p-2">
+            <div class="border border-white p-2 row-start-3 col-start-2">
                 <p class="text-center">B</p>
+                <p id="led-reg-b"></p>
             </div>
-            <div class="border border-white p-2">
+            <div class="border border-white p-2 row-start-4 col-start-1">
                 <p class="text-center">C</p>
+                <p id="led-reg-c"></p>
             </div>
-            <div class="border border-white p-2">
+            <div class="border border-white p-2 row-start-4 col-start-2">
                 <p class="text-center">D</p>
+                <p id="led-reg-d"></p>
             </div>
+        </div>
+
+        <br>
+
+        <div class="flex gap-x-2 justify-center">
+            <button id="btn-run" class="border border-white px-2 py-1 hover:bg-white hover:text-[#181818] duration-100">Run</button>
+            <button id="btn-step" class="border border-white px-2 py-1 hover:bg-white hover:text-[#181818] duration-100">Step</button>
+            <button id="btn-reset" class="border border-white px-2 py-1 hover:bg-white hover:text-[#181818] duration-100">Reset</button>
         </div>
         
         <br>
@@ -51,4 +79,5 @@
             todo</p>
     </main>
 </body>
+<script src="emulator.js"></script>
 </html>
