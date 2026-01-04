@@ -1,6 +1,9 @@
 .vscode
+node_modules
+customasm
+
 a.exe
 a.out
 out.bin
+
 *.autosave
-node_modules
