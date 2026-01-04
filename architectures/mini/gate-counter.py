@@ -3,7 +3,7 @@
 import xml.etree.ElementTree as ET
 from collections import Counter
 
-tree = ET.parse("src/mini/PFC_mini_74xx.circ")
+tree = ET.parse("PFC_mini_74xx.circ")
 root = tree.getroot()
 
 def count_74xx_in_circuit(circuit_element):

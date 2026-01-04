@@ -12,7 +12,7 @@ def match_pattern(i, pattern):
 uinsts_encoding = {}
 uinsts_inv = {}
 
-with open("src/mini/uinst.txt", "r") as file:
+with open("uinst.txt", "r") as file:
     text = file.read()
     offset = 0
     
@@ -33,7 +33,7 @@ with open("src/mini/uinst.txt", "r") as file:
         offset += 1
 
 uprograms_encoding = [_ for _ in range(8192)]
-with open("src/mini/ucode.txt", "r") as file:
+with open("ucode.txt", "r") as file:
     text = file.read()
     uprograms = []
     for line in text.splitlines():
@@ -69,7 +69,7 @@ with open("src/mini/ucode.txt", "r") as file:
         uprograms_encoding[i] = encoding
 
 for offset in range(3):
-    with open(f"src/mini/ucode-{offset + 1}.bin", "wb") as bin_file:
+    with open(f"ucode-{offset + 1}.bin", "wb") as bin_file:
         for i in range(8192):
             encoding = uprograms_encoding[i]
             byte = (encoding >> (8 * offset)) & 0xFF

@@ -12,7 +12,7 @@ def count_bytes(dir):
             lower = num & 0x0F
             mat[upper][lower] += 1
 
-root_dir = "src/mini_v3/asm/"
+root_dir = "asm/"
 for file in os.listdir(root_dir):
     if file.endswith(".bin"):
         count_bytes(os.path.join(root_dir, file))
