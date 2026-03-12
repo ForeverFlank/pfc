@@ -1,24 +1,26 @@
 inc_pc
 !jmp_en
+!next_inst
 !halt
 
 !wr_a
 !wr_b
 !wr_c
-!wr_d
-!wr_mem
+!wr_dmem
 
 !rd_a
 !rd_b
 !rd_c
-!rd_d
-!rd_mem
-!rd_opnd
+!rd_tmp
+!rd_dmem
+!rd_pmem
 
 !alu_en
+!alu_dis_a
 alu_cin
 alu_inv_b
 alu_sel_adder
 alu_s0
 alu_s1
 alu_shr
+dont_update_flags

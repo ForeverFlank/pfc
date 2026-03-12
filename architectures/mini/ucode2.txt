@@ -1,33 +1,157 @@
 -- fetch
-00 ___ ________     inc_pc
+
+________
+    00 ___ inc_pc
+
 
 -- mov d, s
-01 ___ 00000000     wr_a rd_a next_inst
-01 ___ 00000001     wr_a rd_b next_inst
-01 ___ 00000010     wr_a rd_c next_inst
-01 ___ 00000011     wr_a rd_pmem inc_pc next_inst
 
-01 ___ 00001000     wr_b rd_a next_inst
-01 ___ 00001001     wr_b rd_b next_inst
-01 ___ 00001010     wr_b rd_c next_inst
-01 ___ 00001011     wr_b rd_pmem inc_pc next_inst
 
-01 ___ 00010000     wr_c rd_a next_inst
-01 ___ 00010001     wr_c rd_b next_inst
-01 ___ 00010010     wr_c rd_c next_inst
-01 ___ 00010011     wr_c rd_pmem inc_pc next_inst
+00000000    -- mov a, a
+    01 ___ wr_a rd_a next_inst
+
+00000001    -- mov a, b
+    01 ___ wr_a rd_b next_inst
+
+00000010    -- mov a, c
+    01 ___ wr_a rd_c next_inst
+
+00000011    -- mov a, #
+    01 ___ wr_a rd_pmem inc_pc next_inst
+
+
+00001000    -- mov b, a
+    01 ___ wr_b rd_a next_inst
+
+00001001    -- mov b, b
+    01 ___ wr_b rd_b next_inst
+
+00001010    -- mov b, c
+    01 ___ wr_b rd_c next_inst
+
+00001011    -- mov b, #
+    01 ___ wr_b rd_pmem inc_pc next_inst
+
+
+00010000    -- mov c, a
+    01 ___ wr_c rd_a next_inst
+
+00010001    -- mov c, b
+    01 ___ wr_c rd_b next_inst
+
+00010010    -- mov c, c
+    01 ___ wr_c rd_c next_inst
+
+00010011    -- mov c, #
+    01 ___ wr_c rd_pmem inc_pc next_inst
+
 
 -- mov d, [s]
-01 ___ 000__100     wr_mar rd_a
-01 ___ 000__101     wr_mar rd_b
-01 ___ 000__110     wr_mar rd_c
-01 ___ 000__111     wr_mar rd_pmem inc_pc
 
-10 ___ 000001__     wr_a rd_dmem next_inst
-10 ___ 000011__     wr_b rd_dmem next_inst
-10 ___ 000101__     wr_c rd_dmem next_inst
+
+00000100    -- mov a, [a]
+    01 ___ wr_mar rd_a
+    10 ___ wr_a rd_dmem next_inst
+
+00000101    -- mov a, [b]
+    01 ___ wr_mar rd_b
+    10 ___ wr_a rd_dmem next_inst
+
+00000110    -- mov a, [c]
+    01 ___ wr_mar rd_c
+    10 ___ wr_a rd_dmem next_inst
+
+00000110    -- mov a, [#]
+    01 ___ wr_mar rd_pmem inc_pc
+    10 ___ wr_a rd_dmem next_inst
+
+
+00000100    -- mov b, [a]
+    01 ___ wr_mar rd_a
+    10 ___ wr_b rd_dmem next_inst
+
+00000101    -- mov b, [b]
+    01 ___ wr_mar rd_b
+    10 ___ wr_b rd_dmem next_inst
+
+00000110    -- mov b, [c]
+    01 ___ wr_mar rd_c
+    10 ___ wr_b rd_dmem next_inst
+
+00000110    -- mov b, [#]
+    01 ___ wr_mar rd_pmem inc_pc
+    10 ___ wr_b rd_dmem next_inst
+
+
+00000100    -- mov c, [a]
+    01 ___ wr_mar rd_a
+    10 ___ wr_c rd_dmem next_inst
+
+00000101    -- mov c, [b]
+    01 ___ wr_mar rd_b
+    10 ___ wr_c rd_dmem next_inst
+
+00000110    -- mov c, [c]
+    01 ___ wr_mar rd_c
+    10 ___ wr_c rd_dmem next_inst
+
+00000110    -- mov c, [#]
+    01 ___ wr_mar rd_pmem inc_pc
+    10 ___ wr_c rd_dmem next_inst
 
 -- mov [d], s
+
+00100000    -- mov [a], a
+    01 ___ wr_mar rd_a
+    10 ___ wr_dmem rd_a next_inst
+
+00100001    -- mov [a], b
+    01 ___ wr_mar rd_a
+    10 ___ wr_dmem rd_b next_inst
+
+00100010    -- mov [a], c
+    01 ___ wr_mar rd_a
+    10 ___ wr_dmem rd_b next_inst
+
+00100011    -- mov [a], #
+    01 ___ wr_mar rd_a
+    10 ___ wr_dmem rd_pmem inc_pc next_inst
+
+
+00101000    -- mov [b], a
+    01 ___ wr_mar rd_b
+    10 ___ wr_dmem rd_a next_inst
+
+00101001    -- mov [b], b
+    01 ___ wr_mar rd_b
+    10 ___ wr_dmem rd_b next_inst
+
+00101010    -- mov [b], c
+    01 ___ wr_mar rd_b
+    10 ___ wr_dmem rd_b next_inst
+
+00101011    -- mov [b], #
+    01 ___ wr_mar rd_b
+    10 ___ wr_dmem rd_pmem inc_pc next_inst
+
+
+00110000    -- mov [c], a
+    01 ___ wr_mar rd_c
+    10 ___ wr_dmem rd_a next_inst
+
+00110001    -- mov [c], b
+    01 ___ wr_mar rd_c
+    10 ___ wr_dmem rd_b next_inst
+
+00110010    -- mov [c], c
+    01 ___ wr_mar rd_c
+    10 ___ wr_dmem rd_b next_inst
+
+00110011    -- mov [c], #
+    01 ___ wr_mar rd_c
+    10 ___ wr_dmem rd_pmem inc_pc next_inst
+
+
 01 ___ 001000__     wr_mar rd_a
 01 ___ 001010__     wr_mar rd_b
 01 ___ 001100__     wr_mar rd_c
