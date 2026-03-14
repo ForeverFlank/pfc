@@ -72,6 +72,8 @@
 010xx0111x110   jmp_en                                                      -- jnc
 01x000111x111   jmp_en                                                      -- jg
 
+// the flags are
+  CNZ
 01xxx100000xx   wr_a    rd_10   alu_en  alu_sel_adder                       -- add
 010xx100010xx   wr_a    rd_10   alu_en  alu_sel_adder                       -- adc  CF=0
 011xx100010xx   wr_a    rd_10   alu_en  alu_sel_adder   alu_cin             --      CF=1

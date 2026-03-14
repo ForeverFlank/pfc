@@ -1,60 +1,68 @@
-#ruledef reg
+#subruledef reg_opnd
 {
-    a => 0b00
-    b => 0b01
-    c => 0b10
-    d => 0b11
+    a           => 0b00
+    b           => 0b01
+    c           => 0b10
+}
+
+#subruledef alu_opnd
+{
+    a           => 0b000
+    b           => 0b001
+    c           => 0b010
+    {imm: i8}   => 0b011 @ imm
+    0           => 0b100
+    [b]         => 0b101
+    [c]         => 0b110
+    [{imm: i8}] => 0b111 @ imm
 }
 
 #ruledef
 {
-    nop                         => 0x00
-    hlt                         => 0x10
-    halt                        => 0x10
+    mov {d: reg_opnd}, {s: reg_opnd}    => 0b00 @ 0b0 @ d    @ 0b0 @ s
+    mov {d: reg_opnd}, {s: i8}          => 0b00 @ 0b0 @ d    @ 0b0 @ 0b11   @ s
 
-    mov {rd: reg}, {rs: reg}    => 0x2 @ rd @ rs
-    imm {rd: reg}, {val: i8}    => 0x3 @ 0b00 @ rd @ val
+    mov {d: reg_opnd}, [{s: reg_opnd}]  => 0b00 @ 0b0 @ d    @ 0b1 @ s
+    mov {d: reg_opnd}, [{s: i8}]        => 0b00 @ 0b0 @ d    @ 0b1 @ 0b11   @ s
 
-    st  {rs: reg}               => 0x4 @ 0b00 @ rs
-    st  {rs: reg}, {addr: i8}   => 0x4 @ 0b01 @ rs @ addr
-    ld  {rd: reg}               => 0x5 @ 0b00 @ rd
-    ld  {rd: reg}, {addr: i8}   => 0x5 @ 0b01 @ rd @ addr
+    mov [{d: reg_opnd}], {s: reg_opnd}  => 0b00 @ 0b1 @ d    @ 0b0 @ s
+    mov [{d: reg_opnd}], {s: i8}        => 0b00 @ 0b1 @ d    @ 0b0 @ 0b11   @ s
+    mov [{d: i8}], {s: reg_opnd}        => 0b00 @ 0b1 @ 0b11 @ 0b0 @ s      @ d
+    mov [{d: i8}], {s: i8}              => 0b00 @ 0b1 @ 0b11 @ 0b0 @ 0b11   @ d @ s
 
-    jmp {dest: i8}              => 0x60 @ dest
-    jz  {dest: i8}              => 0x70 @ dest
-    je  {dest: i8}              => 0x70 @ dest
-    jn  {dest: i8}              => 0x71 @ dest
-    jl  {dest: i8}              => 0x71 @ dest
-    jc  {dest: i8}              => 0x72 @ dest
-    jle {dest: i8}              => 0x73 @ dest
-    jnz {dest: i8}              => 0x74 @ dest
-    jne {dest: i8}              => 0x74 @ dest
-    jnn {dest: i8}              => 0x75 @ dest
-    jge {dest: i8}              => 0x75 @ dest
-    jnc {dest: i8}              => 0x76 @ dest
-    jg  {dest: i8}              => 0x77 @ dest
+    jmp {dest: i8}                      => 0x40 @ dest
+    jz  {dest: i8}                      => 0x48 @ dest
+    je  {dest: i8}                      => 0x48 @ dest
+    jn  {dest: i8}                      => 0x49 @ dest
+    jl  {dest: i8}                      => 0x49 @ dest
+    jc  {dest: i8}                      => 0x4a @ dest
+    jle {dest: i8}                      => 0x4b @ dest
+    jnz {dest: i8}                      => 0x4c @ dest
+    jne {dest: i8}                      => 0x4c @ dest
+    jnn {dest: i8}                      => 0x4d @ dest
+    jge {dest: i8}                      => 0x4d @ dest
+    jnc {dest: i8}                      => 0x4e @ dest
+    jg  {dest: i8}                      => 0x4f @ dest
 
-    add {rs: reg}               => 0x8 @ 0b00 @ rs
-    add {imm: i8}               => 0x8 @ 0b0100 @ imm
-    adc {rs: reg}               => 0x8 @ 0b10 @ rs
-    adc {imm: i8}               => 0x8 @ 0b1100 @ imm
-    sub {rs: reg}               => 0x9 @ 0b00 @ rs
-    sub {imm: i8}               => 0x9 @ 0b0100 @ imm
-    sbb {rs: reg}               => 0x9 @ 0b10 @ rs
-    sbb {imm: i8}               => 0x9 @ 0b1100 @ imm
-    and {rs: reg}               => 0xa @ 0b00 @ rs
-    and {imm: i8}               => 0xa @ 0b0100 @ imm
-    or  {rs: reg}               => 0xa @ 0b10 @ rs
-    or  {imm: i8}               => 0xa @ 0b1100 @ imm
-    xor {rs: reg}               => 0xb @ 0b00 @ rs
-    xor {imm: i8}               => 0xb @ 0b0100 @ imm
-    not                         => 0xb8
-    shl                         => 0xc0
-    rol                         => 0xc8
-    shr                         => 0xd0
-    ror                         => 0xd8
-    cmp {rs: reg}               => 0xe @ 0b00 @ rs
-    cmp {imm: i8}               => 0xe @ 0b0100 @ imm
-    tst {rs: reg}               => 0xe @ 0b10 @ rs
-    tst {imm: i8}               => 0xe @ 0b1100 @ imm
+    halt                                => 0x60
+    nop2                                => 0x68
+    nop3                                => 0x70
+    nop4                                => 0x78
+
+    add {s: alu_opnd}                   => 0x10`5 @ s
+    adc {s: alu_opnd}                   => 0x11`5 @ s
+    sub {s: alu_opnd}                   => 0x12`5 @ s
+    sbb {s: alu_opnd}                   => 0x13`5 @ s
+    inc                                 => 0x14`5 @ 0b000
+    dec                                 => 0x15`5 @ 0b000
+    and {s: alu_opnd}                   => 0x16`5 @ s
+    or  {s: alu_opnd}                   => 0x17`5 @ s
+    xor {s: alu_opnd}                   => 0x18`5 @ s
+    not                                 => 0x19`5 @ 0b000
+    shl                                 => 0x1a`5 @ 0b000
+    rol                                 => 0x1b`5 @ 0b000
+    shr                                 => 0x1c`5 @ 0b000
+    ror                                 => 0x1d`5 @ 0b000
+    cmp {s: alu_opnd}                   => 0x1e`5 @ s
+    tst {s: alu_opnd}                   => 0x1f`5 @ s
 }
