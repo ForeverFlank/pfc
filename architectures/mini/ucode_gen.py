@@ -1,23 +1,9 @@
 #!/usr/bin/env python3
 
-"""
-🗣🗣🗣 NOTE FROM HUMAN 🗣🗣🗣
-I originally wrote this in Haskell. However, something went wrong and
-I didn't dare to debug it, so I ask Claude to convert it to Python.
-"""
-
-"""
-Microcode ROM generator.
-Produces 3 binary files: ucode-1-hs.bin, ucode-2-hs.bin, ucode-3-hs.bin
-Each ROM address is 13 bits: [cycle(3)] [flags(3)] [inst(8)]
-Each entry is a 32-bit word (split across the 3 ROM chips by byte offset).
-"""
-
 from enum import IntEnum
 
-# ---------------------------------------------------------------------------
+
 # Micro-instruction bits
-# ---------------------------------------------------------------------------
 
 class U(IntEnum):
     IncPc           =  0
@@ -43,20 +29,20 @@ class U(IntEnum):
     AluShr          = 20
 
 # Bits that are active-low (default 1, asserted by clearing to 0)
+
 ACTIVE_LOW = {
-    U.JmpEn, U.NextInst, U.Halt,
+    U.JmpEn, U.NextInst,
     U.WrA, U.WrB, U.WrC, U.WrMar, U.WrDmem,
     U.RdA, U.RdB, U.RdC, U.RdDmem, U.RdPmem,
     U.AluEn
 }
 
-# ---------------------------------------------------------------------------
+
 # Helpers
-# ---------------------------------------------------------------------------
 
 def slice_bits(val: int, high: int, low: int) -> int:
-    assert high >= low and low >= 0
     """Extract bits [high:low] inclusive."""
+    assert high >= low and low >= 0
     width = high - low + 1
     mask = (1 << width) - 1
     return (val >> low) & mask
@@ -107,9 +93,7 @@ def alu_rd(reg: int) -> list[U]:
         7: [U.RdPmem, U.IncPc],
     }[reg]
 
-# ---------------------------------------------------------------------------
 # Microcode table  (cycle, flags, inst) -> list of UInsts asserted this cycle
-# ---------------------------------------------------------------------------
 
 def ucode(cycle: int, flags: int, inst: int) -> list[U]:
     assert 0 <= cycle < 4 and 0 <= flags < 8 and 0 <= inst < 256
@@ -171,29 +155,29 @@ def ucode(cycle: int, flags: int, inst: int) -> list[U]:
     if cycle == 0:
         return [U.IncPc]
 
-    # mov d, s        000__0__  (dst != 3)
+    # mov d, s      (dst != 3)
     elif match(inst, "000__0__") and dst != 3:
         if cycle == 1: return wr(dst) + rd(src) + [U.NextInst]
 
-    # mov d, [s]      000__1__  (dst != 3)
+    # mov d, [s]    (dst != 3)
     elif match(inst, "000__1__") and dst != 3:
         if cycle == 1: return [U.WrMar] + rd(src)
         if cycle == 2: return wr(dst) + [U.RdDmem, U.NextInst]
 
-    # mov [d], s      001__0__
+    # mov [d], s
     elif match(inst, "001__0__"):
         if cycle == 1: return [U.WrMar] + rd(dst)
         if cycle == 2: return [U.WrDmem] + rd(src) + [U.NextInst]
 
-    # jmp dest        01000___
+    # jmp dest
     elif match(inst, "01000___"):
         if cycle == 1: return [U.JmpEn, U.IncPc, U.NextInst]
 
-    # jcc dest        01001___
+    # jcc dest
     elif match(inst, "01001___"):
         if cycle == 1: return ([U.JmpEn] if cond_ok else []) + [U.IncPc, U.NextInst]
 
-    # halt & nops     011_____
+    # halt & nops
     # (nop2=01, nop3=10, nop4=11 in bits [3:2])
     elif match(inst, "011_____"):
         kind = slice_bits(inst, 4, 3)
@@ -213,9 +197,8 @@ def ucode(cycle: int, flags: int, inst: int) -> list[U]:
 
     return []
 
-# ---------------------------------------------------------------------------
+
 # Encode a list of UInsts into a 32-bit word
-# ---------------------------------------------------------------------------
 
 def encode(uinsts: list[U]) -> int:
     # Start with all active-low bits SET (deasserted)
@@ -231,9 +214,7 @@ def encode(uinsts: list[U]) -> int:
 
     return word & 0xFFFFFFFF
 
-# ---------------------------------------------------------------------------
 # Build the full ROM (8192 entries)
-# ---------------------------------------------------------------------------
 
 def decode_address(addr: int) -> tuple[int, int, int]:
     cycle = (addr >> 11) & 0x7
@@ -249,20 +230,51 @@ def build_rom() -> list[int]:
         words.append(encode(uinsts))
     return words
 
-# ---------------------------------------------------------------------------
+
+# Swizzle the bits for the C array .h files
+
+BIT_SWIZZLE = {
+    0: 7,
+    1: 6,
+    2: 5,
+    3: 4,
+    4: 3,
+    5: 2,
+    6: 1,
+    7: 0
+}
+
+def swizzle_byte(b):
+    result = 0
+    for old, new in BIT_SWIZZLE.items():
+        if b & (1 << old):
+            result |= (1 << new)
+    return result
+
 # Write one byte-lane ROM file
-# ---------------------------------------------------------------------------
 
 def write_rom(words, byte_offset):
-    filename = f"ucode-{byte_offset + 1}.bin"
-    data = bytes((w >> (8 * byte_offset)) & 0xFF for w in words)
-    with open(filename, "wb") as f:
-        f.write(data)
-    print(f"Wrote {filename}  ({len(data)} bytes)")
+    lane = byte_offset + 1
+    raw = [(w >> (8 * byte_offset)) & 0xFF for w in words]
 
-# ---------------------------------------------------------------------------
+    # Write a .bin file
+    with open(f"ucode-{lane}.bin", "wb") as f:
+        f.write(bytes(raw))
+    print(f"Wrote ucode-{lane}.bin")
+
+    # Write a .h file
+    swizzled = [swizzle_byte(b) for b in raw]
+    with open(f"ucode-{lane}.h", "w") as f:
+        f.write(f"#pragma once\n")
+        f.write(f"const PROGMEM uint8_t eepromData[] = {{\n")
+        for i in range(0, len(swizzled), 16):
+            row = swizzled[i:i+16]
+            f.write("    " + ", ".join(f"0x{b:02x}" for b in row) + ",\n")
+        f.write("};\n")
+    print(f"Wrote ucode-{lane}.h")
+
+
 # Entry point
-# ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     rom = build_rom()
