@@ -3,3 +3,24 @@
 * {
     font-family: "Barlow", sans-serif;
 }
+
+.mono * {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 300;
+}
+
+.cell {
+    @apply flex flex-col border border-white p-2;
+}
+
+.led-row {
+    @apply mx-auto flex flex-row gap-x-0.5 max-w-full mt-4;
+}
+
+.led {
+    @apply block w-2.5 h-2.5 rounded-full bg-neutral-700;
+}
+
+.led.on {
+    @apply bg-red-500;
+}

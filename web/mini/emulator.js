@@ -98,11 +98,53 @@ class CPU {
 
 const cpu = new CPU();
 
-document.getElementById("btn-run")
-        .addEventListener("click", () => {});
+document
+    .getElementById("btn-run")
+    .addEventListener("click", () => { });
 
-document.getElementById("btn-step")
-        .addEventListener("click", cpu.step);
+document
+    .getElementById("btn-step")
+    .addEventListener("click", cpu.step);
 
-document.getElementById("btn-reset")
-        .addEventListener("click", cpu.reset);
+document
+    .getElementById("btn-reset")
+    .addEventListener("click", cpu.reset);
+
+
+const ledMap = {};
+
+function initBits(containerId, value = 0, bits = 8) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+
+    const leds = [];
+
+    for (let i = bits - 1; i >= 0; i--) {
+        const span = document.createElement("div");
+        span.className = "led";
+        container.appendChild(span);
+        leds.push(span);
+    }
+
+    ledMap[containerId] = leds;
+
+    updateBits(containerId, value);
+}
+
+function updateBits(containerId, value) {
+    const leds = ledMap[containerId];
+    if (!leds) return;
+
+    const bits = leds.length;
+
+    for (let i = 0; i < bits; i++) {
+        const bit = (value >> (bits - 1 - i)) & 1;
+        leds[i].classList.toggle("on", bit);
+    }
+}
+
+const ledRows = document.getElementsByClassName("led-row");
+
+Array
+    .from(document.getElementsByClassName("led-row"))
+    .forEach(elem => initBits(elem.id, 69, 8));

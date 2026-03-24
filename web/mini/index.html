@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 </head>
 <body class="bg-[#181818] text-white m-0 p-0">
     <header>
@@ -16,49 +17,69 @@
     <main class="m-12">
         <h1 class="font-bold text-4xl text-center">PFC mini</h1>
 
-        <br>
 
-        <div class="grid grid-cols-4 gap-x-2 gap-y-2">
-            <div class="border border-white p-2">
+        <h2 class="text-2xl font-medium">Emulator</h2>
+
+        <div class="grid grid-cols-4 gap-x-2 gap-y-2 mt-2">
+            <div class="cell row-start-1 col-start-1">
+                <p class="text-center">Reg A</p>
+                <div id="led-reg-a" class="led-row red"></div>
+            </div>
+            <div class="cell row-start-1 col-start-2">
+                <p class="text-center">Bus</p>
+                <div id="led-bus" class="led-row yellow"></div>
+            </div>
+            <div class="cell row-start-2 col-start-1">
+                <p class="text-center">Reg B</p>
+                <div id="led-reg-b" class="led-row red"></div>
+            </div>
+            <div class="cell row-start-2 col-start-2">
+                <p class="text-center">Reg C</p>
+                <div id="led-reg-c" class="led-row red"></div>
+            </div>
+            <div class="cell row-span-2 col-span-2">
+                <p class="text-center">ALU</p>
+                <table class="mx-auto w-2/3">
+                    <tr>
+                        <td>Mode</td>
+                        <td id="alu-mode" class="text-right">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>LHS</td>
+                        <td id="alu-lhs" class="text-right">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>RHS</td>
+                        <td id="alu-rhs" class="text-right">N/A</td>
+                    </tr>
+                    <tr>
+                        <td>Result</td>
+                        <td id="alu-rhs" class="text-right">N/A</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="cell">
                 <p class="text-center">PC</p>
-                <p id="led-pc"><span>&#x25CF;</span></p>
+                <div id="led-pc" class="led-row red"></div>
+                
             </div>
-            <div class="border border-white p-2">
+            <div class="cell">
                 <p class="text-center">IR</p>
-                <p id="led-ir"></p>
+                <div id="led-ir" class="led-row red"></div>
             </div>
-            <div class="border border-white p-2 col-span-2">
-                <p class="text-center">Program memory</p>
-            </div>
-            <div class="border border-white p-2">
+            <div class="cell">
                 <p class="text-center">MAR</p>
                 <p id="led-mar"></p>
             </div>
-            <div class="border border-white p-2">
+            <div class="cell">
                 <p class="text-center">MMIO</p>
                 <p id="led-mmio"></p>
             </div>
-            <div class="border border-white p-2 col-span-2">
-                <p class="text-center">Data memory</p>
+            <div class="cell col-span-2">
+                <p class="text-center">Program Memory</p>
             </div>
-            <div class="border border-white p-2 col-span-2 row-span-2">
-                <p class="text-center">ALU</p>
-            </div>
-            <div class="border border-white p-2 row-start-3 col-start-1">
-                <p class="text-center">A</p>
-                <p id="led-reg-a"></p>
-            </div>
-            <div class="border border-white p-2 row-start-3 col-start-2">
-                <p class="text-center">B</p>
-                <p id="led-reg-b"></p>
-            </div>
-            <div class="border border-white p-2 row-start-4 col-start-1">
-                <p class="text-center">C</p>
-                <p id="led-reg-c"></p>
-            </div>
-            <div class="border border-white p-2 row-start-4 col-start-2">
-                <p class="text-center">D</p>
-                <p id="led-reg-d"></p>
+            <div class="cell col-span-2">
+                <p class="text-center">Data Memory</p>
             </div>
         </div>
 
@@ -69,13 +90,14 @@
             <button id="btn-step" class="border border-white px-2 py-1 hover:bg-white hover:text-[#181818] duration-100">Step</button>
             <button id="btn-reset" class="border border-white px-2 py-1 hover:bg-white hover:text-[#181818] duration-100">Reset</button>
         </div>
-        
-        <br>
 
-        <br>
+        <p>
+            <br />
+            <br />
+        </p>
 
         <h2 class="text-2xl font-medium">ISA</h2>
-        <table class="font-mono table-fixed w-full">
+        <table class="mono table-fixed w-full">
             <th>
                 <td></td>
                 <td>0-</td>
