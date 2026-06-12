@@ -29,7 +29,7 @@ uint8_t readData() {
     return data;
 }
 
-uint8_t assertData(uint8_t expected, uint8_t d1, uint8_t d2, uint8_t d3) {
+bool assertData(uint8_t expected, uint8_t d1, uint8_t d2, uint8_t d3) {
     setRegisterOutput(d1, d2, d3);
     uint8_t data = readData();
     bool result = data == expected;
@@ -44,7 +44,7 @@ uint8_t assertData(uint8_t expected, uint8_t d1, uint8_t d2, uint8_t d3) {
         Serial.print(buf);
     }
     
-    return result ? 1 : 0;
+    return result;
 }
 
 void testALU() {
@@ -58,23 +58,24 @@ void testALU() {
 
         for (int b = 0; b < 256; b++) {
             for (int a = 0; a < 256; a++) {
-                uint8_t selAdder   = 1 & (c >> 0);
-                uint8_t selBitwise = 3 & (c >> 1);
-                uint8_t cin        = 1 & (c >> 3);
-                uint8_t invB       = 1 & (c >> 4);
+                uint8_t selAdder   = 0b01 & (c >> 0);
+                uint8_t selBitwise = 0b11 & (c >> 1);
+                uint8_t cin        = 0b01 & (c >> 3);
+                uint8_t invB       = 0b01 & (c >> 4);
 
                 uint8_t expected = 0;
+                uint8_t actualB  =  (invB ? ~b : b);
 
                 if (selAdder) {
-                    expected = a + (invB ? ~b : b) + cin;
+                    expected = a + actualB + cin;
                 } else {
-                    if (selBitwise == 0) expected = a & b;
-                    if (selBitwise == 1) expected = a | b;
-                    if (selBitwise == 2) expected = a ^ b;
+                    if (selBitwise == 0) expected = a & actualB;
+                    if (selBitwise == 1) expected = a | actualB;
+                    if (selBitwise == 2) expected = a ^ actualB;
                     if (selBitwise == 3) expected = (a >> 1) | (cin << 7);
                 }
 
-                passedCases += assertData(expected, a, b, c);
+                passedCases += assertData(expected, a, b, c) ? 1 : 0;
                 totalCases++;
             }
             if (b % 4 == 3) Serial.print(".");

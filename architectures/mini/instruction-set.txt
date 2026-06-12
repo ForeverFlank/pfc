@@ -1,9 +1,0 @@
-Mnemonic        Encoding
-mov rd, rs      0000ddss
-imm rd, #       0001xxdd #
-st  rs          0010x0ss
-st  rs, #       0010x1ss #
-ld  rd          0011x0ss
-ld  rd, #       0011x1ss #
-cmp 
-...
