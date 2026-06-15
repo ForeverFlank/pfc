@@ -55,6 +55,7 @@ void testALU() {
 
         long totalCases = 0;
         long passedCases = 0;
+        long failedCases = 0;
 
         for (int b = 0; b < 256; b++) {
             for (int a = 0; a < 256; a++) {
@@ -64,7 +65,7 @@ void testALU() {
                 uint8_t invB       = 0b01 & (c >> 4);
 
                 uint8_t expected = 0;
-                uint8_t actualB  =  (invB ? ~b : b);
+                uint8_t actualB  = (invB ? ~b : b);
 
                 if (selAdder) {
                     expected = a + actualB + cin;
@@ -75,9 +76,17 @@ void testALU() {
                     if (selBitwise == 3) expected = (a >> 1) | (cin << 7);
                 }
 
-                passedCases += assertData(expected, a, b, c) ? 1 : 0;
+                bool res = assertData(expected, a, b, c);
+                passedCases += res ? 1 : 0;
+                failedCases += res ? 0 : 1;
                 totalCases++;
             }
+
+            if (failedCases > 16) {
+                Serial.println("\nToo many failed cases! Aborted.");
+                return;
+            }
+
             if (b % 4 == 3) Serial.print(".");
         }
         sprintf(buf, "\nTest passed: %ld / %ld (%ld%%)", 
