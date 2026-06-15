@@ -234,7 +234,7 @@
     </comp>
     <comp lib="0" loc="(1550,750)" name="Tunnel">
       <a name="facing" val="south"/>
-      <a name="label" val="Dont_Update_flags"/>
+      <a name="label" val="n_Update_flags"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(1560,870)" name="Splitter">
@@ -611,7 +611,7 @@
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(590,1190)" name="Tunnel">
-      <a name="label" val="Dont_Update_flags"/>
+      <a name="label" val="n_Update_flags"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
     <comp lib="0" loc="(590,750)" name="Tunnel">
