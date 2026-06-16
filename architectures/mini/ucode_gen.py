@@ -27,7 +27,6 @@ class U(IntEnum):
     AluS0           = 18
     AluS1           = 19
     AluShr          = 20
-    # TODO: n_Update_Flags
 # fmt: on
 
 
