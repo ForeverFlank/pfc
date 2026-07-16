@@ -35,15 +35,14 @@ gen_food:
     jmp gen_food_end
 
 loop:
-
-btn_input:
+    ; button input
     mov a, [btn_addr]
     cmp 0
     je  btn_end
     mov [snake_dir_addr], a
+    
 btn_end:
-
-move_head:
+    ; move snake head
     mov a, [head_ptr_addr]  ; load snake head ptr
     mov c, [a]              ; load snake head pos
     mov b, [snake_dir_addr] ; load snake direction

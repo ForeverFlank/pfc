@@ -13,8 +13,8 @@ class U(IntEnum):
     WrA             =  4
     WrB             =  5
     WrC             =  6
-    WrMar           =  7
-    WrDmem          =  8
+    WrDmem          =  7
+    WrMar           =  8
     RdA             =  9
     RdB             = 10
     RdC             = 11
